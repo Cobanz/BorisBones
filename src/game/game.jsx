@@ -5,6 +5,7 @@ import skele from "./Skele-1.png"
 import gameSong from './8bitsong.mp3'
 
 const MOVE_SPEED = 120
+const JUMP_FORCE = 120
 
 k.loadRoot('https://i.imgur.com/')
 k.loadSprite("floor", floor)
@@ -24,37 +25,17 @@ k.scene("game", ({ level, score }) => {
   const maps = [
 
     [
-      "bbbbbbbbbbbb",
-      "a          a",
-      "a          a",
-      "a          a",
-      "a          a",
-      "bbbbbbbbbbbb"
-    ],
-
-    [
-      "bbbbbbbbbbbb",
-      "a          a",
-      "a          a",
-      "a          a",
-      "a          a",
-      "bbbbbbbbbbbb"
-    ],
-    [
-      "bbbbbbbbbbbb",
-      "a          a",
-      "a          a",
-      "a          a",
-      "a          a",
-      "bbbbbbbbbbbb"
-    ],
-    [
-      "bbbbbbbbbbbb",
-      "a          a",
-      "a          a",
-      "a          a",
-      "a          a",
-      "bbbbbbbbbbbb"
+      "bbbbbbbbbbbbbbbbbbbbbbb",
+      "a                     a",
+      "a                     a",
+      "a                     a",
+      "a                     a",
+      "a                     a",
+      "a                     a",
+      "a                     a",
+      "a                     a",
+      "a                     a",
+      "bbbbbbbbbbbbbbbbbbbbbbb"
     ],
 
   ]
@@ -81,7 +62,7 @@ k.scene("game", ({ level, score }) => {
 
   const scoreLabel = k.add([
     k.text(score),
-    k.pos(400, 450),
+    k.pos(10, 10),
     k.layer('ui'),
     {
       value: score,
@@ -101,7 +82,41 @@ k.scene("game", ({ level, score }) => {
     }
   ])
 
+// jump with space
+k.keyPress("space", () => {
+	// these 2 functions are provided by body() component
+	if (player.grounded()) {
+		player.jump(JUMP_FORCE);
+	}
+});
 
+k.keyDown("left", () => {
+	player.move(-MOVE_SPEED, 0);
+});
+
+k.keyDown("right", () => {
+	player.move(MOVE_SPEED, 0);
+});
+
+
+
+
+
+
+  player.overlaps('dangerous', () => {
+    k.go('lose', { score: scoreLabel.value})
+      window.value= scoreLabel.value
+      test(window.value)
+      audio.pause()
+  })
+
+
+  player.overlaps('victory', () => {
+    k.go('win', { score: scoreLabel.value})
+      window.value= scoreLabel.value
+      test(window.value)
+      audio.pause()
+  })
 
 
 })
