@@ -1,11 +1,14 @@
+import { useHistory } from 'react-router-dom';
+
 function LandingPage() {
+  const history = useHistory();
+
   return (
     <div>
       <h2>Game Title</h2>
 
       <div>
         <h3>Story</h3>
-
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -21,7 +24,7 @@ function LandingPage() {
         <img src="images/tempBoris.gif" alt="Our hero, Boris" />
       </div>
 
-      <button>Play Game</button>
+      <button onClick={() => history.push('/arcade')}>Play Game</button>
 
       <div>
         <h3>Technology Used</h3>

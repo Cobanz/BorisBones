@@ -19,7 +19,6 @@ function App() {
       </Router>
 
       <div id="footer">
-        <div>hi</div>
         <a href="https://github.com/Cobanz/hackathongame">GitHub Repo</a>
       </div>
     </div>
