@@ -1,4 +1,5 @@
 import { useHistory } from 'react-router-dom';
+import tempBoris from "./images/tempBoris.gif"
 
 function LandingPage() {
   const history = useHistory();
@@ -21,7 +22,7 @@ function LandingPage() {
       </div>
 
       <div>
-        <img src="images/tempBoris.gif" alt="Our hero, Boris" />
+        <img src={tempBoris} alt="Our hero, Boris" />
       </div>
 
       <button onClick={() => history.push('/arcade')}>Play Game</button>
