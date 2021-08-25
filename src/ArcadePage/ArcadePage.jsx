@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
 
-import Game from '../Game/game';
+import Game from '../Game/Game';
 
 function ArcadePage() {
   const history = useHistory();
