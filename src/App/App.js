@@ -9,8 +9,6 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <header>Hello, world!</header>
-
       <Router>
         <Route path="/" exact>
           <LandingPage />
@@ -19,6 +17,11 @@ function App() {
           <ArcadePage />
         </Route>
       </Router>
+
+      <div id="footer">
+        hi
+        <a href="https://github.com/Cobanz/hackathongame">GitHub Repo</a>
+      </div>
     </div>
   );
 }
