@@ -1,5 +1,7 @@
 import { useHistory } from 'react-router-dom';
 
+import Game from '../Game/game';
+
 function ArcadePage() {
   const history = useHistory();
 
@@ -7,7 +9,7 @@ function ArcadePage() {
     <div>
       <h1>Arcade</h1>
       <button onClick={() => history.push('/')}>Back</button>
-      <div>GAME GO HERE</div>
+      <Game />
       <div>
         <h2>Directions</h2>
         <p>Its time to escape, Boris! You better get going!</p>
