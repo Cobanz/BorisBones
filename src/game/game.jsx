@@ -24,7 +24,7 @@ const gravity = 980
 // })
 // k.gravity(980)
 // k.loadRoot('https://i.imgur.com/')
-k.loadSprite("floor", floor)
+// k.loadSprite("floor", floor)
 k.loadSprite("skele", skele)
 k.loadSprite("wall", wall)
 
@@ -59,7 +59,7 @@ k.scene("game", ({ level, score }) => {
     height: 32,
 
     "a": [k.sprite("wall"), "wall"],
-    "b": [k.sprite("floor"), "wall"],
+    //"b": [k.sprite("floor"), "wall"],
     // "s": [k.sprite("skele"), k.solid(), "wall", { scale: 1.0 }],
     // "$": [k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
     // "%":[k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
@@ -67,11 +67,11 @@ k.scene("game", ({ level, score }) => {
 
   k.addLevel(maps[level], levelCfg);
 
-  const floor = k.add([k.sprite('floor'),
-  k.layer('bg'),
-  k.scale(10)
+  // const floor = k.add([k.sprite('floor'),
+  // k.layer('bg'),
+  // k.scale(10)
 
-  ])
+  // ])
 
   const scoreLabel = k.add([
     k.text(score),
@@ -130,8 +130,6 @@ k.keyDown("right", () => {
 
 })
 
-
-
   k.scene("win", ({ score }) => {
     k.add([k.text("YOU WIN!", 32), origin('center'), k.pos(k.width() / 2, k.height()/3)])
     k.add([k.text(score, 32), origin('center'), k.pos(k.width() / 2, k.height() / 2)])
@@ -152,8 +150,6 @@ k.keyDown("right", () => {
 //   </>
 //   // <canvas id="game"></canvas>
 // )
-
-  
 }
 
 export default Game
