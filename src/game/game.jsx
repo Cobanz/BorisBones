@@ -71,13 +71,13 @@ k.scene("game", ({ level, score }) => {
 
   }
 
-  k.addLevel(maps[level], levelCfg)
+  k.addLevel(maps[level], levelCfg);
 
-  // const floor=k.add([k.sprite('bg'),
-  // k.layer('bg'),
-  // k.scale(10)
+  const floor = k.add([k.sprite('floor'),
+  k.layer('bg'),
+  k.scale(10)
 
-  // ])
+  ])
 
   const scoreLabel = k.add([
     k.text(score),
