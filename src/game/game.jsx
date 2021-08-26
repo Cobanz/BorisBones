@@ -63,8 +63,8 @@ k.scene("game", ({ level, score }) => {
     width: 32,
     height: 32,
 
-    "a": [k.sprite("wall"), k.solid(), "wall"],
-    "b": [k.sprite("floor"), k.solid(), "wall"],
+    "a": [k.sprite("wall"), "wall"],
+    "b": [k.sprite("floor"), "wall"],
     // "s": [k.sprite("skele"), k.solid(), "wall", { scale: 1.0 }],
     // "$": [k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
     // "%":[k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
@@ -123,20 +123,20 @@ k.keyDown("right", () => {
 
 
 
-  player.overlaps('dangerous', () => {
-    k.go('lose', { score: scoreLabel.value})
-      window.value= scoreLabel.value
-      test(window.value)
-      audio.pause()
-  })
+  // player.overlaps('dangerous', () => {
+  //   k.go('lose', { score: scoreLabel.value})
+  //     window.value= scoreLabel.value
+  //     test(window.value)
+  //     audio.pause()
+  // })
 
 
-  player.overlaps('victory', () => {
-    k.go('win', { score: scoreLabel.value})
-      window.value= scoreLabel.value
-      test(window.value)
-      audio.pause()
-  })
+  // player.overlaps('victory', () => {
+  //   k.go('win', { score: scoreLabel.value})
+  //     window.value= scoreLabel.value
+  //     test(window.value)
+  //     audio.pause()
+  // })
 
 
 })
@@ -156,9 +156,13 @@ k.keyDown("right", () => {
   
   })
 
-return (
-  <canvas id="game"></canvas>
-)
+  k.go("game", { level: 0, score: 0 });
+
+// return (
+//   <>
+//   </>
+//   // <canvas id="game"></canvas>
+// )
 
   
 }

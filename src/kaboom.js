@@ -2,7 +2,7 @@ import kaboom from 'kaboom/dist/kaboom'
  const k = kaboom({
     global: true,
     // fullscreen: true,
-    parent: 'game',
+    // parent: 'game',
     scale: 1,
     debug: true,
     clearColor: [0,0,0,1],

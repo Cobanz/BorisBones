@@ -5,13 +5,12 @@ import Game from '../game/game';
 const ArcadePage = () => {
   const history = useHistory();
 
+  Game();
   return (
     <div>
       <h1>Arcade</h1>
       <button onClick={() => history.push('/')}>Back</button>
-
-      <Game />
-      
+      <canvas id="game"></canvas>
       <div>
         <h2>Directions</h2>
         <p>Its time to escape, Boris! You better get going!</p>
