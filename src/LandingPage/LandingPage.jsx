@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router-dom';
 import tempBoris from "./images/tempBoris.gif"
 
-function LandingPage() {
+const LandingPage = () => {
   const history = useHistory();
 
   return (
