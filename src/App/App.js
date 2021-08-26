@@ -1,7 +1,7 @@
 // import { useState } from 'react';
 import React from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
-
+// import Game from '../game/game';
 import LandingPage from '../LandingPage/LandingPage';
 import ArcadePage from '../ArcadePage/ArcadePage';
 

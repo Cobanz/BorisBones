@@ -5,7 +5,7 @@ import Game from '../game/game';
 const ArcadePage = () => {
   const history = useHistory();
 
-  Game();
+  
   return (
     <div>
       <h1>Arcade</h1>
@@ -19,8 +19,10 @@ const ArcadePage = () => {
           <li>Space - Jump</li>
         </ul>
       </div>
+      <Game/>
     </div>
   );
 }
+
 
 export default ArcadePage;
