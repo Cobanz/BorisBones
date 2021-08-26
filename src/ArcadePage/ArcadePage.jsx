@@ -1,18 +1,17 @@
 import { useHistory } from 'react-router-dom';
-import {gameStart} from '../game/game'
-// import Game from '../game/game';
+// import {gameStart} from '../game/game'
+import Game from '../game/game';
 
-function ArcadePage() {
+const ArcadePage = () => {
   const history = useHistory();
 
   return (
     <div>
       <h1>Arcade</h1>
       <button onClick={() => history.push('/')}>Back</button>
-      {/* <Game /> */}
-      <div>
-        {(gameStart())}
-      </div>
+
+      <Game />
+      
       <div>
         <h2>Directions</h2>
         <p>Its time to escape, Boris! You better get going!</p>

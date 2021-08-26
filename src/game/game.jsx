@@ -3,11 +3,29 @@ import wall from "./Wall.png"
 import floor from "./floor.png"
 import skele from "./Skele-1.png"
 import gameSong from './8bitsong.mp3'
+// import kaboom from 'kaboom'
 
+// debugger
+
+const Game = () => {
 const MOVE_SPEED = 120
 const JUMP_FORCE = 120
+const gravity = 980
 
-k.loadRoot('https://i.imgur.com/')
+// const k = kaboom();
+
+// //options
+// kaboom({
+//   global: true,
+//   fullscreen: true,
+//   scale: 1,
+//   debug: true,
+//   clearColor: [0,0,0,1]
+// })
+
+
+// k.gravity(980)
+// k.loadRoot('https://i.imgur.com/')
 k.loadSprite("floor", floor)
 k.loadSprite("skele", skele)
 k.loadSprite("wall", wall)
@@ -21,6 +39,7 @@ k.scene("game", ({ level, score }) => {
   audio.play()
 
   k.layers(['bg', 'obj', 'ui'], 'obj')
+  k.camIgnore([ "ui", ]);
 
   const maps = [
 
@@ -54,11 +73,11 @@ k.scene("game", ({ level, score }) => {
 
   k.addLevel(maps[level], levelCfg)
 
-  const floor = k.add([k.sprite('bg'),
-  k.layer('bg'),
-  k.scale(10)
+  // const floor=k.add([k.sprite('bg'),
+  // k.layer('bg'),
+  // k.scale(10)
 
-  ])
+  // ])
 
   const scoreLabel = k.add([
     k.text(score),
@@ -76,6 +95,7 @@ k.scene("game", ({ level, score }) => {
     k.sprite('skele'),
     k.pos(5, 190),
     k.scale(1),
+    gravity,
     {
       // right by default
       dir: k.vec2(1, 0),
@@ -136,12 +156,12 @@ k.keyDown("right", () => {
   
   })
 
-
-
-
+return (
+  <canvas id="game"></canvas>
+)
 
   
+}
 
-
-
-export const gameStart = () => { k.start("game", { level: 0, score: 0 }) }
+export default Game
+// export const gameStart = () => { k.start("game", { level: 0, score: 0 }) }

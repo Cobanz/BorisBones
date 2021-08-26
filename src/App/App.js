@@ -1,3 +1,4 @@
+// import { useState } from 'react';
 import React from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
 
@@ -6,7 +7,10 @@ import ArcadePage from '../ArcadePage/ArcadePage';
 
 import './App.css';
 
-function App() {
+const App = () => {
+
+// const [loggedIn, setLoggedIn] = useState("true")
+
   return (
     <div className="App">
       <Router>
