@@ -22,15 +22,11 @@ const gravity = 980
 //   debug: true,
 //   clearColor: [0,0,0,1]
 // })
-
-
 // k.gravity(980)
 // k.loadRoot('https://i.imgur.com/')
 k.loadSprite("floor", floor)
 k.loadSprite("skele", skele)
 k.loadSprite("wall", wall)
-
-
 
 const audio = new Audio(gameSong)
 
@@ -56,7 +52,6 @@ k.scene("game", ({ level, score }) => {
       "a                     a",
       "bbbbbbbbbbbbbbbbbbbbbbb"
     ],
-
   ]
 
   const levelCfg = {
@@ -68,7 +63,6 @@ k.scene("game", ({ level, score }) => {
     // "s": [k.sprite("skele"), k.solid(), "wall", { scale: 1.0 }],
     // "$": [k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
     // "%":[k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
-
   }
 
   k.addLevel(maps[level], levelCfg);
@@ -117,11 +111,6 @@ k.keyDown("left", () => {
 k.keyDown("right", () => {
 	player.move(MOVE_SPEED, 0);
 });
-
-
-
-
-
 
   // player.overlaps('dangerous', () => {
   //   k.go('lose', { score: scoreLabel.value})
