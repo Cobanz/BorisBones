@@ -1,12 +1,24 @@
+import kaboom from 'kaboom/dist/kaboom';
+
+import wall from './assets/sprites/Wall.png';
+import floor from './assets/sprites/floor.png';
+// import skele from "./assets/sprites/Skele-1.png"
+
 const Game = () => {
-  k.loadRoot('/assets/');
+  const k = kaboom({
+    global: true,
+    scale: 1,
+    debug: true,
+    clearColor: [0, 0, 0, 1],
+    canvas: document.getElementById('game'),
+  });
 
-  // Load Assets
-  k.loadSprite('wall', 'Wall.png');
-  // k.loadSprite("floor", floor)
-  // k.loadSprite('skele', '/sprites/Skele-1.png');
+  /* Load Assets */
+  k.loadSprite('floor', floor);
+  k.loadSprite('wall', wall);
+  // k.loadSprite('skele', skele);
 
-  // Define Constants
+  /* Define Constants */
   // const MOVE_SPEED = 120
   // const JUMP_FORCE = 120
   // const gravity = 980
@@ -14,145 +26,120 @@ const Game = () => {
   // k.gravity(980)
   // k.loadRoot('https://i.imgur.com/')
   // k.loadSprite("floor", floor)
-  //k.loadSprite("skele", skele)
+  // k.loadSprite("skele", skele)
   // k.loadSprite('wall', wall);
 
   // const audio = new Audio(gameSong);
 
-  // k.layers(['bg', 'obj', 'ui'], 'obj');
-  // k.camIgnore(['ui']);
+  k.scene('main', ({ level, score }) => {
+    // audio.play();
+    console.log('here');
 
-  // const levelCfg = {
-  //   width: 32,
-  //   height: 32,
-  //   a: [k.sprite('wall'), 'wall'],
-  //   // b: [k.sprite('floor'), 'wall'],
-  //   // "s": [k.sprite("skele"), k.solid(), "wall", { scale: 1.0 }],
-  //   // "$": [k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
-  //   // "%":[k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
-  // };
+    k.layers(['bg', 'obj', 'ui'], 'obj');
+    k.camIgnore(['ui']);
 
-  k.addLevel(
-    [
-      'aaaaaaaaaaaaaaaaaaaaaaa',
-      'a                     a',
-      'a                     a',
-      'a                     a',
-      'a                     a',
-      'a                     a',
-      'a                     a',
-      'a                     a',
-      'a                     a',
-      'a                     a',
-      'aaaaaaaaaaaaaaaaaaaaaaa',
-    ],
-    // levelCfg
-    {
+    // k.add([k.sprite('wall'), k.layer('bg')]);
+
+    const maps = [
+      [
+        'aaaaaaaaaaaaaaaaaaaaaa',
+        'a                    a',
+        'a                    a',
+        'a                    a',
+        'a                    a',
+        'a                    a',
+        'a                    a',
+        'a                    a',
+        'a                    a',
+        'a                    a',
+        'a                    a',
+        'a                    a',
+        'a                    a',
+        'a                    a',
+        'bbbbbbbbbbbbbbbbbbbbbb',
+      ],
+    ];
+
+    const levelCfg = {
       width: 32,
       height: 32,
-      a: [k.sprite('wall'), 'wall'],
-    }
-  );
+      a: [k.sprite('wall'), 'wall', { scale: 0.5 }],
+      b: [k.sprite('floor'), 'floor', { scale: 0.5 }],
+      // "s": [k.sprite("skele"), k.solid(), "wall", { scale: 1.0 }],
+      // "$": [k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
+      // "%":[k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
+    };
 
-  // k.scene('main', ({ level, score }) => {
-  //   audio.play();
+    k.addLevel(maps[level], levelCfg);
 
-  //   console.log('here');
+    // k.scene('main', ({ level, score }) => {
+    //   audio.play();
 
-  //   k.layers(['bg', 'obj', 'ui'], 'obj');
-  //   k.camIgnore(['ui']);
+    // k.addLevel(maps[level], levelCfg);
+    // k.addLevel(maps[level], levelCfg);
 
-  //   const maps = [
-  //     [
-  //       'aaaaaaaaaaaaaaaaaaaaaaa',
-  //       'a                     a',
-  //       'a                     a',
-  //       'a                     a',
-  //       'a                     a',
-  //       'a                     a',
-  //       'a                     a',
-  //       'a                     a',
-  //       'a                     a',
-  //       'a                     a',
-  //       'aaaaaaaaaaaaaaaaaaaaaaa',
-  //     ],
-  //   ];
+    // const floor = k.add([k.sprite('floor'),
+    // k.layer('bg'),
+    // k.scale(10)
+    // ])
 
-  // const levelCfg = {
-  //   width: 32,
-  //   height: 32,
-  //   a: [k.sprite('wall'), 'wall'],
-  // b: [k.sprite('floor'), 'wall'],
-  // "s": [k.sprite("skele"), k.solid(), "wall", { scale: 1.0 }],
-  // "$": [k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
-  // "%":[k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
-  // };
+    // const scoreLabel = k.add([
+    //   k.text(score),
+    //   k.pos(10, 10),
+    //   k.layer('ui'),
+    //   {
+    //     value: score,
+    //   },
+    //   k.scale(2),
+    // ]);
 
-  // k.addLevel(maps[level], levelCfg);
-  // k.addLevel(maps[level], levelCfg);
+    // k.add([
+    //   k.text('level ' + parseInt(level + 1)),
+    //   k.pos(400, 485),
+    //   k.scale(2),
+    // ]);
 
-  // const floor = k.add([k.sprite('floor'),
-  // k.layer('bg'),
-  // k.scale(10)
-  // ])
+    //   const player = k.add([
+    //     k.sprite('skele'),
+    //     k.pos(5, 190),
+    //     k.scale(1),
+    //     gravity,
+    //     {
+    //       // right by default
+    //       dir: k.vec2(1, 0),
+    //     }
+    //   ])
 
-  // const scoreLabel = k.add([
-  //   k.text(score),
-  //   k.pos(10, 10),
-  //   k.layer('ui'),
-  //   {
-  //     value: score,
-  //   },
-  //   k.scale(2),
-  // ]);
+    // // jump with space
+    // k.keyPress("space", () => {
+    // 	// these 2 functions are provided by body() component
+    // 	if (player.grounded()) {
+    // 		player.jump(JUMP_FORCE);
+    // 	}
+    // });
 
-  // k.add([
-  //   k.text('level ' + parseInt(level + 1)),
-  //   k.pos(400, 485),
-  //   k.scale(2),
-  // ]);
+    // k.keyDown("left", () => {
+    // 	player.move(-MOVE_SPEED, 0);
+    // });
 
-  //   const player = k.add([
-  //     k.sprite('skele'),
-  //     k.pos(5, 190),
-  //     k.scale(1),
-  //     gravity,
-  //     {
-  //       // right by default
-  //       dir: k.vec2(1, 0),
-  //     }
-  //   ])
+    // k.keyDown("right", () => {
+    // 	player.move(MOVE_SPEED, 0);
+    // });
 
-  // // jump with space
-  // k.keyPress("space", () => {
-  // 	// these 2 functions are provided by body() component
-  // 	if (player.grounded()) {
-  // 		player.jump(JUMP_FORCE);
-  // 	}
-  // });
+    // player.overlaps('dangerous', () => {
+    //   k.go('lose', { score: scoreLabel.value})
+    //     window.value= scoreLabel.value
+    //     test(window.value)
+    //     audio.pause()
+    // })
 
-  // k.keyDown("left", () => {
-  // 	player.move(-MOVE_SPEED, 0);
-  // });
-
-  // k.keyDown("right", () => {
-  // 	player.move(MOVE_SPEED, 0);
-  // });
-
-  // player.overlaps('dangerous', () => {
-  //   k.go('lose', { score: scoreLabel.value})
-  //     window.value= scoreLabel.value
-  //     test(window.value)
-  //     audio.pause()
-  // })
-
-  // player.overlaps('victory', () => {
-  //   k.go('win', { score: scoreLabel.value})
-  //     window.value= scoreLabel.value
-  //     test(window.value)
-  //     audio.pause()
-  // })
-  // });
+    // player.overlaps('victory', () => {
+    //   k.go('win', { score: scoreLabel.value})
+    //     window.value= scoreLabel.value
+    //     test(window.value)
+    //     audio.pause()
+    // })
+  });
 
   // k.scene('win', ({ score }) => {
   //   k.add([
@@ -181,7 +168,7 @@ const Game = () => {
   //   ]);
   // });
 
-  k.go('game', { level: 0, score: 0 });
+  k.start('main', { level: 0, score: 0 });
 
   return null;
 };
