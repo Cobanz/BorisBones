@@ -24,8 +24,8 @@ const Game = () => {
   const music = new Audio(song);
 
   /* Define Constants */
-  const MOVE_SPEED = 120;
-  const JUMP_FORCE = 120;
+  const MOVE_SPEED = 200;
+  const JUMP_FORCE = 450;
 
   k.scene('main', ({ level, score }) => {
     // music.play();
@@ -58,16 +58,32 @@ const Game = () => {
 
     k.addLevel(maps[level], levelCfg);
 
+    /* Player Setup */
     const player = k.add([
       k.sprite('boris'),
-      k.pos(5, 190),
-      // k.scale(1),
+      k.pos(5, 300),
       k.body(),
+      k.scale(1),
       // {
       //   // right by default
       //   dir: k.vec2(1, 0),
       // },
     ]);
+
+    // Movement Controls
+    k.keyDown('left', () => {
+      player.move(-MOVE_SPEED, 0);
+    });
+
+    k.keyDown('right', () => {
+      player.move(MOVE_SPEED, 0);
+    });
+
+    k.keyPress('space', () => {
+      if (player.grounded()) {
+        player.jump(JUMP_FORCE);
+      }
+    });
 
     // const scoreLabel = k.add([
     //   k.text(score),
