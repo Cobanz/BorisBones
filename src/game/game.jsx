@@ -2,7 +2,7 @@ import kaboom from 'kaboom/dist/kaboom';
 
 import wall from './assets/sprites/Wall.png';
 import floor from './assets/sprites/floor.png';
-import boris from './assets/sprites/Skele-1.png';
+import boris from './assets/sprites/Skele.png';
 
 import song from './assets/sounds/8bitsong.mp3';
 
@@ -19,7 +19,17 @@ const Game = () => {
   /* Load Assets */
   k.loadSprite('floor', floor);
   k.loadSprite('wall', wall);
-  k.loadSprite('boris', boris);
+  k.loadSprite('boris', boris, {
+    sliceX: 3,
+    sliceY: 3,
+    anims: {
+      idle: {
+        from: 2,
+        to: 8,
+      },
+      run: { from: 2, to: 2 },
+    },
+  });
 
   const music = new Audio(song);
 
@@ -60,7 +70,10 @@ const Game = () => {
 
     /* Player Setup */
     const player = k.add([
-      k.sprite('boris'),
+      k.sprite('boris', {
+        animSpeed: 0.2,
+        frame: 1,
+      }),
       k.pos(5, 300),
       k.body(),
       k.scale(1),
@@ -73,16 +86,26 @@ const Game = () => {
     // Movement Controls
     k.keyDown('left', () => {
       player.move(-MOVE_SPEED, 0);
+      player.play('run');
     });
 
     k.keyDown('right', () => {
       player.move(MOVE_SPEED, 0);
+      player.play('run');
     });
 
     k.keyPress('space', () => {
       if (player.grounded()) {
         player.jump(JUMP_FORCE);
       }
+    });
+
+    k.keyRelease('left', () => {
+      player.play('idle');
+    });
+
+    k.keyRelease('right', () => {
+      player.play('idle');
     });
 
     // const scoreLabel = k.add([
