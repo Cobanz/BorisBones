@@ -2,7 +2,7 @@ import kaboom from 'kaboom/dist/kaboom';
 
 import wall from './assets/sprites/Wall.png';
 import floor from './assets/sprites/floor.png';
-import skele from './assets/sprites/Skele-1.png';
+import boris from './assets/sprites/Skele-1.png';
 
 import song from './assets/sounds/8bitsong.mp3';
 
@@ -19,19 +19,16 @@ const Game = () => {
   /* Load Assets */
   k.loadSprite('floor', floor);
   k.loadSprite('wall', wall);
-  k.loadSprite('skele', skele);
+  k.loadSprite('boris', boris);
 
   const music = new Audio(song);
 
   /* Define Constants */
   const MOVE_SPEED = 120;
   const JUMP_FORCE = 120;
-  const gravity = 980;
-
-  // k.gravity(980)
 
   k.scene('main', ({ level, score }) => {
-    music.play();
+    // music.play();
 
     k.layers(['bg', 'obj', 'ui'], 'obj');
     k.camIgnore(['ui']);
@@ -55,16 +52,22 @@ const Game = () => {
       width: 64,
       height: 64,
       a: [k.sprite('wall'), 'wall', { scale: 0.5 }],
-      b: [k.sprite('floor'), 'floor', { scale: 0.5 }],
+      b: [k.sprite('floor'), 'floor', { scale: 0.5 }, k.solid()],
       // "s": [k.sprite("skele"), k.solid(), "wall", { scale: 1.0 }],
     };
 
     k.addLevel(maps[level], levelCfg);
 
-    // const floor = k.add([k.sprite('floor'),
-    // k.layer('bg'),
-    // k.scale(10)
-    // ])
+    const player = k.add([
+      k.sprite('boris'),
+      k.pos(5, 190),
+      // k.scale(1),
+      k.body(),
+      // {
+      //   // right by default
+      //   dir: k.vec2(1, 0),
+      // },
+    ]);
 
     // const scoreLabel = k.add([
     //   k.text(score),
@@ -81,17 +84,6 @@ const Game = () => {
     //   k.pos(400, 485),
     //   k.scale(2),
     // ]);
-
-    //   const player = k.add([
-    //     k.sprite('skele'),
-    //     k.pos(5, 190),
-    //     k.scale(1),
-    //     gravity,
-    //     {
-    //       // right by default
-    //       dir: k.vec2(1, 0),
-    //     }
-    //   ])
 
     // // jump with space
     // k.keyPress("space", () => {
