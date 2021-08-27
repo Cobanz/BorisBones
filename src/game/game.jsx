@@ -75,6 +75,7 @@ const Game = () => {
         frame: 1,
       }),
       k.pos(5, 300),
+      k.origin('center'),
       k.body(),
       k.scale(1),
       // {
@@ -86,11 +87,13 @@ const Game = () => {
     // Movement Controls
     k.keyDown('left', () => {
       player.move(-MOVE_SPEED, 0);
+      player.scale.x = 1;
       player.play('run');
     });
 
     k.keyDown('right', () => {
       player.move(MOVE_SPEED, 0);
+      player.scale.x = -1;
       player.play('run');
     });
 
