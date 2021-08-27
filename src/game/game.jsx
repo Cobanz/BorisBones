@@ -2,38 +2,34 @@ import kaboom from 'kaboom/dist/kaboom';
 
 import wall from './assets/sprites/Wall.png';
 import floor from './assets/sprites/floor.png';
-// import skele from "./assets/sprites/Skele-1.png"
+import skele from './assets/sprites/Skele-1.png';
 
 const Game = () => {
+  // Creates Kaboom frame
   const k = kaboom({
     global: true,
     scale: 1,
     debug: true,
     clearColor: [0, 0, 0, 1],
-    canvas: document.getElementById('game'),
+    canvas: document.getElementById('gamecontainer'),
   });
 
   /* Load Assets */
   k.loadSprite('floor', floor);
   k.loadSprite('wall', wall);
-  // k.loadSprite('skele', skele);
+  k.loadSprite('skele', skele);
 
   /* Define Constants */
-  // const MOVE_SPEED = 120
-  // const JUMP_FORCE = 120
-  // const gravity = 980
+  const MOVE_SPEED = 120;
+  const JUMP_FORCE = 120;
+  const gravity = 980;
 
   // k.gravity(980)
-  // k.loadRoot('https://i.imgur.com/')
-  // k.loadSprite("floor", floor)
-  // k.loadSprite("skele", skele)
-  // k.loadSprite('wall', wall);
 
   // const audio = new Audio(gameSong);
 
   k.scene('main', ({ level, score }) => {
     // audio.play();
-    console.log('here');
 
     k.layers(['bg', 'obj', 'ui'], 'obj');
     k.camIgnore(['ui']);
@@ -49,34 +45,19 @@ const Game = () => {
         'a                    a',
         'a                    a',
         'a                    a',
-        'a                    a',
-        'a                    a',
-        'a                    a',
-        'a                    a',
-        'a                    a',
-        'a                    a',
-        'a                    a',
         'bbbbbbbbbbbbbbbbbbbbbb',
       ],
     ];
 
     const levelCfg = {
-      width: 32,
-      height: 32,
+      width: 64,
+      height: 64,
       a: [k.sprite('wall'), 'wall', { scale: 0.5 }],
       b: [k.sprite('floor'), 'floor', { scale: 0.5 }],
       // "s": [k.sprite("skele"), k.solid(), "wall", { scale: 1.0 }],
-      // "$": [k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
-      // "%":[k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
     };
 
     k.addLevel(maps[level], levelCfg);
-
-    // k.scene('main', ({ level, score }) => {
-    //   audio.play();
-
-    // k.addLevel(maps[level], levelCfg);
-    // k.addLevel(maps[level], levelCfg);
 
     // const floor = k.add([k.sprite('floor'),
     // k.layer('bg'),
@@ -168,6 +149,7 @@ const Game = () => {
   //   ]);
   // });
 
+  // Triggers start of game process
   k.start('main', { level: 0, score: 0 });
 
   return null;
