@@ -1,7 +1,7 @@
 import kaboom from 'kaboom/dist/kaboom';
 
 import wall from './assets/sprites/Wall.png';
-import floor from './assets/sprites/floor.png';
+import floor from './assets/sprites/Floor.png';
 import boris from './assets/sprites/Skele.png';
 
 import song from './assets/sounds/8bitsong.mp3';
