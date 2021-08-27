@@ -1,5 +1,4 @@
 import { useHistory } from 'react-router-dom';
-// import {gameStart} from '../game/game'
 import Game from '../game/game';
 
 const ArcadePage = () => {
@@ -11,6 +10,7 @@ const ArcadePage = () => {
       <button onClick={() => history.push('/')}>Back</button>
 
       <Game />
+      <canvas id="gamecontainer"></canvas>
 
       <div>
         <h2>Directions</h2>

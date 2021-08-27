@@ -1,132 +1,158 @@
-import k from '../kaboom';
-
-import wall from './Wall.png';
-// import floor from "./floor.png"
-// import skele from "./Skele-1.png"
-
-import gameSong from './8bitsong.mp3';
-
-// debugger
-
 const Game = () => {
+  k.loadRoot('/assets/');
+
+  // Load Assets
+  k.loadSprite('wall', 'Wall.png');
+  // k.loadSprite("floor", floor)
+  // k.loadSprite('skele', '/sprites/Skele-1.png');
+
+  // Define Constants
   // const MOVE_SPEED = 120
   // const JUMP_FORCE = 120
   // const gravity = 980
 
-  // const k = kaboom();
-
-  // //options
-  // kaboom({
-  //   global: true,
-  //   fullscreen: true,
-  //   scale: 1,
-  //   debug: true,
-  //   clearColor: [0,0,0,1]
-  // })
   // k.gravity(980)
   // k.loadRoot('https://i.imgur.com/')
   // k.loadSprite("floor", floor)
   //k.loadSprite("skele", skele)
-  k.loadSprite('wall', wall);
+  // k.loadSprite('wall', wall);
 
   // const audio = new Audio(gameSong);
 
-  k.scene('game', ({ level, score }) => {
-    // audio.play();
+  // k.layers(['bg', 'obj', 'ui'], 'obj');
+  // k.camIgnore(['ui']);
 
-    k.layers(['bg', 'obj', 'ui'], 'obj');
-    k.camIgnore(['ui']);
+  // const levelCfg = {
+  //   width: 32,
+  //   height: 32,
+  //   a: [k.sprite('wall'), 'wall'],
+  //   // b: [k.sprite('floor'), 'wall'],
+  //   // "s": [k.sprite("skele"), k.solid(), "wall", { scale: 1.0 }],
+  //   // "$": [k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
+  //   // "%":[k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
+  // };
 
-    const maps = [
-      [
-        'aaaaaaaaaaaaaaaaaaaaaaa',
-        'a                     a',
-        'a                     a',
-        'a                     a',
-        'a                     a',
-        'a                     a',
-        'a                     a',
-        'a                     a',
-        'a                     a',
-        'a                     a',
-        'aaaaaaaaaaaaaaaaaaaaaaa',
-      ],
-    ];
-
-    const levelCfg = {
+  k.addLevel(
+    [
+      'aaaaaaaaaaaaaaaaaaaaaaa',
+      'a                     a',
+      'a                     a',
+      'a                     a',
+      'a                     a',
+      'a                     a',
+      'a                     a',
+      'a                     a',
+      'a                     a',
+      'a                     a',
+      'aaaaaaaaaaaaaaaaaaaaaaa',
+    ],
+    // levelCfg
+    {
       width: 32,
       height: 32,
       a: [k.sprite('wall'), 'wall'],
-      // b: [k.sprite('floor'), 'wall'],
-      // "s": [k.sprite("skele"), k.solid(), "wall", { scale: 1.0 }],
-      // "$": [k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
-      // "%":[k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
-    };
+    }
+  );
 
-    k.addLevel(maps[level], levelCfg);
+  // k.scene('main', ({ level, score }) => {
+  //   audio.play();
 
-    // const floor = k.add([k.sprite('floor'),
-    // k.layer('bg'),
-    // k.scale(10)
-    // ])
+  //   console.log('here');
 
-    // const scoreLabel = k.add([
-    //   k.text(score),
-    //   k.pos(10, 10),
-    //   k.layer('ui'),
-    //   {
-    //     value: score,
-    //   },
-    //   k.scale(2),
-    // ]);
+  //   k.layers(['bg', 'obj', 'ui'], 'obj');
+  //   k.camIgnore(['ui']);
 
-    // k.add([
-    //   k.text('level ' + parseInt(level + 1)),
-    //   k.pos(400, 485),
-    //   k.scale(2),
-    // ]);
+  //   const maps = [
+  //     [
+  //       'aaaaaaaaaaaaaaaaaaaaaaa',
+  //       'a                     a',
+  //       'a                     a',
+  //       'a                     a',
+  //       'a                     a',
+  //       'a                     a',
+  //       'a                     a',
+  //       'a                     a',
+  //       'a                     a',
+  //       'a                     a',
+  //       'aaaaaaaaaaaaaaaaaaaaaaa',
+  //     ],
+  //   ];
 
-    //   const player = k.add([
-    //     k.sprite('skele'),
-    //     k.pos(5, 190),
-    //     k.scale(1),
-    //     gravity,
-    //     {
-    //       // right by default
-    //       dir: k.vec2(1, 0),
-    //     }
-    //   ])
+  // const levelCfg = {
+  //   width: 32,
+  //   height: 32,
+  //   a: [k.sprite('wall'), 'wall'],
+  // b: [k.sprite('floor'), 'wall'],
+  // "s": [k.sprite("skele"), k.solid(), "wall", { scale: 1.0 }],
+  // "$": [k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
+  // "%":[k.sprite("name of it"), k.solid(), "wall", { scale: 1.0 }],
+  // };
 
-    // // jump with space
-    // k.keyPress("space", () => {
-    // 	// these 2 functions are provided by body() component
-    // 	if (player.grounded()) {
-    // 		player.jump(JUMP_FORCE);
-    // 	}
-    // });
+  // k.addLevel(maps[level], levelCfg);
+  // k.addLevel(maps[level], levelCfg);
 
-    // k.keyDown("left", () => {
-    // 	player.move(-MOVE_SPEED, 0);
-    // });
+  // const floor = k.add([k.sprite('floor'),
+  // k.layer('bg'),
+  // k.scale(10)
+  // ])
 
-    // k.keyDown("right", () => {
-    // 	player.move(MOVE_SPEED, 0);
-    // });
+  // const scoreLabel = k.add([
+  //   k.text(score),
+  //   k.pos(10, 10),
+  //   k.layer('ui'),
+  //   {
+  //     value: score,
+  //   },
+  //   k.scale(2),
+  // ]);
 
-    // player.overlaps('dangerous', () => {
-    //   k.go('lose', { score: scoreLabel.value})
-    //     window.value= scoreLabel.value
-    //     test(window.value)
-    //     audio.pause()
-    // })
+  // k.add([
+  //   k.text('level ' + parseInt(level + 1)),
+  //   k.pos(400, 485),
+  //   k.scale(2),
+  // ]);
 
-    // player.overlaps('victory', () => {
-    //   k.go('win', { score: scoreLabel.value})
-    //     window.value= scoreLabel.value
-    //     test(window.value)
-    //     audio.pause()
-    // })
-  });
+  //   const player = k.add([
+  //     k.sprite('skele'),
+  //     k.pos(5, 190),
+  //     k.scale(1),
+  //     gravity,
+  //     {
+  //       // right by default
+  //       dir: k.vec2(1, 0),
+  //     }
+  //   ])
+
+  // // jump with space
+  // k.keyPress("space", () => {
+  // 	// these 2 functions are provided by body() component
+  // 	if (player.grounded()) {
+  // 		player.jump(JUMP_FORCE);
+  // 	}
+  // });
+
+  // k.keyDown("left", () => {
+  // 	player.move(-MOVE_SPEED, 0);
+  // });
+
+  // k.keyDown("right", () => {
+  // 	player.move(MOVE_SPEED, 0);
+  // });
+
+  // player.overlaps('dangerous', () => {
+  //   k.go('lose', { score: scoreLabel.value})
+  //     window.value= scoreLabel.value
+  //     test(window.value)
+  //     audio.pause()
+  // })
+
+  // player.overlaps('victory', () => {
+  //   k.go('win', { score: scoreLabel.value})
+  //     window.value= scoreLabel.value
+  //     test(window.value)
+  //     audio.pause()
+  // })
+  // });
 
   // k.scene('win', ({ score }) => {
   //   k.add([

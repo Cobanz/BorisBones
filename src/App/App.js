@@ -1,14 +1,12 @@
-// import { useState } from 'react';
 import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+
 import LandingPage from '../LandingPage/LandingPage';
 import ArcadePage from '../ArcadePage/ArcadePage';
 
 import './App.css';
 
 const App = () => {
-  // const [loggedIn, setLoggedIn] = useState("true")
-
   return (
     <div className="App">
       <Router>
