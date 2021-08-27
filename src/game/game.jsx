@@ -56,6 +56,9 @@ const Game = () => {
         'a                    a',
         'bbbbbbbbbbbbbbbbbbbbbb',
       ],
+      [ 
+        
+      ],
     ];
 
     const levelCfg = {
