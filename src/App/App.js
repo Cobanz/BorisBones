@@ -1,25 +1,25 @@
 // import { useState } from 'react';
 import React from 'react';
-import { HashRouter as Router, Route } from 'react-router-dom';
-// import Game from '../game/game';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import LandingPage from '../LandingPage/LandingPage';
 import ArcadePage from '../ArcadePage/ArcadePage';
 
 import './App.css';
 
 const App = () => {
-
-// const [loggedIn, setLoggedIn] = useState("true")
+  // const [loggedIn, setLoggedIn] = useState("true")
 
   return (
     <div className="App">
       <Router>
-        <Route path="/" exact>
-          <LandingPage />
-        </Route>
-        <Route path="/arcade">
-          <ArcadePage />
-        </Route>
+        <Switch>
+          <Route path="/" exact>
+            <LandingPage />
+          </Route>
+          <Route path="/arcade">
+            <ArcadePage />
+          </Route>
+        </Switch>
       </Router>
 
       <div id="footer">
@@ -27,6 +27,6 @@ const App = () => {
       </div>
     </div>
   );
-}
+};
 
 export default App;

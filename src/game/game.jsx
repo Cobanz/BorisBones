@@ -1,9 +1,10 @@
 import k from '../kaboom';
+
 import wall from './Wall.png';
 // import floor from "./floor.png"
 // import skele from "./Skele-1.png"
+
 import gameSong from './8bitsong.mp3';
-// import kaboom from 'kaboom'
 
 // debugger
 
@@ -160,4 +161,3 @@ const Game = () => {
 };
 
 export default Game;
-// export const gameStart = () => { k.start("game", { level: 0, score: 0 }) }
