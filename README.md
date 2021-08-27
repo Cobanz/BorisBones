@@ -54,8 +54,18 @@ Up - Hop over obsticals and enemies.
 
 ## Acknowledgements
 
-Thank you to Mintbean for this fantastic challenge to create a 2d game and to Monarch Wadia for your help along the way!
+Thank you to Mintbean for hosting the Hackathon that inspired this game and to Monarch Wadia for your help along the way! Special thanks to [Ben Michaels](https://github.com/) for his early assistance in debugging Kaboom rendering as well.
 
 ## Contacts
+
+### Bem
+
+<a href="BEMLINKEDIN"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a> <a href="mailto:BEMEMAIL"><img src=https://raw.githubusercontent.com/johnturner4004/readme-generator/master/src/components/assets/images/email_me_button_icon_151852.svg /></a>
+
+### Grant Nichols
+
+<a href="https://www.linkedin.com/in/grant-nichols-dev/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a> <a href="mailto:GRANTEMAIL"><img src=https://raw.githubusercontent.com/johnturner4004/readme-generator/master/src/components/assets/images/email_me_button_icon_151852.svg /></a>
+
+### Vada Karlen
 
 <a href="https://www.linkedin.com/in/vkarlen"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a> <a href="mailto:vada.karlen@gmail.com"><img src=https://raw.githubusercontent.com/johnturner4004/readme-generator/master/src/components/assets/images/email_me_button_icon_151852.svg /></a>
