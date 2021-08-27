@@ -38,7 +38,7 @@ const Game = () => {
   const JUMP_FORCE = 450;
 
   k.scene('main', ({ level, score }) => {
-    // music.play();
+    music.play();
 
     k.layers(['bg', 'obj', 'ui'], 'obj');
     k.camIgnore(['ui']);
