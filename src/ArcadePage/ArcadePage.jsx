@@ -6,6 +6,7 @@ import Game from '../game/game';
 const ArcadePage = () => {
   const history = useHistory();
 
+  // On page load, trigger game function
   useEffect(() => {
     Game();
   }, []);

@@ -4,6 +4,8 @@ import wall from './assets/sprites/Wall.png';
 import floor from './assets/sprites/floor.png';
 import skele from './assets/sprites/Skele-1.png';
 
+import song from './assets/sounds/8bitsong.mp3';
+
 const Game = () => {
   // Creates Kaboom frame
   const k = kaboom({
@@ -19,6 +21,8 @@ const Game = () => {
   k.loadSprite('wall', wall);
   k.loadSprite('skele', skele);
 
+  const music = new Audio(song);
+
   /* Define Constants */
   const MOVE_SPEED = 120;
   const JUMP_FORCE = 120;
@@ -26,10 +30,8 @@ const Game = () => {
 
   // k.gravity(980)
 
-  // const audio = new Audio(gameSong);
-
   k.scene('main', ({ level, score }) => {
-    // audio.play();
+    music.play();
 
     k.layers(['bg', 'obj', 'ui'], 'obj');
     k.camIgnore(['ui']);
