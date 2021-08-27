@@ -16,6 +16,7 @@ const Game = () => {
     canvas: document.getElementById('gamecontainer'),
   });
   
+  
   /* Load Assets */
   k.loadSprite('floor', floor);
   k.loadSprite('wall', wall);
