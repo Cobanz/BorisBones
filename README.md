@@ -1,5 +1,3 @@
-![License](https://img.shields.io/github/license//readme-generator.svg?style=for-the-badge) ![Repo Size](https://img.shields.io/github/languages/code-size//readme-generator.svg?style=for-the-badge) ![TOP_LANGUAGE](https://img.shields.io/github/languages/top//readme-generator.svg?style=for-the-badge) ![FORKS](https://img.shields.io/github/forks//readme-generator.svg?style=for-the-badge&social) ![Stars](https://img.shields.io/github/stars//readme-generator.svg?style=for-the-badge)
-
 # Dungeon Escape
 
 ## Table of Contents
