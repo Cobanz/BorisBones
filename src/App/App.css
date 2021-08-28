@@ -3,6 +3,7 @@
   bottom: 5px;
   right: 5px;
 }
+
 body {
   background-image: url("https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/v674-aew-54-halloween_1.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=f42a1f9ae64a95ed806f9f17866dde2c");
   background-size:     cover;                      /* <------ */
@@ -54,4 +55,10 @@ body {
 .block div{
   margin-left: 70px;
   color: black;
+
+
+.gamecontainerdiv{
+  height: 800px;
+  width: 800px;
+
 }
