@@ -10,7 +10,7 @@ import door from './assets/sprites/Door.png'
 import shelf from './assets/sprites/Shelf.png'
 import spike from './assets/sprites/Spike.png'
 
-import song from './assets/sounds/8bitsong.mp3';
+// import song from './assets/sounds/8bitsong.mp3';
 
 const Game = () => {
   // Creates Kaboom frame
@@ -47,7 +47,7 @@ const Game = () => {
     },
   });
 
-  const music = new Audio(song);
+  // const music = new Audio(song);
 
   /* Define Constants */
   const MOVE_SPEED = 200;
