@@ -1,8 +1,14 @@
 import kaboom from 'kaboom/dist/kaboom';
 
 import wall from './assets/sprites/Wall.png';
+import wall_l from './assets/sprites/Wall-L.png';
+import wall_r from './assets/sprites/Wall-R.png';
 import floor from './assets/sprites/floor.png';
-import boris from './assets/sprites/Skele.png';
+import boris from './assets/sprites/Boris.png';
+import bolt from './assets/sprites/Bolt.png'
+import door from './assets/sprites/Door.png'
+import shelf from './assets/sprites/Shelf.png'
+import spike from './assets/sprites/Spike.png'
 
 import song from './assets/sounds/8bitsong.mp3';
 
@@ -11,24 +17,33 @@ const Game = () => {
   const k = kaboom({
     global: true,
     scale: 1,
+    width: 1024,
+    height: 672 ,
     debug: true,
     clearColor: [0, 0, 0, 1],
     canvas: document.getElementById('gamecontainer'),
   });
   
-
+  // k.debug.inspect = true;
+  
   /* Load Assets */
   k.loadSprite('floor', floor);
   k.loadSprite('wall', wall);
+  k.loadSprite('wall_r', wall_r);
+  k.loadSprite('wall_l', wall_l);
+  k.loadSprite('bolt', bolt )
+  k.loadSprite('door', door )
+  k.loadSprite('shelf', shelf )
+  k.loadSprite('spike', spike )
   k.loadSprite('boris', boris, {
-    sliceX: 3,
+    sliceX: 2,
     sliceY: 3,
     anims: {
       idle: {
-        from: 2,
-        to: 8,
+        from: 0,
+        to: 4,
       },
-      run: { from: 2, to: 2 },
+      run: { from: 1, to: 3 },
     },
   });
 
@@ -39,7 +54,7 @@ const Game = () => {
   const JUMP_FORCE = 450;
 
   k.scene('main', ({ level, score }) => {
-    music.play();
+    // music.play();
 
     k.layers(['bg', 'obj', 'ui'], 'obj');
     k.camIgnore(['ui']);
@@ -48,26 +63,95 @@ const Game = () => {
 
     const maps = [
       [
-        'aaaaaaaaaaaaaaaaaaaaaa',
-        'a                    a',
-        'a                    a',
-        'a                    a',
-        'a                    a',
-        'a                    a',
-        'a                    a',
-        'bbbbbbbbbbbbbbbbbbbbbb',
+        'aaaaaaaaaaaaaaaa',
+        'l              r',
+        'l             dr',
+        'l             dr',
+        'l             sr',
+        'l            s r',
+        'l           s  r',
+        'l          s   r',
+        'l         s    r',
+        'l    i   s     r',
+        'bbbbbbbbbbbbbbbb',
       ],
-      [ 
-        
+      [
+        'aaaaaaaaaaaaaaaa',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'bbbbbbbbbbbbbbbb',
+      ],
+      [
+        'aaaaaaaaaaaaaaaa',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'bbbbbbbbbbbbbbbb',
+      ],
+      [
+        'aaaaaaaaaaaaaaaa',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'bbbbbbbbbbbbbbbb',
+      ],
+      [
+        'aaaaaaaaaaaaaaaa',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'bbbbbbbbbbbbbbbb',
+      ],
+      [
+        'aaaaaaaaaaaaaaaa',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'bbbbbbbbbbbbbbbb',
       ],
     ];
 
     const levelCfg = {
       width: 64,
       height: 64,
-      a: [k.sprite('wall'), 'wall', { scale: 0.5 }],
+      a: [k.sprite('wall'), 'wall', { scale: 0.5}],
+      l: [k.sprite('wall_l'), 'wall_l', { scale: 0.5 }, k.solid()],
+      r: [k.sprite('wall_r'), 'wall_r', { scale: 0.5 }, k.solid()],
       b: [k.sprite('floor'), 'floor', { scale: 0.5 }, k.solid()],
-      // "s": [k.sprite("skele"), k.solid(), "wall", { scale: 1.0 }],
+      d: [k.sprite('door'), 'door',  {scale: 0.5}],
+      s: [k.sprite('shelf'), 'shelf' ,{scale: 0.5}, k.solid(), k.area(k.vec2(0, 0), k.vec2(124, 30))],
+      i: [k.sprite('spike'), 'spike', {scale: 0.5}, k.area(k.vec2(90, 125), k.vec2(45, 10))],
     };
 
     k.addLevel(maps[level], levelCfg);
@@ -78,9 +162,10 @@ const Game = () => {
         animSpeed: 0.2,
         frame: 1,
       }),
-      k.pos(5, 300),
+      k.pos(50, 50),
       k.origin('center'),
       k.body(),
+      k.area(k.vec2(-25, 65), k.vec2(25, -50)),
       k.scale(1),
       // {
       //   // right by default
