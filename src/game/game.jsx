@@ -2,13 +2,16 @@ import kaboom from 'kaboom/dist/kaboom';
 
 import boris from './assets/sprites/Boris.png';
 import wiz from './assets/sprites/Wiz.png';
-// import background from './assets/sprites/Background.png';
+import background from './assets/sprites/Background.png';
 import floor from './assets/sprites/floor.png';
 import floor_l from './assets/sprites/Floor-L.png';
 import floor_r from './assets/sprites/Floor-R.png';
+import floor_cl from './assets/sprites/Floor-CL.png';
+import floor_cr from './assets/sprites/Floor-CR.png';
 import wall from './assets/sprites/Wall.png';
 import wall_l from './assets/sprites/Wall-L.png';
 import wall_r from './assets/sprites/Wall-R.png';
+import black from './assets/sprites/Black.png';
 import door from './assets/sprites/Door.png';
 import rock_1 from './assets/sprites/Rock1.png';
 import rock_2 from './assets/sprites/Rock2.png';
@@ -56,13 +59,16 @@ const Game = () => {
       attack: { from: 6, to: 11 },
     },
   });
-  // k.loadSprite('background', background);
+  k.loadSprite('background', background);
   k.loadSprite('floor', floor);
   k.loadSprite('floor_l', floor_l);
   k.loadSprite('floor_r', floor_r);
+  k.loadSprite('floor_cl', floor_cl);
+  k.loadSprite('floor_cr', floor_cr);
   k.loadSprite('wall', wall);
   k.loadSprite('wall_l', wall_l);
   k.loadSprite('wall_r', wall_r);
+  k.loadSprite('black', black);
   k.loadSprite('door', door);
   k.loadSprite('rock_1', rock_1);
   k.loadSprite('rock_2', rock_2);
@@ -83,21 +89,21 @@ const Game = () => {
     k.layers(['bg', 'obj', 'ui'], 'obj');
     k.camIgnore(['ui']);
 
-    // k.add([k.sprite('background'), k.layer('bg'), { scale: 1 }]);
+    k.add([k.sprite('background'), k.layer('bg'), { scale: 0.5 }]);
 
     const maps = [
       [
         'aaaaaaaaaaaaaaaa',
-        'l              r',
-        'l              d',
+        'xxl            r',
+        'xl             d',
         'l               ',
         'l             sr',
         'l            s r',
         'l           s  r',
         'l          s   r',
         'l         s    r',
-        'lp      s   oi r',
-        'vbbbbbbbbbbbbbbn',
+        'lp     cbm  oi r',
+        'vbbbbbbxxxbbbbbn',
       ],
       [
         'aaaaaaaaaaaaaaaa',
@@ -181,6 +187,21 @@ const Game = () => {
       ],
       v: [k.sprite('floor_l'), 'floor_l', { scale: 1 }, k.solid()],
       n: [k.sprite('floor_r'), 'floor_r', { scale: 1 }, k.solid()],
+      c: [
+        k.sprite('floor_cl'),
+        'floor_cl',
+        { scale: 1 },
+        k.solid(),
+        k.area(k.vec2(5, 5), k.vec2(64, 64)),
+      ],
+      m: [
+        k.sprite('floor_cr'),
+        'floor_cr',
+        { scale: 1 },
+        k.solid(),
+        k.area(k.vec2(5, 5), k.vec2(64, 64)),
+      ],
+      x: [k.sprite('black'), 'black', { scale: 1 }],
       d: [k.sprite('door'), 'door', { scale: 1 }],
       s: [
         k.sprite('shelf'),
