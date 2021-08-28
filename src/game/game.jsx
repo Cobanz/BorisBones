@@ -3,12 +3,13 @@ import kaboom from 'kaboom/dist/kaboom';
 import wall from './assets/sprites/Wall.png';
 import wall_l from './assets/sprites/Wall-L.png';
 import wall_r from './assets/sprites/Wall-R.png';
+import background from './assets/sprites/Background.png';
 import floor from './assets/sprites/floor.png';
 import boris from './assets/sprites/Boris.png';
-import bolt from './assets/sprites/Bolt.png'
-import door from './assets/sprites/Door.png'
-import shelf from './assets/sprites/Shelf.png'
-import spike from './assets/sprites/Spike.png'
+import bolt from './assets/sprites/Bolt.png';
+import door from './assets/sprites/Door.png';
+import shelf from './assets/sprites/Shelf.png';
+import spike from './assets/sprites/Spike.png';
 
 // import song from './assets/sounds/8bitsong.mp3';
 
@@ -18,23 +19,24 @@ const Game = () => {
     global: true,
     scale: 1,
     width: 1024,
-    height: 672 ,
+    height: 672,
     debug: true,
     clearColor: [0, 0, 0, 1],
     canvas: document.getElementById('gamecontainer'),
   });
-  
+
   // k.debug.inspect = true;
-  
+
   /* Load Assets */
   k.loadSprite('floor', floor);
   k.loadSprite('wall', wall);
   k.loadSprite('wall_r', wall_r);
   k.loadSprite('wall_l', wall_l);
-  k.loadSprite('bolt', bolt )
-  k.loadSprite('door', door )
-  k.loadSprite('shelf', shelf )
-  k.loadSprite('spike', spike )
+  k.loadSprite('background', background);
+  k.loadSprite('bolt', bolt);
+  k.loadSprite('door', door);
+  k.loadSprite('shelf', shelf);
+  k.loadSprite('spike', spike);
   k.loadSprite('boris', boris, {
     sliceX: 2,
     sliceY: 3,
@@ -59,7 +61,7 @@ const Game = () => {
     k.layers(['bg', 'obj', 'ui'], 'obj');
     k.camIgnore(['ui']);
 
-    // k.add([k.sprite('wall'), k.layer('bg')]);
+    k.add([k.sprite('background'), k.layer('bg'), { scale: 0.5 }]);
 
     const maps = [
       [
@@ -145,13 +147,24 @@ const Game = () => {
     const levelCfg = {
       width: 64,
       height: 64,
-      a: [k.sprite('wall'), 'wall', { scale: 0.5}],
-      l: [k.sprite('wall_l'), 'wall_l', { scale: 0.5 }, k.solid()],
-      r: [k.sprite('wall_r'), 'wall_r', { scale: 0.5 }, k.solid()],
+      a: [k.sprite('wall'), 'wall', { scale: 0.5 }],
+      l: [k.sprite('wall_l'), 'wall_l', { scale: 1 }, k.solid()],
+      r: [k.sprite('wall_r'), 'wall_r', { scale: 1 }, k.solid()],
       b: [k.sprite('floor'), 'floor', { scale: 0.5 }, k.solid()],
-      d: [k.sprite('door'), 'door',  {scale: 0.5}],
-      s: [k.sprite('shelf'), 'shelf' ,{scale: 0.5}, k.solid(), k.area(k.vec2(0, 0), k.vec2(124, 30))],
-      i: [k.sprite('spike'), 'spike', {scale: 0.5}, k.area(k.vec2(90, 125), k.vec2(45, 10))],
+      d: [k.sprite('door'), 'door', { scale: 0.5 }],
+      s: [
+        k.sprite('shelf'),
+        'shelf',
+        { scale: 0.5 },
+        k.solid(),
+        k.area(k.vec2(0, 0), k.vec2(124, 30)),
+      ],
+      i: [
+        k.sprite('spike'),
+        'spike',
+        { scale: 0.5 },
+        k.area(k.vec2(90, 125), k.vec2(45, 10)),
+      ],
     };
 
     k.addLevel(maps[level], levelCfg);
