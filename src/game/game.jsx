@@ -79,69 +79,70 @@ const Game = () => {
       ],
       [
         'aaaaaaaaaaaaaaaa',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
+        'l              r',
+        'l             dr',
+        'l             dr',
+        'l             sr',
+        'l            s r',
+        'l           s  r',
+        'l          s   r',
+        'l         s    r',
+        'l       s    i r',
         'bbbbbbbbbbbbbbbb',
       ],
       [
         'aaaaaaaaaaaaaaaa',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
+        'l              r',
+        'l             dr',
+        'l             dr',
+        'l             sr',
+        'l            s r',
+        'l           s  r',
+        'l          s   r',
+        'l         s    r',
+        'l       s    i r',
         'bbbbbbbbbbbbbbbb',
       ],
       [
         'aaaaaaaaaaaaaaaa',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
+        'l              r',
+        'l             dr',
+        'l             dr',
+        'l             sr',
+        'l            s r',
+        'l           s  r',
+        'l          s   r',
+        'l         s    r',
+        'l       s    i r',
         'bbbbbbbbbbbbbbbb',
       ],
       [
         'aaaaaaaaaaaaaaaa',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
+        'l              r',
+        'l             dr',
+        'l             dr',
+        'l             sr',
+        'l            s r',
+        'l           s  r',
+        'l          s   r',
+        'l         s    r',
+        'l       s    i r',
         'bbbbbbbbbbbbbbbb',
       ],
       [
         'aaaaaaaaaaaaaaaa',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
-        'a              a',
+        'l              r',
+        'l             dr',
+        'l             dr',
+        'l             sr',
+        'l            s r',
+        'l           s  r',
+        'l          s   r',
+        'l         s    r',
+        'l       s    i r',
         'bbbbbbbbbbbbbbbb',
       ],
+
     ];
 
     const levelCfg = {
@@ -151,12 +152,14 @@ const Game = () => {
       l: [k.sprite('wall_l'), 'wall_l', { scale: 0.5 }, k.solid()],
       r: [k.sprite('wall_r'), 'wall_r', { scale: 0.5 }, k.solid()],
       b: [k.sprite('floor'), 'floor', { scale: 0.5 }, k.solid()],
-      d: [k.sprite('door'), 'door',  {scale: 0.5}],
+      d: [k.sprite('door'), 'door', 'next-level', {scale: 0.5}],
       s: [k.sprite('shelf'), 'shelf' ,{scale: 0.5}, k.solid(), k.area(k.vec2(0, 0), k.vec2(124, 30))],
       i: [k.sprite('spike'), 'spike', 'dangerous', {scale: 0.5}, k.area(k.vec2(90, 125), k.vec2(45, 10))],
     };
 
     k.addLevel(maps[level], levelCfg);
+    // adding level text and count
+    k.add([k.text('Room ' + parseInt(level + 1)), k.pos(50, 50), k.scale(2)])
 
     /* Player Setup */
     const player = k.add([
@@ -164,7 +167,7 @@ const Game = () => {
         animSpeed: 0.2,
         frame: 1,
       }),
-      k.pos(50, 50),
+      k.pos(75, 400),
       k.origin('center'),
       k.body(),
       k.area(k.vec2(-25, 65), k.vec2(25, -50)),
@@ -233,6 +236,16 @@ const Game = () => {
     // k.keyDown("right", () => {
     // 	player.move(MOVE_SPEED, 0);
     // });
+
+    player.overlaps('next-level', () => {
+      k.go("main", {
+        level: (level + 1) % maps.length,
+        // score: scoreLabel.value
+        
+      })
+    })
+
+
 
     player.overlaps('dangerous', () => {
       k.go('lose', 
