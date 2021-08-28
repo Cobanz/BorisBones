@@ -3,3 +3,55 @@
   bottom: 5px;
   right: 5px;
 }
+body {
+  background-image: url("https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/v674-aew-54-halloween_1.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=f42a1f9ae64a95ed806f9f17866dde2c");
+  background-size:     cover;                      /* <------ */
+  background-repeat:   no-repeat;
+  
+}
+
+.btn{
+  background-color: red;
+  color: white;
+  padding: 1rem 1.5rem;
+  font-size: 1.5rem;
+}
+
+#title{
+  color: red;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+  color: white;
+  text-align: center;
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  margin-right: 900px;
+  margin-bottom: 170px;
+  margin-top: 30px;
+  
+}
+
+.logoPic {
+  background: transparent;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.block {
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.block div{
+  margin-left: 70px;
+  color: black;
+}
