@@ -2,13 +2,21 @@ import kaboom from 'kaboom/dist/kaboom';
 
 import boris from './assets/sprites/Boris.png';
 import wiz from './assets/sprites/Wiz.png';
-// import background from './assets/sprites/Background.png';
+import background from './assets/sprites/Background.png';
+import roof from './assets/sprites/Roof.png';
+import roof_l from './assets/sprites/Roof-L.png';
+import roof_r from './assets/sprites/Roof-R.png';
 import floor from './assets/sprites/floor.png';
 import floor_l from './assets/sprites/Floor-L.png';
 import floor_r from './assets/sprites/Floor-R.png';
+import floor_cl from './assets/sprites/Floor-CL.png';
+import floor_cr from './assets/sprites/Floor-CR.png';
 import wall from './assets/sprites/Wall.png';
 import wall_l from './assets/sprites/Wall-L.png';
 import wall_r from './assets/sprites/Wall-R.png';
+import wall_cld from './assets/sprites/Wall-CLD.png';
+import wall_crd from './assets/sprites/Wall-CRD.png';
+import black from './assets/sprites/Black.png';
 import door from './assets/sprites/Door.png';
 import rock_1 from './assets/sprites/Rock1.png';
 import rock_2 from './assets/sprites/Rock2.png';
@@ -56,13 +64,21 @@ const Game = () => {
       attack: { from: 6, to: 11 },
     },
   });
-  // k.loadSprite('background', background);
+  k.loadSprite('background', background);
+  k.loadSprite('roof', roof);
+  k.loadSprite('roof_l', roof_l);
+  k.loadSprite('roof_r', roof_r);
   k.loadSprite('floor', floor);
   k.loadSprite('floor_l', floor_l);
   k.loadSprite('floor_r', floor_r);
+  k.loadSprite('floor_cl', floor_cl);
+  k.loadSprite('floor_cr', floor_cr);
   k.loadSprite('wall', wall);
   k.loadSprite('wall_l', wall_l);
   k.loadSprite('wall_r', wall_r);
+  k.loadSprite('wall_cld', wall_cld);
+  k.loadSprite('wall_crd', wall_crd);
+  k.loadSprite('black', black);
   k.loadSprite('door', door);
   k.loadSprite('rock_1', rock_1);
   k.loadSprite('rock_2', rock_2);
@@ -83,21 +99,21 @@ const Game = () => {
     k.layers(['bg', 'obj', 'ui'], 'obj');
     k.camIgnore(['ui']);
 
-    // k.add([k.sprite('background'), k.layer('bg'), { scale: 1 }]);
+    k.add([k.sprite('background'), k.layer('bg'), { scale: 0.5 }]);
 
     const maps = [
       [
-        'aaaaaaaaaaaaaaaa',
-        'l              r',
-        'l              d',
-        'l               ',
+        'xxqaaaaaaaaaaaaw',
+        'xxg            r',
+        'xl             d',
+        'xg              ',
         'l             sr',
         'l            s r',
         'l           s  r',
         'l          s   r',
         'l         s    r',
-        'lp      s   oi r',
-        'vbbbbbbbbbbbbbbn',
+        'lo   pcbmi     r',
+        'vbbbbbxxxbbbbbbn',
       ],
       [
         'aaaaaaaaaaaaaaaa',
@@ -165,13 +181,17 @@ const Game = () => {
         'bbbbbbbbbbbbbbbb',
       ],
     ];
-
+    // k.origin('center')
     const levelCfg = {
       width: 64,
       height: 64,
-      a: [k.sprite('wall'), 'wall', { scale: 0.5 }],
+      a: [k.sprite('roof'), 'roof', { scale: 1 }, k.solid()],
+      q: [k.sprite('roof_l'), 'roof_l', { scale: 1 }, k.solid()],
+      w: [k.sprite('roof_r'), 'roof_r', { scale: 1 }, k.solid()],
       l: [k.sprite('wall_l'), 'wall_l', { scale: 1 }, k.solid()],
       r: [k.sprite('wall_r'), 'wall_r', { scale: 1 }, k.solid()],
+      g: [k.sprite('wall_cld'), 'wall_cld', { scale: 1 }, k.solid()],
+      f: [k.sprite('wall_crd'), 'wall_crd', { scale: 1 }, k.solid()],
       b: [
         k.sprite('floor'),
         'floor',
@@ -181,6 +201,21 @@ const Game = () => {
       ],
       v: [k.sprite('floor_l'), 'floor_l', { scale: 1 }, k.solid()],
       n: [k.sprite('floor_r'), 'floor_r', { scale: 1 }, k.solid()],
+      c: [
+        k.sprite('floor_cl'),
+        'floor_cl',
+        { scale: 1 },
+        k.solid(),
+        k.area(k.vec2(5, 5), k.vec2(64, 64)),
+      ],
+      m: [
+        k.sprite('floor_cr'),
+        'floor_cr',
+        { scale: 1 },
+        k.solid(),
+        k.area(k.vec2(5, 5), k.vec2(64, 64)),
+      ],
+      x: [k.sprite('black'), 'black', { scale: 1 }],
       d: [k.sprite('door'), 'door', { scale: 1 }],
       s: [
         k.sprite('shelf'),
