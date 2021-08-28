@@ -1,19 +1,19 @@
 import { useHistory } from 'react-router-dom';
 import tempBoris from "./images/tempBoris.gif"
 import 'bootstrap/dist/css/bootstrap.min.css'
-import pic from "./images/pic.jpg"
+// import pic from "./images/pic.jpg"
 import grant from "./images/grant.jpg"
 import vada from "./images/vada.jpg"
 import bem from "./images/bem.jpeg"
-import Button from 'react-bootstrap/Button'
-import Figure from 'react-bootstrap/Figure'
+// import Button from 'react-bootstrap/Button'
+// import Figure from 'react-bootstrap/Figure'
 import logo from './images/logo.jpeg'
-import DropdownButton from 'react-bootstrap/DropdownButton'
-import Dropdown from 'react-bootstrap/Dropdown'
-import { className } from 'postcss-selector-parser';
+// import DropdownButton from 'react-bootstrap/DropdownButton'
+// import Dropdown from 'react-bootstrap/Dropdown'
+// import { className } from 'postcss-selector-parser';
 import Card from 'react-bootstrap/Card'
-import Image from 'react-bootstrap/Image'
-import { height } from 'dom-helpers';
+// import Image from 'react-bootstrap/Image'
+// import { height } from 'dom-helpers';
 
 const LandingPage = () => {
   const history = useHistory();
