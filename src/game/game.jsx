@@ -2,7 +2,11 @@ import kaboom from 'kaboom/dist/kaboom';
 
 import wall from './assets/sprites/Wall.png';
 import floor from './assets/sprites/floor.png';
-import boris from './assets/sprites/Skele.png';
+import boris from './assets/sprites/Boris.png';
+import bolt from './assets/sprites/Bolt.png'
+import door from './assets/sprites/Door.png'
+import shelf from './assets/sprites/Shelf.png'
+import spike from './assets/sprites/Spike.png'
 
 import song from './assets/sounds/8bitsong.mp3';
 
@@ -11,24 +15,30 @@ const Game = () => {
   const k = kaboom({
     global: true,
     scale: 1,
+    width: 1024,
+    height: 672 ,
     debug: true,
     clearColor: [0, 0, 0, 1],
     canvas: document.getElementById('gamecontainer'),
   });
   
-
+  k.debug.inspect = true;
   /* Load Assets */
   k.loadSprite('floor', floor);
   k.loadSprite('wall', wall);
+  k.loadSprite('bolt', bolt )
+  k.loadSprite('door', door )
+  k.loadSprite('shelf', shelf )
+  k.loadSprite('spike', spike )
   k.loadSprite('boris', boris, {
-    sliceX: 3,
+    sliceX: 2,
     sliceY: 3,
     anims: {
       idle: {
-        from: 2,
-        to: 8,
+        from: 0,
+        to: 4,
       },
-      run: { from: 2, to: 2 },
+      run: { from: 1, to: 3 },
     },
   });
 
@@ -39,7 +49,7 @@ const Game = () => {
   const JUMP_FORCE = 450;
 
   k.scene('main', ({ level, score }) => {
-    music.play();
+    // music.play();
 
     k.layers(['bg', 'obj', 'ui'], 'obj');
     k.camIgnore(['ui']);
@@ -48,17 +58,82 @@ const Game = () => {
 
     const maps = [
       [
-        'aaaaaaaaaaaaaaaaaaaaaa',
-        'a                    a',
-        'a                    a',
-        'a                    a',
-        'a                    a',
-        'a                    a',
-        'a                    a',
-        'bbbbbbbbbbbbbbbbbbbbbb',
+        'aaaaaaaaaaaaaaaa',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a             sa',
+        'a            s a',
+        'a           s  a',
+        'a          s   a',
+        'a         s    a',
+        'a        s     a',
+        'bbbbbbbbbbbbbbbb',
       ],
-      [ 
-        
+      [
+        'aaaaaaaaaaaaaaaa',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'bbbbbbbbbbbbbbbb',
+      ],
+      [
+        'aaaaaaaaaaaaaaaa',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'bbbbbbbbbbbbbbbb',
+      ],
+      [
+        'aaaaaaaaaaaaaaaa',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'bbbbbbbbbbbbbbbb',
+      ],
+      [
+        'aaaaaaaaaaaaaaaa',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'bbbbbbbbbbbbbbbb',
+      ],
+      [
+        'aaaaaaaaaaaaaaaa',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'a              a',
+        'bbbbbbbbbbbbbbbb',
       ],
     ];
 
@@ -67,7 +142,9 @@ const Game = () => {
       height: 64,
       a: [k.sprite('wall'), 'wall', { scale: 0.5 }],
       b: [k.sprite('floor'), 'floor', { scale: 0.5 }, k.solid()],
-      // "s": [k.sprite("skele"), k.solid(), "wall", { scale: 1.0 }],
+      d: [k.sprite('door'), 'door',  {scale: 0.5}],
+      s: [k.sprite('shelf'), 'shelf', {scale: 0.5}, k.solid(), k.area(k.vec2(0, 52), k.vec2(124, 68))],
+      i: [k.sprite('spike'), 'spike', {scale: 0.5}],
     };
 
     k.addLevel(maps[level], levelCfg);
@@ -81,6 +158,7 @@ const Game = () => {
       k.pos(5, 300),
       k.origin('center'),
       k.body(),
+      k.area(k.vec2(-25, 65), k.vec2(25, -50)),
       k.scale(1),
       // {
       //   // right by default
