@@ -1,18 +1,21 @@
 import kaboom from 'kaboom/dist/kaboom';
 
-import death from './assets/sprites/Skele-1.png';
+import boris from './assets/sprites/Boris.png';
+import wiz from './assets/sprites/Wiz.png';
+// import background from './assets/sprites/Background.png';
+import floor from './assets/sprites/floor.png';
+import floor_l from './assets/sprites/Floor-L.png';
+import floor_r from './assets/sprites/Floor-R.png';
 import wall from './assets/sprites/Wall.png';
 import wall_l from './assets/sprites/Wall-L.png';
 import wall_r from './assets/sprites/Wall-R.png';
-// import background from './assets/sprites/Background.png';
-import floor from './assets/sprites/floor.png';
-import floor_r from './assets/sprites/Floor-R.png';
-import floor_l from './assets/sprites/Floor-L.png';
-import boris from './assets/sprites/Boris.png';
-import bolt from './assets/sprites/Bolt.png';
 import door from './assets/sprites/Door.png';
+import rock_1 from './assets/sprites/Rock1.png';
+import rock_2 from './assets/sprites/Rock2.png';
 import shelf from './assets/sprites/Shelf.png';
 import spike from './assets/sprites/Spike-b.png';
+import bolt from './assets/sprites/Bolt.png';
+import death from './assets/sprites/Skele-1.png';
 
 // import song from './assets/sounds/8bitsong.mp3';
 
@@ -31,18 +34,6 @@ const Game = () => {
   // k.debug.inspect = true;
 
   /* Load Assets */
-  k.loadSprite('floor', floor);
-  k.loadSprite('floor_r', floor_r);
-  k.loadSprite('floor_l', floor_l);
-  k.loadSprite('death', death);
-  k.loadSprite('wall', wall);
-  k.loadSprite('wall_r', wall_r);
-  k.loadSprite('wall_l', wall_l);
-  // k.loadSprite('background', background);
-  k.loadSprite('bolt', bolt);
-  k.loadSprite('door', door);
-  k.loadSprite('shelf', shelf);
-  k.loadSprite('spike', spike);
   k.loadSprite('boris', boris, {
     sliceX: 2,
     sliceY: 3,
@@ -54,6 +45,31 @@ const Game = () => {
       run: { from: 1, to: 3 },
     },
   });
+  k.loadSprite('wiz', wiz, {
+    sliceX: 3,
+    sliceY: 4,
+    anims: {
+      idle: {
+        from: 0,
+        to: 5,
+      },
+      attack: { from: 6, to: 11 },
+    },
+  });
+  // k.loadSprite('background', background);
+  k.loadSprite('floor', floor);
+  k.loadSprite('floor_l', floor_l);
+  k.loadSprite('floor_r', floor_r);
+  k.loadSprite('wall', wall);
+  k.loadSprite('wall_l', wall_l);
+  k.loadSprite('wall_r', wall_r);
+  k.loadSprite('door', door);
+  k.loadSprite('rock_1', rock_1);
+  k.loadSprite('rock_2', rock_2);
+  k.loadSprite('shelf', shelf);
+  k.loadSprite('spike', spike);
+  k.loadSprite('bolt', bolt);
+  k.loadSprite('death', death);
 
   // const music = new Audio(song);
 
@@ -80,7 +96,7 @@ const Game = () => {
         'l           s  r',
         'l          s   r',
         'l         s    r',
-        'l       s    i r',
+        'lp      s   oi r',
         'vbbbbbbbbbbbbbbn',
       ],
       [
@@ -178,6 +194,20 @@ const Game = () => {
         'spike',
         { scale: 1 },
         k.area(k.vec2(20, 60), k.vec2(45, 0)),
+      ],
+      o: [
+        k.sprite('rock_1'),
+        'rock_1',
+        { scale: 1 },
+        k.solid(),
+        k.area(k.vec2(0, 10), k.vec2(64, 64)),
+      ],
+      p: [
+        k.sprite('rock_2'),
+        'rock_2',
+        { scale: 1 },
+        k.solid(),
+        k.area(k.vec2(0, 25), k.vec2(64, 64)),
       ],
     };
 
