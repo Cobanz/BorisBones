@@ -1,5 +1,6 @@
 import kaboom from 'kaboom/dist/kaboom';
 
+import death from './assets/sprites/Skele-1.png'
 import wall from './assets/sprites/Wall.png';
 import wall_l from './assets/sprites/Wall-L.png';
 import wall_r from './assets/sprites/Wall-R.png';
@@ -28,6 +29,7 @@ const Game = () => {
   
   /* Load Assets */
   k.loadSprite('floor', floor);
+  k.loadSprite('death', death);
   k.loadSprite('wall', wall);
   k.loadSprite('wall_r', wall_r);
   k.loadSprite('wall_l', wall_l);
@@ -72,7 +74,7 @@ const Game = () => {
         'l           s  r',
         'l          s   r',
         'l         s    r',
-        'l    i   s     r',
+        'l       s    i r',
         'bbbbbbbbbbbbbbbb',
       ],
       [
@@ -151,7 +153,7 @@ const Game = () => {
       b: [k.sprite('floor'), 'floor', { scale: 0.5 }, k.solid()],
       d: [k.sprite('door'), 'door',  {scale: 0.5}],
       s: [k.sprite('shelf'), 'shelf' ,{scale: 0.5}, k.solid(), k.area(k.vec2(0, 0), k.vec2(124, 30))],
-      i: [k.sprite('spike'), 'spike', {scale: 0.5}, k.area(k.vec2(90, 125), k.vec2(45, 10))],
+      i: [k.sprite('spike'), 'spike', 'dangerous', {scale: 0.5}, k.area(k.vec2(90, 125), k.vec2(45, 10))],
     };
 
     k.addLevel(maps[level], levelCfg);
@@ -232,12 +234,14 @@ const Game = () => {
     // 	player.move(MOVE_SPEED, 0);
     // });
 
-    // player.overlaps('dangerous', () => {
-    //   k.go('lose', { score: scoreLabel.value})
-    //     window.value= scoreLabel.value
-    //     test(window.value)
-    //     audio.pause()
-    // })
+    player.overlaps('dangerous', () => {
+      k.go('lose', 
+      // { score: scoreLabel.value}
+      )
+        // window.value= scoreLabel.value
+        // test(window.value)
+        // audio.pause()
+    })
 
     // player.overlaps('victory', () => {
     //   k.go('win', { score: scoreLabel.value})
@@ -260,19 +264,22 @@ const Game = () => {
   //   ]);
   // });
 
-  // k.scene('lose', ({ score }) => {
-  //   k.add([
-  //     k.text('YOU DIED', 32),
-  //     origin('center'),
-  //     k.pos(k.width() / 2, k.height() / 3),
-  //     k.color(1, 0, 0),
-  //   ]);
-  //   k.add([
-  //     k.text(score, 32),
-  //     origin('center'),
-  //     k.pos(k.width() / 2, k.height() / 2),
-  //   ]);
-  // });
+  k.scene('lose', (
+    // { score }
+    ) => {
+    k.add([
+      k.text('YOU DIED!', 32),
+      origin('center'),
+      k.pos(k.width() / 2, k.height() / 3),
+      k.color(1, 0, 0),
+    ]);
+    k.add([k.sprite('death'), 'death', origin('center'), k.pos(k.width()/2, k.height() /1.75)])
+    // k.add([
+    //   k.text(score, 32),
+    //   origin('center'),
+    //   k.pos(k.width() / 2, k.height() / 2),
+    // ]);
+  });
 
   // Triggers start of game process
   k.start('main', { level: 0, score: 0 });
