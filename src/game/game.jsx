@@ -188,7 +188,7 @@ const Game = () => {
       player.play('run');
     });
 
-    k.keyPress('space', () => {
+    k.keyPress('up', () => {
       if (player.grounded()) {
         player.jump(JUMP_FORCE);
       }
