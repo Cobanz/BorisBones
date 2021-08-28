@@ -21,7 +21,7 @@ const LandingPage = () => {
   return (
     <div className="container">
       <div className="logo">
-        <img className='logoPic' src={logo}/>
+        <img className='logoPic' src={logo} alt="logoPic"/>
         <h2 id='title'> Game Title</h2>
       </div>
       <div>
@@ -41,7 +41,7 @@ const LandingPage = () => {
         <img src={tempBoris} alt="Our hero, Boris" />
       </div>
       <div className="mb-2">
-      <button className="btn">Play Game</button>
+      <button className="btn" onClick={() => history.push('/arcade')}>Play Game</button>
       </div>
 
       <div className="block">
