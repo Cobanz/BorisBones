@@ -1,12 +1,11 @@
 import { useHistory } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-import tempBoris from './images/tempBoris.gif';
 import grant from './images/grant.jpeg';
 import vada from './images/vada.jpeg';
 import bem from './images/bem.jpeg';
 import borisPic from './images/BorisPic.png';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Card, Container, Row, Col, Image } from 'react-bootstrap';
 
 const LandingPage = () => {
@@ -15,7 +14,7 @@ const LandingPage = () => {
   return (
     <Container>
       <Row>
-        <header className="site-head text-center pt-4 mt-2 pb-4 landing-header">
+        <header className="site-head text-center pt-4 mt-2 pb-4">
           <h1>Peaceful Pursuit of Boris Bones</h1>
         </header>
       </Row>
@@ -61,7 +60,7 @@ const LandingPage = () => {
       </Row>
 
       <Row className="justify-content-around m-3">
-        <h2 className="landing-header">Technologies Used</h2>
+        <h2>Technologies Used</h2>
         <Col xs={8}>
           <Card className="p-2">
             {/* Add icons */}
@@ -71,7 +70,7 @@ const LandingPage = () => {
       </Row>
 
       <Row className="justify-content-around m-3">
-        <h2 className="landing-header">The Developers</h2>
+        <h2>The Developers</h2>
         <Col xs={3}>
           <Card className="text-center">
             <Image src={bem} className="dev-pic" roundedCircle />
