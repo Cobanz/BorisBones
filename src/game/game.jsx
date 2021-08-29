@@ -27,7 +27,7 @@ import spike from './assets/sprites/Spike-b.png';
 import bolt from './assets/sprites/Bolt.png';
 import death from './assets/sprites/Skele-1.png';
 
-// import song from './assets/sounds/8bitsong.mp3';
+import song from './assets/sounds/8bitsong.mp3';
 
 const Game = () => {
   // Creates Kaboom frame
@@ -91,14 +91,14 @@ const Game = () => {
   k.loadSprite('bolt', bolt);
   k.loadSprite('death', death);
 
-  // const music = new Audio(song);
+  const music = new Audio(song);
 
   /* Define Constants */
   const MOVE_SPEED = 200;
   const JUMP_FORCE = 500;
 
   k.scene('main', ({ level, score }) => {
-    // music.play();
+    music.play();
 
     k.layers(['bg', 'obj', 'ui'], 'obj');
     k.camIgnore(['ui']);
@@ -117,11 +117,11 @@ const Game = () => {
         'l          s   r',
         'l         s    r',
         'lo   pcbui     r',
-        'vbbbbbxxxbbbbbbu',
+        'vbbbbbxxxbbbbbbt',
       ],
 
       [
-        'qaaaaaaaaaaaaaaw',
+        'xxqaaaaaaaaaaaaw',
         'xxg            r',
         'xlo            r',
         'lssssssssss    r',
@@ -130,28 +130,28 @@ const Game = () => {
         'l    ssssssssssr',
         'l              r',
         'l        o     d',
-        'l oi    cbu     ',
-        'vbbbbbbbbbbbbbbu',
+        'l oii   cbu     ',
+        'vbbbbbbbxxxbbbbt',
       ],
 
       [
-        'xxxxaaaaaaaaaaxx',
-        'xxxxgrl      fxx',
-        'xxxx rl       fx',
-        'xxxx rl        r',
-        'xxgs rls   rl  r',
+        'zzzzqwqaaaaaawxx',
+        'zxxxgrl      fxx',
+        'zxxx rl       fx',
+        'zxxx rl        r',
+        'xzgs rls   rl  r',
         'xg   rl    rl  r',
         'l    rl   srl  r',
         'l    fg    rl  r',
         'l      s   rl  d',
-        'l         srl   ',
-        'vbbbbbbbbbbbbbbu',
+        'vbu       srl   ',
+        'xxxbbbbbbbbbbbbt',
       ],
 
       [
-        'qaaaaaaaaaaxxxxx',
-        'l        rlxxxxr',
-        'l        rlssssr',
+        'qaaaaaaawxxxxxxx',
+        'l       fxxxqaaw',
+        'l        rqag  r',
         'lssssss  rl    d',
         'l        rl     ',
         'l        rl   sr',
@@ -159,7 +159,7 @@ const Game = () => {
         'l   ssssssss   r',
         'l             sr',
         'l              r',
-        'vbbbbbbbbbbbbbbu',
+        'vbbbbbbbbbbbbbbt',
       ],
 
       [
@@ -173,7 +173,7 @@ const Game = () => {
         'l              r',
         'n              m',
         '                ',
-        'vbbbbbbbbbbbbbbu',
+        'vbbbbbbbbbbbbbbt',
       ],
 
       [
@@ -187,7 +187,7 @@ const Game = () => {
         'l              r',
         'l              r',
         'l              r',
-        'vbbbbbbbbbbbbbbn',
+        'vbbbbbbbbbbbbbbt',
       ],
     ];
     // k.origin('center')
@@ -208,8 +208,20 @@ const Game = () => {
         k.solid(),
         k.area(k.vec2(0, 5), k.vec2(64, 64)),
       ],
-      v: [k.sprite('floor_l'), 'floor_l', { scale: 1 }, k.solid(), k.area(k.vec2(0, 5), k.vec2(64, 64))],
-      t: [k.sprite('floor_r'), 'floor_r', { scale: 1 }, k.solid(), k.area(k.vec2(0, 5), k.vec2(64, 64))],
+      v: [
+        k.sprite('floor_l'),
+        'floor_l',
+        { scale: 1 },
+        k.solid(),
+        k.area(k.vec2(0, 5), k.vec2(64, 64)),
+      ],
+      t: [
+        k.sprite('floor_r'),
+        'floor_r',
+        { scale: 1 },
+        k.solid(),
+        k.area(k.vec2(0, 5), k.vec2(64, 64)),
+      ],
       c: [
         k.sprite('floor_cl'),
         'floor_cl',
@@ -225,9 +237,10 @@ const Game = () => {
         k.area(k.vec2(5, 5), k.vec2(64, 64)),
       ],
       x: [k.sprite('black'), 'black', { scale: 1 }],
-      d: [k.sprite('door'), 'door', 'next-level' ,  { scale: 1 }],
-      n: [k.sprite('door_l'), 'door_l', 'win' ,  { scale: 1 }],
-      m: [k.sprite('door_e'), 'door_e', 'dangerous',  { scale: 1 }],
+      z: [k.sprite('black'), 'black_s', { scale: 1 }, k.solid()],
+      d: [k.sprite('door'), 'door', 'next-level', { scale: 1 }],
+      n: [k.sprite('door_l'), 'door_l', 'win', { scale: 1 }],
+      m: [k.sprite('door_e'), 'door_e', 'dangerous', { scale: 1 }],
       s: [
         k.sprite('shelf'),
         'shelf',
@@ -357,7 +370,7 @@ const Game = () => {
     });
     player.overlaps('win', () => {
       k.go('win');
-    })
+    });
   });
   // player.overlaps('victory', () => {
   //   k.go('win', { score: scoreLabel.value})
@@ -432,16 +445,16 @@ const Game = () => {
 
 export default Game;
 
-      // [
-      //   'qaaaaaaaaaaaaaaw',
-      //   'l              r',
-      //   'l              r',
-      //   'l              r',
-      //   'l              r',
-      //   'l              r',
-      //   'l              r',
-      //   'l              r',
-      //   'l              r',
-      //   'l              r',
-      //   'vbbbbbbbbbbbbbbn',
-      // ],
+// [
+//   'qaaaaaaaaaaaaaaw',
+//   'l              r',
+//   'l              r',
+//   'l              r',
+//   'l              r',
+//   'l              r',
+//   'l              r',
+//   'l              r',
+//   'l              r',
+//   'l              r',
+//   'vbbbbbbbbbbbbbbn',
+// ],
