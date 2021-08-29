@@ -76,7 +76,7 @@ const LandingPage = () => {
             <Image src={bem} className="dev-pic" roundedCircle />
 
             <Card.Body>
-              <Card.Title style={{ backgroundColor: 'gray' }}>
+              <Card.Title style={{ backgroundColor: '#7db1b3' }}>
                 Bermet Tariel
               </Card.Title>
 
@@ -111,7 +111,7 @@ const LandingPage = () => {
           <Card className="text-center">
             <Image src={vada} className="dev-pic" roundedCircle />
             <Card.Body>
-              <Card.Title style={{ backgroundColor: 'gray' }}>
+              <Card.Title style={{ backgroundColor: '#7db1b3' }}>
                 Vada Karlen
               </Card.Title>
 
@@ -148,7 +148,7 @@ const LandingPage = () => {
             <Image src={grant} className="dev-pic" roundedCircle />
 
             <Card.Body>
-              <Card.Title style={{ backgroundColor: 'gray' }}>
+              <Card.Title style={{ backgroundColor: '#7db1b3' }}>
                 Grant Nichols
               </Card.Title>
 
