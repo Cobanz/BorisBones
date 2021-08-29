@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import grant from './images/grant.jpg';
 import vada from './images/vada.jpg';
 import bem from './images/bem.jpeg';
-import { Button, Card, ListGroup, Container, Row } from 'react-bootstrap';
+import { Button, Card, ListGroup, Container, Row, Image} from 'react-bootstrap';
 
 const LandingPage = () => {
   const history = useHistory();
@@ -63,7 +63,7 @@ const LandingPage = () => {
         </Row>
         <Row>
           <Card style={{ width: '11rem' }}>
-            <Card.Img variant="top" src={bem} />
+            <Card.Img variant="top" src={bem}/>
             <Card.Body style={{ backgroundColor: 'gray' }}>
               <Card.Title>Bermet Tariel</Card.Title>
             </Card.Body>
