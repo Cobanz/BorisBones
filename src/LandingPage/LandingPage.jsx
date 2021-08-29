@@ -1,30 +1,27 @@
 import { useHistory } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-import tempBoris from './images/tempBoris.gif';
 import grant from './images/grant.jpeg';
 import vada from './images/vada.jpeg';
 import bem from './images/bem.jpeg';
+import borisPic from './images/BorisPic.png';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Card, Container, Row, Col, Image } from 'react-bootstrap';
 
 const LandingPage = () => {
   const history = useHistory();
 
   return (
-    <Container className="justify-content-md-around">
+    <Container>
       <Row>
-        <header
-          className="site-head text-center pt-4 mt-2 pb-4"
-          style={{ color: '#fff' }}
-        >
+        <header className="site-head text-center pt-4 mt-2 pb-4">
           <h1>Peaceful Pursuit of Boris Bones</h1>
         </header>
       </Row>
 
-      <Row>
+      <Row className="align-items-stretch">
         <Col>
-          <Card className="mb-2" style={{ padding: '15px' }} bg="" text="black">
+          <Card className="mb-2" id="story-container" text="black">
             <Card.Title>Hail, Adventurer!</Card.Title>
             <Card.Text>
               <p>
@@ -48,11 +45,11 @@ const LandingPage = () => {
         </Col>
 
         <Col>
-          <img src={tempBoris} alt="Our hero, Boris" />
+          <img src={borisPic} className="landing-pic" alt="Our hero, Boris" />
         </Col>
       </Row>
 
-      <Row className="mb-2">
+      <Row className="m-2">
         <Button
           variant="danger"
           size="lg"
@@ -62,22 +59,32 @@ const LandingPage = () => {
         </Button>
       </Row>
 
-      <Row className="justify-content-around">
-        <Col>
-          <Card className="text-center" style={{ width: '11rem' }}>
-            <Image src={bem} roundedCircle />
+      <Row className="justify-content-around m-3">
+        <h2>Technologies Used</h2>
+        <Col xs={8}>
+          <Card className="p-2">
+            {/* Add icons */}
+            <div>Javascript, React-DOM, Kaboom.js, Bootstrap</div>
+          </Card>
+        </Col>
+      </Row>
+
+      <Row className="justify-content-around m-3">
+        <h2>The Developers</h2>
+        <Col xs={3}>
+          <Card className="text-center">
+            <Image src={bem} className="dev-pic" roundedCircle />
 
             <Card.Body>
-              <Card.Title style={{ backgroundColor: 'gray' }}>
+              <Card.Title style={{ backgroundColor: '#7db1b3' }}>
                 Bermet Tariel
               </Card.Title>
+
               <Card.Link href="linkedin.com/in/bermet-tariel">
-                <i class="bi bi-linkedin"></i>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="25"
-                  fill="black"
+                  width="40"
+                  height="40"
                   class="bi bi-linkedin"
                   viewBox="0 0 16 16"
                 >
@@ -86,12 +93,10 @@ const LandingPage = () => {
               </Card.Link>
 
               <Card.Link href="https://github.com/bermet-tariel">
-                <i class="bi bi-github"></i>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="25"
-                  fill="black"
+                  width="40"
+                  height="40"
                   class="bi bi-github"
                   viewBox="0 0 16 16"
                 >
@@ -102,21 +107,19 @@ const LandingPage = () => {
           </Card>
         </Col>
 
-        <Col>
-          <Card className="text-center" style={{ width: '11rem' }}>
-            <Image src={vada} roundedCircle />
+        <Col xs={3}>
+          <Card className="text-center">
+            <Image src={vada} className="dev-pic" roundedCircle />
             <Card.Body>
-              <Card.Title style={{ backgroundColor: 'gray' }}>
+              <Card.Title style={{ backgroundColor: '#7db1b3' }}>
                 Vada Karlen
               </Card.Title>
 
               <Card.Link href="https://www.linkedin.com/in/vadak/">
-                <i class="bi bi-linkedin"></i>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="25"
-                  fill="black"
+                  width="40"
+                  height="40"
                   class="bi bi-linkedin"
                   viewBox="0 0 16 16"
                 >
@@ -125,12 +128,11 @@ const LandingPage = () => {
               </Card.Link>
 
               <Card.Link href="https://github.com/vkarlen">
-                <i class="bi bi-github"></i>
+                {/* <i class="bi bi-github"></i> */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="25"
-                  fill="black"
+                  width="40"
+                  height="40"
                   class="bi bi-github"
                   viewBox="0 0 16 16"
                 >
@@ -141,22 +143,20 @@ const LandingPage = () => {
           </Card>
         </Col>
 
-        <Col>
-          <Card className="text-center" style={{ width: '11rem' }}>
-            <Image src={grant} roundedCircle />
+        <Col xs={3}>
+          <Card className="text-center">
+            <Image src={grant} className="dev-pic" roundedCircle />
 
             <Card.Body>
-              <Card.Title style={{ backgroundColor: 'gray' }}>
+              <Card.Title style={{ backgroundColor: '#7db1b3' }}>
                 Grant Nichols
               </Card.Title>
 
               <Card.Link href="https://www.linkedin.com/in/grant-nichols-dev/">
-                <i class="bi bi-linkedin"></i>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="25"
-                  fill="black"
+                  width="40"
+                  height="40"
                   class="bi bi-linkedin"
                   viewBox="0 0 16 16"
                 >
@@ -165,12 +165,10 @@ const LandingPage = () => {
               </Card.Link>
 
               <Card.Link href="https://github.com/Cobanz">
-                <i class="bi bi-github"></i>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="25"
-                  fill="black"
+                  width="40"
+                  height="40"
                   class="bi bi-github"
                   viewBox="0 0 16 16"
                 >

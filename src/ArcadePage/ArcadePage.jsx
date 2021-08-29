@@ -3,6 +3,9 @@ import React, { useEffect } from 'react';
 
 import Game from '../game/game';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Card, Container, Row, Col, Button } from 'react-bootstrap';
+
 const ArcadePage = () => {
   const history = useHistory();
 
@@ -12,26 +15,38 @@ const ArcadePage = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Arcade</h1>
+    <Container fluid>
+      <Button
+        variant="danger"
+        size="md"
+        className="m-2"
+        onClick={() => history.push('/')}
+      >
+        &#8592; Back
+      </Button>
 
-      <button onClick={() => history.push('/')}>Back</button>
+      <Row className="justify-content-center">
+        <Col>
+          <canvas id="gamecontainer" />
+        </Col>
 
-      <div className="gamecontainerdiv">
-        <canvas id="gamecontainer" />
-      </div>
+        <Col xs={2}>
+          <Card clasName="p-2">
+            <Card.Body>
+              <Card.Title>Directions</Card.Title>
+              <p>Its time to escape, Boris. You better get going!</p>
 
-      <div>
-        <h2>Directions</h2>
-
-        <p>Its time to escape, Boris! You better get going!</p>
-
-        <ul>
-          <li>L/R - Move left and right</li>
-          <li>Space - Jump</li>
-        </ul>
-      </div>
-    </div>
+              <ul>
+                {/* Add arrow icons */}
+                <li>&#8592; - Move left</li>
+                <li>&#8594; - Move right</li>
+                <li>&#8593; - Jump</li>
+              </ul>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
