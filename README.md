@@ -15,7 +15,9 @@
 
 ## Description
 
-STORY DESCRIPTION GO HERE
+Hail, Adventurer! Master Skeletor has ruled over this decrepit place for 1,000 years and nary a prisoner has escaped. The evil mastermind has ruled with a bony fist, supported by his skeletal minions. Adventurers often arrive to seek fame in challenging the lord of the dungeon and setting the prisoners free, but none have succeeded.
+
+However, our hero Boris Bones is tired of the dampness of this cave. Tired by the constant seiges. Tired of the non-existent pay... just all over tired of this life! Or, well. Life so to speak. Its time he broke out of this evil lair once and for all, and felt the sun on his boney face!
 
 Dungeon Escape was created for a Mintbean Hiring Hackathon. [Mintbean](https://www.linkedin.com/company/mintbean/) is a developers' collective that provides support and mentorship for professional software develops within the industry. They've hosted 150+ Hackathons that helps new developers show off their skills and get connected with companies looking for new talent.
 
