@@ -1,18 +1,23 @@
-.gamecontainerdiv {
-  height: 800px;
-  width: 800px;
-}
-
-#footer {
-  position: fixed;
-  bottom: 5px;
-  right: 5px;
-}
-
 body {
   background-image: url('/src/game/assets/sprites/Background.png');
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.gamecontainerdiv {
+  height: 800px;
+  width: 800px;
+}
+
+.devpic {
+  margin: 20px;
+  margin-bottom: 0px;
+}
+
+#footer {
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
 }
