@@ -1,24 +1,18 @@
+.gamecontainerdiv {
+  height: 800px;
+  width: 800px;
+}
+
 #footer {
   position: fixed;
   bottom: 5px;
   right: 5px;
 }
 
-.gamecontainerdiv{
-  height: 800px;
-  width: 800px;
-
+body {
+  background-image: url('/src/game/assets/sprites/Background.png');
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-
-  #bg-image {
-    height: 100%; 
-    width: 100%;
-    position:absolute;
-    background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/1b8e6c10771311.560eac010385d.jpg);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    opacity: 0.6;
-}
-
-
