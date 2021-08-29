@@ -25,13 +25,13 @@ const LandingPage = () => {
         <h2 id="title">The Peaceful Pursuit of Boris Bones</h2>
       </div>
       <div>
-        <h3>Story</h3>
+        <h3>Hail, Adventurer!</h3>
         <p>
-          Hail, Adventurer! Master Skeletor has ruled over this decrepit place
-          for 1,000 years and nary a prisoner has escaped. The evil mastermind
-          has ruled with a bony fist, supported by his skeletal minions.
-          Adventurers often arrive to seek fame in challenging the lord of the
-          dungeon and setting the prisoners free, but none have succeeded.
+          Master Skeletor has ruled over this decrepit place for 1,000 years and
+          nary a prisoner has escaped. The evil mastermind has ruled with a bony
+          fist, supported by his skeletal minions. Adventurers often arrive to
+          seek fame in challenging the lord of the dungeon and setting the
+          prisoners free, but none have succeeded.
         </p>
         <p>
           However, our hero Boris Bones is tired of the dampness of this cave.
