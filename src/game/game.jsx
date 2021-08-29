@@ -18,6 +18,8 @@ import wall_cld from './assets/sprites/Wall-CLD.png';
 import wall_crd from './assets/sprites/Wall-CRD.png';
 import black from './assets/sprites/Black.png';
 import door from './assets/sprites/Door.png';
+import door_l from './assets/sprites/Door-L.png';
+import door_e from './assets/sprites/Door-Exit.png';
 import rock_1 from './assets/sprites/Rock1.png';
 import rock_2 from './assets/sprites/Rock2.png';
 import shelf from './assets/sprites/Shelf.png';
@@ -25,7 +27,7 @@ import spike from './assets/sprites/Spike-b.png';
 import bolt from './assets/sprites/Bolt.png';
 import death from './assets/sprites/Skele-1.png';
 
-// import song from './assets/sounds/8bitsong.mp3';
+import song from './assets/sounds/8bitsong.mp3';
 
 const Game = () => {
   // Creates Kaboom frame
@@ -80,6 +82,8 @@ const Game = () => {
   k.loadSprite('wall_crd', wall_crd);
   k.loadSprite('black', black);
   k.loadSprite('door', door);
+  k.loadSprite('door_l', door_l);
+  k.loadSprite('door_e', door_e);
   k.loadSprite('rock_1', rock_1);
   k.loadSprite('rock_2', rock_2);
   k.loadSprite('shelf', shelf);
@@ -87,14 +91,14 @@ const Game = () => {
   k.loadSprite('bolt', bolt);
   k.loadSprite('death', death);
 
-  // const music = new Audio(song);
+  const music = new Audio(song);
 
   /* Define Constants */
   const MOVE_SPEED = 200;
-  const JUMP_FORCE = 450;
+  const JUMP_FORCE = 500;
 
   k.scene('main', ({ level, score }) => {
-    // music.play();
+    music.play();
 
     k.layers(['bg', 'obj', 'ui'], 'obj');
     k.camIgnore(['ui']);
@@ -112,73 +116,78 @@ const Game = () => {
         'l           s  r',
         'l          s   r',
         'l         s    r',
-        'lo   pcbmi     r',
-        'vbbbbbxxxbbbbbbn',
+        'lo   pcbui     r',
+        'vbbbbbxxxbbbbbbt',
       ],
+
       [
-        'aaaaaaaaaaaaaaaa',
+        'xxqaaaaaaaaaaaaw',
+        'xxg            r',
+        'xlo            r',
+        'lssssssssss    r',
         'l              r',
-        'l             dr',
-        'l             dr',
-        'l             sr',
-        'l            s r',
-        'l           s  r',
-        'l          s   r',
-        'l         s    r',
-        'l       s    i r',
-        'bbbbbbbbbbbbbbbb',
+        'l           piir',
+        'l    ssssssssssr',
+        'l              r',
+        'l        o     d',
+        'l oii   cbu     ',
+        'vbbbbbbbxxxbbbbt',
       ],
+
       [
-        'aaaaaaaaaaaaaaaa',
-        'l              r',
-        'l             dr',
-        'l             dr',
-        'l             sr',
-        'l            s r',
-        'l           s  r',
-        'l          s   r',
-        'l         s    r',
-        'l       s    i r',
-        'bbbbbbbbbbbbbbbb',
+        'zzzzqwqaaaaaawxx',
+        'zxxxgrl      fxx',
+        'zxxx rl       fx',
+        'zxxx rl        r',
+        'xzgs rls   rl  r',
+        'xg   rl    rl  r',
+        'l    rl   srl  r',
+        'l    fg    rl  r',
+        'l      s   rl  d',
+        'vbu       srl   ',
+        'xxxbbbbbbbbbbbbt',
       ],
+
       [
-        'aaaaaaaaaaaaaaaa',
-        'l              r',
-        'l             dr',
-        'l             dr',
+        'qaaaaaaawxxxxxxx',
+        'l       fxxxqaaw',
+        'l        rqag  r',
+        'lssssss  rl    d',
+        'l        rl     ',
+        'l        rl   sr',
+        'l        rl    r',
+        'l   ssssssss   r',
         'l             sr',
-        'l            s r',
-        'l           s  r',
-        'l          s   r',
-        'l         s    r',
-        'l       s    i r',
-        'bbbbbbbbbbbbbbbb',
+        'l              r',
+        'vbbbbbbbbbbbbbbt',
       ],
+
       [
-        'aaaaaaaaaaaaaaaa',
+        'qaaaaaaaaaaaaaaw',
         'l              r',
-        'l             dr',
-        'l             dr',
-        'l             sr',
-        'l            s r',
-        'l           s  r',
-        'l          s   r',
-        'l         s    r',
-        'l       s    i r',
-        'bbbbbbbbbbbbbbbb',
+        'l              r',
+        'l              r',
+        'l              r',
+        'l              r',
+        'l              r',
+        'l              r',
+        'n              m',
+        '                ',
+        'vbbbbbbbbbbbbbbt',
       ],
+
       [
-        'aaaaaaaaaaaaaaaa',
+        'qaaaaaaaaaaaaaaw',
         'l              r',
-        'l             dr',
-        'l             dr',
-        'l             sr',
-        'l            s r',
-        'l           s  r',
-        'l          s   r',
-        'l         s    r',
-        'l       s    i r',
-        'bbbbbbbbbbbbbbbb',
+        'l              r',
+        'l              r',
+        'l              r',
+        'l              r',
+        'l              r',
+        'l              r',
+        'l              r',
+        'l              r',
+        'vbbbbbbbbbbbbbbt',
       ],
     ];
     // k.origin('center')
@@ -199,8 +208,20 @@ const Game = () => {
         k.solid(),
         k.area(k.vec2(0, 5), k.vec2(64, 64)),
       ],
-      v: [k.sprite('floor_l'), 'floor_l', { scale: 1 }, k.solid()],
-      n: [k.sprite('floor_r'), 'floor_r', { scale: 1 }, k.solid()],
+      v: [
+        k.sprite('floor_l'),
+        'floor_l',
+        { scale: 1 },
+        k.solid(),
+        k.area(k.vec2(0, 5), k.vec2(64, 64)),
+      ],
+      t: [
+        k.sprite('floor_r'),
+        'floor_r',
+        { scale: 1 },
+        k.solid(),
+        k.area(k.vec2(0, 5), k.vec2(64, 64)),
+      ],
       c: [
         k.sprite('floor_cl'),
         'floor_cl',
@@ -208,7 +229,7 @@ const Game = () => {
         k.solid(),
         k.area(k.vec2(5, 5), k.vec2(64, 64)),
       ],
-      m: [
+      u: [
         k.sprite('floor_cr'),
         'floor_cr',
         { scale: 1 },
@@ -216,7 +237,10 @@ const Game = () => {
         k.area(k.vec2(5, 5), k.vec2(64, 64)),
       ],
       x: [k.sprite('black'), 'black', { scale: 1 }],
-      d: [k.sprite('door'), 'door', { scale: 1 }],
+      z: [k.sprite('black'), 'black_s', { scale: 1 }, k.solid()],
+      d: [k.sprite('door'), 'door', 'next-level', { scale: 1 }],
+      n: [k.sprite('door_l'), 'door_l', 'win', { scale: 1 }],
+      m: [k.sprite('door_e'), 'door_e', 'dangerous', { scale: 1 }],
       s: [
         k.sprite('shelf'),
         'shelf',
@@ -227,6 +251,7 @@ const Game = () => {
       i: [
         k.sprite('spike'),
         'spike',
+        'dangerous',
         { scale: 1 },
         k.area(k.vec2(20, 60), k.vec2(45, 0)),
       ],
@@ -257,7 +282,7 @@ const Game = () => {
         animSpeed: 0.2,
         frame: 1,
       }),
-      k.pos(75, 400),
+      k.pos(200, 100),
       k.origin('center'),
       k.body(),
       k.area(k.vec2(-25, 65), k.vec2(25, -50)),
@@ -343,14 +368,16 @@ const Game = () => {
       // test(window.value)
       // audio.pause()
     });
-
-    // player.overlaps('victory', () => {
-    //   k.go('win', { score: scoreLabel.value})
-    //     window.value= scoreLabel.value
-    //     test(window.value)
-    //     audio.pause()
-    // })
+    player.overlaps('win', () => {
+      k.go('win');
+    });
   });
+  // player.overlaps('victory', () => {
+  //   k.go('win', { score: scoreLabel.value})
+  //     window.value= scoreLabel.value
+  //     test(window.value)
+  //     audio.pause()
+  // })
 
   // k.scene('win', ({ score }) => {
   //   k.add([
@@ -387,6 +414,28 @@ const Game = () => {
       // ]);
     }
   );
+  k.scene('win', () =>
+    // { score }
+    {
+      k.add([
+        k.text('YOU ESCAPED!', 32),
+        origin('center'),
+        k.pos(k.width() / 2, k.height() / 3),
+        k.color(1, 0, 0),
+      ]);
+      k.add([
+        k.sprite('death'),
+        'death',
+        origin('center'),
+        k.pos(k.width() / 2, k.height() / 1.75),
+      ]);
+      // k.add([
+      //   k.text(score, 32),
+      //   origin('center'),
+      //   k.pos(k.width() / 2, k.height() / 2),
+      // ]);
+    }
+  );
 
   // Triggers start of game process
   k.start('main', { level: 0, score: 0 });
@@ -395,3 +444,17 @@ const Game = () => {
 };
 
 export default Game;
+
+// [
+//   'qaaaaaaaaaaaaaaw',
+//   'l              r',
+//   'l              r',
+//   'l              r',
+//   'l              r',
+//   'l              r',
+//   'l              r',
+//   'l              r',
+//   'l              r',
+//   'l              r',
+//   'vbbbbbbbbbbbbbbn',
+// ],
