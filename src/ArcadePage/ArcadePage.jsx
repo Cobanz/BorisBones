@@ -17,7 +17,7 @@ const ArcadePage = () => {
 
       <button onClick={() => history.push('/')}>Back</button>
 
-      <div className="gamecontainerdiv">
+      <div className="game-container-div">
         <canvas id="gamecontainer" />
       </div>
 
