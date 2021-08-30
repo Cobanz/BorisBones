@@ -108,6 +108,14 @@ const Game = () => {
   const JUMP_FORCE = 500;
   const SLICER_SPEED = 100;
 
+  function restart() {
+    k.keyPress(["r"], () => {
+      k.go('main', {
+        level: (0),
+      });
+    });
+  } 
+
   k.scene('main', ({ level, score }) => {
     music.play();
 
@@ -370,13 +378,7 @@ const Game = () => {
     });
 
 
-    function restart() {
-      k.keyPress(["r"], () => {
-        k.go('main', {
-          level: (0),
-        });
-      });
-    } 
+
 
     restart()
 
@@ -462,7 +464,7 @@ const Game = () => {
       //   origin('center'),
       //   k.pos(k.width() / 2, k.height() / 2),
       // ]);
-      
+      restart()
     }
     );
 
@@ -487,7 +489,7 @@ const Game = () => {
       //   origin('center'),
       //   k.pos(k.width() / 2, k.height() / 2),
       // ]);
-    
+      restart()
     }
     );
 
