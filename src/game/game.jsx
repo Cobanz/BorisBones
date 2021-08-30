@@ -56,6 +56,8 @@ const Game = () => {
         to: 4,
       },
       run: { from: 5, to: 7 },
+      jump: { from: 8, to: 8 },
+      stand: { from: 0, to: 0 },
     },
   });
 
@@ -107,7 +109,7 @@ const Game = () => {
   const SLICER_SPEED = 100;
 
   k.scene('main', ({ level, score }) => {
-    music.play();
+    // music.play();
 
     k.layers(['bg', 'obj', 'ui'], 'obj');
     k.camIgnore(['ui']);
@@ -337,23 +339,34 @@ const Game = () => {
     });
 
     k.keyPress('left', () => {
-      player.play('run');
+      if (player.grounded()) {
+        player.play('run');
+      }
       player.scale.x = 1;
     });
 
     k.keyPress('right', () => {
-      player.play('run');
+      if (player.grounded()) {
+        player.play('run');
+      }
       player.scale.x = -1;
     });
 
     k.keyDown('up', () => {
       if (player.grounded()) {
         player.jump(JUMP_FORCE);
+        player.play('jump');
       }
     });
 
     k.keyRelease(['left', 'right'], () => {
-      player.play('idle');
+      if (player.grounded()) {
+        player.play('idle');
+      }
+    });
+
+    k.keyRelease(['up'], () => {
+      player.play('stand');
     });
 
     player.overlaps('next-level', () => {
