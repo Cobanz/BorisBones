@@ -462,10 +462,11 @@ const Game = () => {
       //   origin('center'),
       //   k.pos(k.width() / 2, k.height() / 2),
       // ]);
+      
     }
     );
 
-    
+
   k.scene('win', () =>
     // { score }
     {
@@ -486,8 +487,9 @@ const Game = () => {
       //   origin('center'),
       //   k.pos(k.width() / 2, k.height() / 2),
       // ]);
+    
     }
-  );
+    );
 
   // Triggers start of game process
   k.start('main', { level: 0, score: 0 });
