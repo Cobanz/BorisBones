@@ -109,7 +109,7 @@ const Game = () => {
   const SLICER_SPEED = 100;
 
   k.scene('main', ({ level, score }) => {
-    // music.play();
+    music.play();
 
     k.layers(['bg', 'obj', 'ui'], 'obj');
     k.camIgnore(['ui']);
