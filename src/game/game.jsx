@@ -144,13 +144,13 @@ const Game = () => {
       [
         'zzzzqwqaaaaaawxx',
         'zxxxgrl      fxx',
-        'zxxx rl       fx',
-        'zxxx rl e      r',
-        'xzgs rlss  rl  r',
+        'zxxx rl e     fx',
+        'zxxx rlss      r',
+        'xzgs rl    rl  r',
         'xg   rl    rl  r',
         'l    rl   srl  r',
-        'l    fg    rl  r',
-        'l      s   rl  d',
+        'l    fgs   rl  r',
+        'l          rl  d',
         'vbu       srl   ',
         'xxxbbbbbbbbbbbbt',
       ],
@@ -254,7 +254,7 @@ const Game = () => {
         'spike',
         'dangerous',
         { scale: 1 },
-        k.area(k.vec2(20, 60), k.vec2(45, 0)),
+        k.area(k.vec2(20, 60), k.vec2(45, 5)),
       ],
       o: [
         k.sprite('rock_1'),
@@ -297,7 +297,7 @@ const Game = () => {
       k.pos(200, 100),
       k.origin('center'),
       k.body(),
-      k.area(k.vec2(-25, 65), k.vec2(25, -50)),
+      k.area(k.vec2(-20, 65), k.vec2(20, -50)),
       k.scale(1),
 
       // {
