@@ -22,13 +22,13 @@ import door_l from './assets/sprites/Door-L.png';
 import door_e from './assets/sprites/Door-Exit.png';
 import rock_1 from './assets/sprites/Rock1.png';
 import rock_2 from './assets/sprites/Rock2.png';
-import shelf from './assets/sprites/Shelf.png';
+import platform from './assets/sprites/Platform.png';
 import spike from './assets/sprites/Spike-b.png';
 import bolt from './assets/sprites/Bolt.png';
 import death from './assets/sprites/Skele-1.png';
 import crab from './assets/sprites/Crab.png';
-import sign_d from './assets/sprites/Sign-1.png'
-import sign_w from './assets/sprites/Sign-2.png'
+import sign_d from './assets/sprites/Sign-1.png';
+import sign_w from './assets/sprites/Sign-2.png';
 
 import song from './assets/sounds/8bitsong.mp3';
 
@@ -47,6 +47,8 @@ const Game = () => {
   // k.debug.inspect = true;
 
   /* Load Assets */
+  // k.loadRoot('/assets/');
+
   k.loadSprite('boris', boris, {
     sliceX: 2,
     sliceY: 3,
@@ -58,6 +60,7 @@ const Game = () => {
       run: { from: 1, to: 3 },
     },
   });
+
   k.loadSprite('wiz', wiz, {
     sliceX: 3,
     sliceY: 4,
@@ -69,6 +72,7 @@ const Game = () => {
       attack: { from: 6, to: 11 },
     },
   });
+
   k.loadSprite('background', background);
   k.loadSprite('roof', roof);
   k.loadSprite('roof_l', roof_l);
@@ -89,7 +93,7 @@ const Game = () => {
   k.loadSprite('door_e', door_e);
   k.loadSprite('rock_1', rock_1);
   k.loadSprite('rock_2', rock_2);
-  k.loadSprite('shelf', shelf);
+  k.loadSprite('platform', platform);
   k.loadSprite('spike', spike);
   k.loadSprite('bolt', bolt);
   k.loadSprite('death', death);
@@ -97,13 +101,12 @@ const Game = () => {
   k.loadSprite('sign_d', sign_d);
   k.loadSprite('sign_w', sign_w);
 
-
   const music = new Audio(song);
 
   /* Define Constants */
   const MOVE_SPEED = 200;
   const JUMP_FORCE = 500;
-  const SLICER_SPEED = 100
+  const SLICER_SPEED = 100;
 
   k.scene('main', ({ level, score }) => {
     music.play();
@@ -132,7 +135,7 @@ const Game = () => {
         'xxqaaaaaaaaaaaaw',
         'xxg            r',
         'xlo            r',
-        'lssssssssss    r',
+        'xgsssssssss    r',
         'l              r',
         'l           piir',
         'l    ssssssssssr',
@@ -145,13 +148,13 @@ const Game = () => {
       [
         'zzzzqwqaaaaaawxx',
         'zxxxgrl      fxx',
-        'zxxx rl       fx',
-        'zxxx rl e      r',
-        'xzgs rlss  rl  r',
+        'zxxx rl e     fx',
+        'zxxx rlss      r',
+        'xzgs rl    rl  r',
         'xg   rl    rl  r',
         'l    rl   srl  r',
-        'l    fg    rl  r',
-        'l      s   rl  d',
+        'l    fgs   rl  r',
+        'l          rl  d',
         'vbu       srl   ',
         'xxxbbbbbbbbbbbbt',
       ],
@@ -184,11 +187,19 @@ const Game = () => {
         'vbbbbbbbbbbbbbbt',
       ],
     ];
+
     // k.origin('center')
     const levelCfg = {
       width: 64,
       height: 64,
-      e: [k.sprite('wiz'), 'wiz', k.body(),{scale: 1},k.origin('center'), k.area(k.vec2(25, 65), k.vec2(25, 50)),],
+      e: [
+        k.sprite('wiz'),
+        'wiz',
+        k.body(),
+        { scale: 1 },
+        k.origin('center'),
+        k.area(k.vec2(25, 65), k.vec2(25, 50)),
+      ],
       a: [k.sprite('roof'), 'roof', { scale: 1 }, k.solid()],
       q: [k.sprite('roof_l'), 'roof_l', { scale: 1 }, k.solid()],
       w: [k.sprite('roof_r'), 'roof_r', { scale: 1 }, k.solid()],
@@ -196,32 +207,92 @@ const Game = () => {
       r: [k.sprite('wall_r'), 'wall_r', { scale: 1 }, k.solid()],
       g: [k.sprite('wall_cld'), 'wall_cld', { scale: 1 }, k.solid()],
       f: [k.sprite('wall_crd'), 'wall_crd', { scale: 1 }, k.solid()],
-      b: [k.sprite('floor'),'floor',{ scale: 1 },k.solid(),k.area(k.vec2(0, 5), k.vec2(64, 64)),],
-      v: [k.sprite('floor_l'), 'floor_l', { scale: 1 }, k.solid(), k.area(k.vec2(0, 5), k.vec2(64, 64)), ],
-      t: [k.sprite('floor_r'), 'floor_r', { scale: 1 }, k.solid(), k.area(k.vec2(0, 5), k.vec2(64, 64)), ],
-      c: [k.sprite('floor_cl'), 'floor_cl',{ scale: 1 }, k.solid(),k.area(k.vec2(5, 5), k.vec2(64, 64)), ],
-      u: [k.sprite('floor_cr'), 'floor_cr',{ scale: 1 }, k.solid(),k.area(k.vec2(5, 5), k.vec2(64, 64)), ],
+      b: [
+        k.sprite('floor'),
+        'floor',
+        { scale: 1 },
+        k.solid(),
+        k.area(k.vec2(0, 5), k.vec2(64, 64)),
+      ],
+      v: [
+        k.sprite('floor_l'),
+        'floor_l',
+        { scale: 1 },
+        k.solid(),
+        k.area(k.vec2(0, 5), k.vec2(64, 64)),
+      ],
+      t: [
+        k.sprite('floor_r'),
+        'floor_r',
+        { scale: 1 },
+        k.solid(),
+        k.area(k.vec2(0, 5), k.vec2(64, 64)),
+      ],
+      c: [
+        k.sprite('floor_cl'),
+        'floor_cl',
+        { scale: 1 },
+        k.solid(),
+        k.area(k.vec2(5, 5), k.vec2(64, 64)),
+      ],
+      u: [
+        k.sprite('floor_cr'),
+        'floor_cr',
+        { scale: 1 },
+        k.solid(),
+        k.area(k.vec2(5, 5), k.vec2(64, 64)),
+      ],
       x: [k.sprite('black'), 'black', { scale: 1 }],
       z: [k.sprite('black'), 'black_s', { scale: 1 }, k.solid()],
       d: [k.sprite('door'), 'door', 'next-level', { scale: 1 }],
       n: [k.sprite('door_l'), 'door_l', 'win', { scale: 1 }],
       m: [k.sprite('door_e'), 'door_e', 'dangerous', { scale: 1 }],
-      s: [k.sprite('shelf'), 'shelf', { scale: 0.5 }, k.solid(), k.area(k.vec2(0, 0), k.vec2(124, 30)),],
-      i: [k.sprite('spike'), 'spike', 'dangerous', { scale: 1 }, k.area(k.vec2(20, 60), k.vec2(45, 0)),],
-      o: [k.sprite('rock_1'),'wall_r',{ scale: 1 }, k.solid(), k.area(k.vec2(0, 10), k.vec2(64, 64)),],
-      p: [k.sprite('rock_2'),'wall_r',{ scale: 1 }, k.solid(), k.area(k.vec2(0, 25), k.vec2(64, 64)),],
-      "!": [k.sprite('sign_d'), 'sign_d', {scale: 1}, ],
-      "?": [k.sprite('sign_w'), 'sign_w', {scale: 1}, ],
+      s: [
+        k.sprite('platform'),
+        'platform',
+        { scale: 1 },
+        k.solid(),
+        k.area(k.vec2(0, 0), k.vec2(62, 25)),
+      ],
+      i: [
+        k.sprite('spike'),
+        'spike',
+        'dangerous',
+        { scale: 1 },
+        k.area(k.vec2(20, 60), k.vec2(45, 5)),
+      ],
+      o: [
+        k.sprite('rock_1'),
+        'wall_r',
+        { scale: 1 },
+        k.solid(),
+        k.area(k.vec2(0, 10), k.vec2(64, 64)),
+      ],
+      p: [
+        k.sprite('rock_2'),
+        'wall_r',
+        { scale: 1 },
+        k.solid(),
+        k.area(k.vec2(0, 25), k.vec2(64, 64)),
+      ],
+      '!': [k.sprite('sign_d'), 'sign_d', { scale: 1 }],
+      '?': [k.sprite('sign_w'), 'sign_w', { scale: 1 }],
 
-      "^": [k.sprite('crab'), 'crab', 'dangerous', {dir:1, timer :0, scale:.75}, k.body() , k.area(k.vec2(0, 40), k.vec2(64, 64)), ],
-      
+      '^': [
+        k.sprite('crab'),
+        'crab',
+        'dangerous',
+        { dir: 1, timer: 0, scale: 0.75 },
+        k.body(),
+        k.area(k.vec2(0, 40), k.vec2(64, 64)),
+      ],
     };
-    
+
     k.addLevel(maps[level], levelCfg);
-    
+
     // adding level text and count
     k.add([k.text('Room ' + parseInt(level + 1)), k.pos(50, 50), k.scale(2)]);
-    
+
     /* Player Setup */
     const player = k.add([
       k.sprite('boris', {
@@ -231,27 +302,25 @@ const Game = () => {
       k.pos(200, 100),
       k.origin('center'),
       k.body(),
-      k.area(k.vec2(-25, 65), k.vec2(25, -50)),
+      k.area(k.vec2(-20, 65), k.vec2(20, -50)),
       k.scale(1),
-      
-      // {
-        //   // right by default
-        //   dir: k.vec2(1, 0),
-        // },
-      ]);
-      player.play('idle');
-      
-      k.action('crab', (s) => {
-        s.move(s.dir * SLICER_SPEED, 0)
-        // s.resolve()
-      })
-    
-      k.collides('crab', 'wall_r', (s) => {
-        s.dir = -s.dir
-      })
 
-     
-      
+      // {
+      //   // right by default
+      //   dir: k.vec2(1, 0),
+      // },
+    ]);
+    player.play('idle');
+
+    k.action('crab', (s) => {
+      s.move(s.dir * SLICER_SPEED, 0);
+      // s.resolve()
+    });
+
+    k.collides('crab', 'wall_r', (s) => {
+      s.dir = -s.dir;
+    });
+
     // const wizard = k.add([
     //   k.sprite('wiz', {
     //     animSpeed:0.2,
@@ -259,7 +328,6 @@ const Game = () => {
     //   })
     // ])
     // wizard.play('idle');
-
 
     // Movement Controls
     k.keyDown('left', () => {
@@ -280,10 +348,6 @@ const Game = () => {
       }
     });
 
-    
-
-  
-
     player.overlaps('next-level', () => {
       k.go('main', {
         level: (level + 1) % maps.length,
@@ -295,15 +359,15 @@ const Game = () => {
       k.go(
         'lose'
         // { score: scoreLabel.value}
-        );
-        music.pause()
+      );
+      music.pause();
       // window.value= scoreLabel.value
       // test(window.value)
     });
 
     player.overlaps('win', () => {
       k.go('win');
-      music.pause()
+      music.pause();
     });
   });
   // player.overlaps('victory', () => {

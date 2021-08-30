@@ -15,7 +15,7 @@ const LandingPage = () => {
     <Container>
       <Row>
         <header className="site-head text-center pt-4 mt-2 pb-4">
-          <h1>Peaceful Pursuit of Boris Bones</h1>
+          <h1>The Peaceful Pursuit of Boris Bones</h1>
         </header>
       </Row>
 
