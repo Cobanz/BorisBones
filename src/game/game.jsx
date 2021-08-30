@@ -22,7 +22,7 @@ import door_l from './assets/sprites/Door-L.png';
 import door_e from './assets/sprites/Door-Exit.png';
 import rock_1 from './assets/sprites/Rock1.png';
 import rock_2 from './assets/sprites/Rock2.png';
-import shelf from './assets/sprites/Shelf.png';
+import platform from './assets/sprites/Platform.png';
 import spike from './assets/sprites/Spike-b.png';
 import bolt from './assets/sprites/Bolt.png';
 import death from './assets/sprites/Skele-1.png';
@@ -86,7 +86,7 @@ const Game = () => {
   k.loadSprite('door_e', door_e);
   k.loadSprite('rock_1', rock_1);
   k.loadSprite('rock_2', rock_2);
-  k.loadSprite('shelf', shelf);
+  k.loadSprite('platform', platform);
   k.loadSprite('spike', spike);
   k.loadSprite('bolt', bolt);
   k.loadSprite('death', death);
@@ -124,7 +124,7 @@ const Game = () => {
         'xxqaaaaaaaaaaaaw',
         'xxg            r',
         'xlo            r',
-        'lssssssssss    r',
+        'xgsssssssss    r',
         'l              r',
         'l           piir',
         'l    ssssssssssr',
@@ -242,11 +242,11 @@ const Game = () => {
       n: [k.sprite('door_l'), 'door_l', 'win', { scale: 1 }],
       m: [k.sprite('door_e'), 'door_e', 'dangerous', { scale: 1 }],
       s: [
-        k.sprite('shelf'),
-        'shelf',
-        { scale: 0.5 },
+        k.sprite('platform'),
+        'platform',
+        { scale: 1 },
         k.solid(),
-        k.area(k.vec2(0, 0), k.vec2(124, 30)),
+        k.area(k.vec2(0, 0), k.vec2(62, 25)),
       ],
       i: [
         k.sprite('spike'),
