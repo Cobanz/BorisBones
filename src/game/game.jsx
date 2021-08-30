@@ -369,6 +369,31 @@ const Game = () => {
       player.play('stand');
     });
 
+
+    function restart() {
+      k.keyPress(["r"], () => {
+        k.go('main', {
+          level: (0),
+        });
+      });
+    } 
+
+    restart()
+
+    // player.collides("enemy", (e) => {
+    //   destroy(e);
+    //   destroy(player);
+    //   shake(120);
+    //   play("explosion");
+    //   music.detune(-1200);
+    //   makeExplosion(vec2(width() / 2, height() / 2), 12, 120, 30);
+    //   wait(1, () => {
+    //     music.stop();
+    //     go("main");
+    //   });
+    // });
+
+
     player.overlaps('next-level', () => {
       k.go('main', {
         level: (level + 1) % maps.length,
@@ -391,6 +416,13 @@ const Game = () => {
       music.pause();
     });
   });
+
+    
+
+
+
+
+
   // player.overlaps('victory', () => {
   //   k.go('win', { score: scoreLabel.value})
   //     window.value= scoreLabel.value
@@ -431,7 +463,9 @@ const Game = () => {
       //   k.pos(k.width() / 2, k.height() / 2),
       // ]);
     }
-  );
+    );
+
+    
   k.scene('win', () =>
     // { score }
     {
