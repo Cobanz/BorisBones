@@ -47,17 +47,15 @@ const Game = () => {
   // k.debug.inspect = true;
 
   /* Load Assets */
-  // k.loadRoot('/assets/');
-
   k.loadSprite('boris', boris, {
-    sliceX: 2,
+    sliceX: 3,
     sliceY: 3,
     anims: {
       idle: {
         from: 0,
         to: 4,
       },
-      run: { from: 1, to: 3 },
+      run: { from: 5, to: 7 },
     },
   });
 
@@ -332,20 +330,30 @@ const Game = () => {
     // Movement Controls
     k.keyDown('left', () => {
       player.move(-MOVE_SPEED, 0);
-      player.scale.x = 1;
-      player.play('run');
     });
 
     k.keyDown('right', () => {
       player.move(MOVE_SPEED, 0);
-      player.scale.x = -1;
-      player.play('run');
     });
 
-    k.keyPress('up', () => {
+    k.keyPress('left', () => {
+      player.play('run');
+      player.scale.x = 1;
+    });
+
+    k.keyPress('right', () => {
+      player.play('run');
+      player.scale.x = -1;
+    });
+
+    k.keyDown('up', () => {
       if (player.grounded()) {
         player.jump(JUMP_FORCE);
       }
+    });
+
+    k.keyRelease(['left', 'right'], () => {
+      player.play('idle');
     });
 
     player.overlaps('next-level', () => {
