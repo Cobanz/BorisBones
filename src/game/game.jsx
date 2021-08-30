@@ -26,6 +26,9 @@ import shelf from './assets/sprites/Shelf.png';
 import spike from './assets/sprites/Spike-b.png';
 import bolt from './assets/sprites/Bolt.png';
 import death from './assets/sprites/Skele-1.png';
+import crab from './assets/sprites/Crab.png';
+import sign_d from './assets/sprites/Sign-1.png'
+import sign_w from './assets/sprites/Sign-2.png'
 
 import song from './assets/sounds/8bitsong.mp3';
 
@@ -41,7 +44,7 @@ const Game = () => {
     canvas: document.getElementById('gamecontainer'),
   });
 
-  // k.debug.inspect = true;
+  k.debug.inspect = true;
 
   /* Load Assets */
   k.loadSprite('boris', boris, {
@@ -90,12 +93,17 @@ const Game = () => {
   k.loadSprite('spike', spike);
   k.loadSprite('bolt', bolt);
   k.loadSprite('death', death);
+  k.loadSprite('crab', crab);
+  k.loadSprite('sign_d', sign_d);
+  k.loadSprite('sign_w', sign_w);
+
 
   const music = new Audio(song);
 
   /* Define Constants */
   const MOVE_SPEED = 200;
   const JUMP_FORCE = 500;
+  const SLICER_SPEED = 100
 
   k.scene('main', ({ level, score }) => {
     music.play();
@@ -130,7 +138,7 @@ const Game = () => {
         'l    ssssssssssr',
         'l              r',
         'l        o     d',
-        'l oii   cbu     ',
+        'l^oii   cbu     ',
         'vbbbbbbbxxxbbbbt',
       ],
 
@@ -138,8 +146,8 @@ const Game = () => {
         'zzzzqwqaaaaaawxx',
         'zxxxgrl      fxx',
         'zxxx rl       fx',
-        'zxxx rl        r',
-        'xzgs rls   rl  r',
+        'zxxx rl e      r',
+        'xzgs rlss  rl  r',
         'xg   rl    rl  r',
         'l    rl   srl  r',
         'l    fg    rl  r',
@@ -154,11 +162,11 @@ const Game = () => {
         'l        rqag  r',
         'lssssss  rl    d',
         'l        rl     ',
-        'l        rl   sr',
-        'l        rl    r',
-        'l   ssssssss   r',
+        'l    e   rl   sr',
+        'l   sssssrl    r',
+        'l        sss   r',
         'l             sr',
-        'l              r',
+        'l ^      ^     r',
         'vbbbbbbbbbbbbbbt',
       ],
 
@@ -171,22 +179,8 @@ const Game = () => {
         'l              r',
         'l              r',
         'l              r',
-        'n              m',
+        'n    !    ?    m',
         '                ',
-        'vbbbbbbbbbbbbbbt',
-      ],
-
-      [
-        'qaaaaaaaaaaaaaaw',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
         'vbbbbbbbbbbbbbbt',
       ],
     ];
@@ -194,88 +188,40 @@ const Game = () => {
     const levelCfg = {
       width: 64,
       height: 64,
+      e: [k.sprite('wiz'), 'wiz', k.body(),{scale: 1},k.origin('center'), k.area(k.vec2(25, 65), k.vec2(25, 50)),],
       a: [k.sprite('roof'), 'roof', { scale: 1 }, k.solid()],
       q: [k.sprite('roof_l'), 'roof_l', { scale: 1 }, k.solid()],
       w: [k.sprite('roof_r'), 'roof_r', { scale: 1 }, k.solid()],
-      l: [k.sprite('wall_l'), 'wall_l', { scale: 1 }, k.solid()],
+      l: [k.sprite('wall_l'), 'wall_r', { scale: 1 }, k.solid()],
       r: [k.sprite('wall_r'), 'wall_r', { scale: 1 }, k.solid()],
       g: [k.sprite('wall_cld'), 'wall_cld', { scale: 1 }, k.solid()],
       f: [k.sprite('wall_crd'), 'wall_crd', { scale: 1 }, k.solid()],
-      b: [
-        k.sprite('floor'),
-        'floor',
-        { scale: 1 },
-        k.solid(),
-        k.area(k.vec2(0, 5), k.vec2(64, 64)),
-      ],
-      v: [
-        k.sprite('floor_l'),
-        'floor_l',
-        { scale: 1 },
-        k.solid(),
-        k.area(k.vec2(0, 5), k.vec2(64, 64)),
-      ],
-      t: [
-        k.sprite('floor_r'),
-        'floor_r',
-        { scale: 1 },
-        k.solid(),
-        k.area(k.vec2(0, 5), k.vec2(64, 64)),
-      ],
-      c: [
-        k.sprite('floor_cl'),
-        'floor_cl',
-        { scale: 1 },
-        k.solid(),
-        k.area(k.vec2(5, 5), k.vec2(64, 64)),
-      ],
-      u: [
-        k.sprite('floor_cr'),
-        'floor_cr',
-        { scale: 1 },
-        k.solid(),
-        k.area(k.vec2(5, 5), k.vec2(64, 64)),
-      ],
+      b: [k.sprite('floor'),'floor',{ scale: 1 },k.solid(),k.area(k.vec2(0, 5), k.vec2(64, 64)),],
+      v: [k.sprite('floor_l'), 'floor_l', { scale: 1 }, k.solid(), k.area(k.vec2(0, 5), k.vec2(64, 64)), ],
+      t: [k.sprite('floor_r'), 'floor_r', { scale: 1 }, k.solid(), k.area(k.vec2(0, 5), k.vec2(64, 64)), ],
+      c: [k.sprite('floor_cl'), 'floor_cl',{ scale: 1 }, k.solid(),k.area(k.vec2(5, 5), k.vec2(64, 64)), ],
+      u: [k.sprite('floor_cr'), 'floor_cr',{ scale: 1 }, k.solid(),k.area(k.vec2(5, 5), k.vec2(64, 64)), ],
       x: [k.sprite('black'), 'black', { scale: 1 }],
       z: [k.sprite('black'), 'black_s', { scale: 1 }, k.solid()],
       d: [k.sprite('door'), 'door', 'next-level', { scale: 1 }],
       n: [k.sprite('door_l'), 'door_l', 'win', { scale: 1 }],
       m: [k.sprite('door_e'), 'door_e', 'dangerous', { scale: 1 }],
-      s: [
-        k.sprite('shelf'),
-        'shelf',
-        { scale: 0.5 },
-        k.solid(),
-        k.area(k.vec2(0, 0), k.vec2(124, 30)),
-      ],
-      i: [
-        k.sprite('spike'),
-        'spike',
-        'dangerous',
-        { scale: 1 },
-        k.area(k.vec2(20, 60), k.vec2(45, 0)),
-      ],
-      o: [
-        k.sprite('rock_1'),
-        'rock_1',
-        { scale: 1 },
-        k.solid(),
-        k.area(k.vec2(0, 10), k.vec2(64, 64)),
-      ],
-      p: [
-        k.sprite('rock_2'),
-        'rock_2',
-        { scale: 1 },
-        k.solid(),
-        k.area(k.vec2(0, 25), k.vec2(64, 64)),
-      ],
+      s: [k.sprite('shelf'), 'shelf', { scale: 0.5 }, k.solid(), k.area(k.vec2(0, 0), k.vec2(124, 30)),],
+      i: [k.sprite('spike'), 'spike', 'dangerous', { scale: 1 }, k.area(k.vec2(20, 60), k.vec2(45, 0)),],
+      o: [k.sprite('rock_1'),'wall_r',{ scale: 1 }, k.solid(), k.area(k.vec2(0, 10), k.vec2(64, 64)),],
+      p: [k.sprite('rock_2'),'wall_r',{ scale: 1 }, k.solid(), k.area(k.vec2(0, 25), k.vec2(64, 64)),],
+      "!": [k.sprite('sign_d'), 'sign_d', {scale: 1}, ],
+      "?": [k.sprite('sign_w'), 'sign_w', {scale: 1}, ],
+
+      "^": [k.sprite('crab'), 'crab', 'dangerous', {dir:1, timer :0, scale:.75}, k.body() , k.area(k.vec2(0, 40), k.vec2(64, 64)), ],
+      
     };
-
+    
     k.addLevel(maps[level], levelCfg);
-
+    
     // adding level text and count
     k.add([k.text('Room ' + parseInt(level + 1)), k.pos(50, 50), k.scale(2)]);
-
+    
     /* Player Setup */
     const player = k.add([
       k.sprite('boris', {
@@ -287,11 +233,33 @@ const Game = () => {
       k.body(),
       k.area(k.vec2(-25, 65), k.vec2(25, -50)),
       k.scale(1),
+      
       // {
-      //   // right by default
-      //   dir: k.vec2(1, 0),
-      // },
-    ]);
+        //   // right by default
+        //   dir: k.vec2(1, 0),
+        // },
+      ]);
+      player.play('idle');
+      
+      k.action('crab', (s) => {
+        s.move(s.dir * SLICER_SPEED, 0)
+        // s.resolve()
+      })
+    
+      k.collides('crab', 'wall_r', (s) => {
+        s.dir = -s.dir
+      })
+
+     
+      
+    // const wizard = k.add([
+    //   k.sprite('wiz', {
+    //     animSpeed:0.2,
+    //     frame: 0,
+    //   })
+    // ])
+    // wizard.play('idle');
+
 
     // Movement Controls
     k.keyDown('left', () => {
@@ -312,45 +280,9 @@ const Game = () => {
       }
     });
 
-    k.keyRelease('left', () => {
-      player.play('idle');
-    });
+    
 
-    k.keyRelease('right', () => {
-      player.play('idle');
-    });
-
-    // const scoreLabel = k.add([
-    //   k.text(score),
-    //   k.pos(10, 10),
-    //   k.layer('ui'),
-    //   {
-    //     value: score,
-    //   },
-    //   k.scale(2),
-    // ]);
-
-    // k.add([
-    //   k.text('level ' + parseInt(level + 1)),
-    //   k.pos(400, 485),
-    //   k.scale(2),
-    // ]);
-
-    // // jump with space
-    // k.keyPress("space", () => {
-    // 	// these 2 functions are provided by body() component
-    // 	if (player.grounded()) {
-    // 		player.jump(JUMP_FORCE);
-    // 	}
-    // });
-
-    // k.keyDown("left", () => {
-    // 	player.move(-MOVE_SPEED, 0);
-    // });
-
-    // k.keyDown("right", () => {
-    // 	player.move(MOVE_SPEED, 0);
-    // });
+  
 
     player.overlaps('next-level', () => {
       k.go('main', {
@@ -363,20 +295,21 @@ const Game = () => {
       k.go(
         'lose'
         // { score: scoreLabel.value}
-      );
+        );
+        music.pause()
       // window.value= scoreLabel.value
       // test(window.value)
-      // audio.pause()
     });
+
     player.overlaps('win', () => {
       k.go('win');
+      music.pause()
     });
   });
   // player.overlaps('victory', () => {
   //   k.go('win', { score: scoreLabel.value})
   //     window.value= scoreLabel.value
   //     test(window.value)
-  //     audio.pause()
   // })
 
   // k.scene('win', ({ score }) => {
