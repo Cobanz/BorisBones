@@ -47,6 +47,8 @@ const Game = () => {
   // k.debug.inspect = true;
 
   /* Load Assets */
+  // k.loadRoot('/assets/');
+
   k.loadSprite('boris', boris, {
     sliceX: 2,
     sliceY: 3,
@@ -58,6 +60,7 @@ const Game = () => {
       run: { from: 1, to: 3 },
     },
   });
+
   k.loadSprite('wiz', wiz, {
     sliceX: 3,
     sliceY: 4,
@@ -69,6 +72,7 @@ const Game = () => {
       attack: { from: 6, to: 11 },
     },
   });
+
   k.loadSprite('background', background);
   k.loadSprite('roof', roof);
   k.loadSprite('roof_l', roof_l);
@@ -183,6 +187,7 @@ const Game = () => {
         'vbbbbbbbbbbbbbbt',
       ],
     ];
+
     // k.origin('center')
     const levelCfg = {
       width: 64,
