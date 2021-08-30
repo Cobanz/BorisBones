@@ -44,7 +44,7 @@ const Game = () => {
     canvas: document.getElementById('gamecontainer'),
   });
 
-  k.debug.inspect = true;
+  // k.debug.inspect = true;
 
   /* Load Assets */
   k.loadSprite('boris', boris, {
