@@ -29,6 +29,7 @@ import death from './assets/sprites/Skele-1.png';
 import crab from './assets/sprites/Crab.png';
 import sign_d from './assets/sprites/Sign-1.png';
 import sign_w from './assets/sprites/Sign-2.png';
+import end from './assets/sprites/End.png';
 
 import song from './assets/sounds/8bitsong.mp3';
 
@@ -100,6 +101,17 @@ const Game = () => {
   k.loadSprite('crab', crab);
   k.loadSprite('sign_d', sign_d);
   k.loadSprite('sign_w', sign_w);
+  k.loadSprite('end', end, {
+    sliceX: 2,
+    sliceY: 2,
+    anims: {
+      win: {
+        from: 0,
+        to: 2,
+      },
+      lose: { from: 3, to: 3 },
+    },
+  });
 
   const music = new Audio(song);
 
@@ -127,61 +139,61 @@ const Game = () => {
     k.add([k.sprite('background'), k.layer('bg'), { scale: 0.5 }]);
 
     const maps = [
-      [
-        'xxqaaaaaaaaaaaaw',
-        'xxg            r',
-        'xl             d',
-        'xg              ',
-        'l             sr',
-        'l            s r',
-        'l           s  r',
-        'l          s   r',
-        'l         s    r',
-        'lo   pcbui     r',
-        'vbbbbbxxxbbbbbbt',
-      ],
+      // [
+      //   'xxqaaaaaaaaaaaaw',
+      //   'xxg            r',
+      //   'xl             d',
+      //   'xg              ',
+      //   'l             sr',
+      //   'l            s r',
+      //   'l           s  r',
+      //   'l          s   r',
+      //   'l         s    r',
+      //   'lo   pcbui     r',
+      //   'vbbbbbxxxbbbbbbt',
+      // ],
 
-      [
-        'xxqaaaaaaaaaaaaw',
-        'xxg            r',
-        'xlo            r',
-        'xgsssssssss    r',
-        'l              r',
-        'l           piir',
-        'l    ssssssssssr',
-        'l              r',
-        'l        o     d',
-        'l^oii   cbu     ',
-        'vbbbbbbbxxxbbbbt',
-      ],
+      // [
+      //   'xxqaaaaaaaaaaaaw',
+      //   'xxg            r',
+      //   'xlo            r',
+      //   'xgsssssssss    r',
+      //   'l              r',
+      //   'l           piir',
+      //   'l    ssssssssssr',
+      //   'l              r',
+      //   'l        o     d',
+      //   'l^oii   cbu     ',
+      //   'vbbbbbbbxxxbbbbt',
+      // ],
 
-      [
-        'zzzzqwqaaaaaawxx',
-        'zxxxgrl      fxx',
-        'zxxx rl e     fx',
-        'zxxx rlss      r',
-        'xzgs rl    rl  r',
-        'xg   rl    rl  r',
-        'l    rl   srl  r',
-        'l    fgs   rl  r',
-        'l          rl  d',
-        'vbu       srl   ',
-        'xxxbbbbbbbbbbbbt',
-      ],
+      // [
+      //   'zzzzqwqaaaaaawxx',
+      //   'zxxxgrl      fxx',
+      //   'zxxx rl e     fx',
+      //   'zxxx rlss      r',
+      //   'xzgs rl    rl  r',
+      //   'xg   rl    rl  r',
+      //   'l    rl   srl  r',
+      //   'l    fgs   rl  r',
+      //   'l          rl  d',
+      //   'vbu       srl   ',
+      //   'xxxbbbbbbbbbbbbt',
+      // ],
 
-      [
-        'qaaaaaaawxxxxxxx',
-        'l       fxxxqaaw',
-        'l        rqag  r',
-        'lssssss  rl    d',
-        'l        rl     ',
-        'l    e   rl   sr',
-        'l   sssssrl    r',
-        'l        sss   r',
-        'l             sr',
-        'l ^      ^     r',
-        'vbbbbbbbbbbbbbbt',
-      ],
+      // [
+      //   'qaaaaaaawxxxxxxx',
+      //   'l       fxxxqaaw',
+      //   'l        rqag  r',
+      //   'lssssss  rl    d',
+      //   'l        rl     ',
+      //   'l    e   rl   sr',
+      //   'l   sssssrl    r',
+      //   'l        sss   r',
+      //   'l             sr',
+      //   'l ^      ^     r',
+      //   'vbbbbbbbbbbbbbbt',
+      // ],
 
       [
         'xqaaaaaaaaaaawxx',
@@ -416,7 +428,7 @@ const Game = () => {
     k.add([
       k.text('YOU DIED!', 40),
       origin('center'),
-      k.pos(k.width() / 2, k.height() / 3),
+      k.pos(k.width() / 2, k.height() / 4.2),
       k.color(1, 0, 0),
     ]);
 
@@ -427,12 +439,14 @@ const Game = () => {
       k.color(1, 1, 1),
     ]);
 
-    k.add([
-      k.sprite('death'),
+    const end = k.add([
+      k.sprite('end'),
       'death',
       origin('center'),
-      k.pos(k.width() / 2, k.height() / 1.75),
+      k.pos(k.width() / 2, k.height() / 2),
     ]);
+
+    end.play('lose');
 
     restart();
   }); // end scene lose
@@ -441,7 +455,7 @@ const Game = () => {
     k.add([
       k.text('YOU ESCAPED!', 40),
       origin('center'),
-      k.pos(k.width() / 2, k.height() / 3),
+      k.pos(k.width() / 2, k.height() / 4.2),
       k.color(1, 0, 0),
     ]);
 
@@ -452,12 +466,14 @@ const Game = () => {
       k.color(1, 1, 1),
     ]);
 
-    k.add([
-      k.sprite('death'),
+    const end = k.add([
+      k.sprite('end', { animSpeed: 0.2 }),
       'death',
       origin('center'),
-      k.pos(k.width() / 2, k.height() / 1.75),
+      k.pos(k.width() / 2, k.height() / 2),
     ]);
+
+    end.play('win');
 
     restart();
   }); // end scene win
