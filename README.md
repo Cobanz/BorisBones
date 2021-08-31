@@ -53,9 +53,9 @@ Your goal is to escape the dungeon unscathed so Boris can live out his new, viol
 
 You goal is to make it out of the dungeon while avoiding getting hit!
 
-Left/Right - Moves Boris around the room.
-Up - Hop over obsticals and enemies.
-R - Restart from the beginning.
+* Left/Right - Moves Boris around the room.
+* Up - Hop over obsticals and enemies.
+* R - Restart from the beginning.
 
 ## License
 
