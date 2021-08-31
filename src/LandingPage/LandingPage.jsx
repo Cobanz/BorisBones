@@ -29,7 +29,7 @@ const LandingPage = () => {
             <Card.Title>Hail, Adventurer!</Card.Title>
             <Card.Text>
               <p>
-                Master Skeletor has ruled over this decrepit place for 1,000
+                Master Skeletor has ruled over this decrepit dungeon for 1,000
                 years and nary a prisoner has escaped. The evil mastermind has
                 ruled with a bony fist, supported by his skeletal minions.
                 Adventurers often arrive to seek fame in challenging the lord of
