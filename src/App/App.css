@@ -1,3 +1,7 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+
 body {
   background-image: url('/src/game/assets/sprites/Background.png');
   background-position: center;
@@ -11,6 +15,7 @@ h2,
 h3 {
   color: #fff;
   text-align: center;
+  font-family: 'Roboto', sans-serif;
 }
 ul {
   padding: 0px 0px 0px 15px;
