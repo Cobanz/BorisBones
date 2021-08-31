@@ -185,7 +185,7 @@ const Game = () => {
         'xqaaaaaaaaaaawxx',
         'xg           rxx',
         'l            rxx',
-        'xbbg         fxx',
+        'xvbg         fxx',
         'xxg           fx',
         'xg             r',
         'l   sss        r',
@@ -339,8 +339,12 @@ const Game = () => {
     player.play('idle');
 
     player.on('grounded', () => {
-      if (k.keyIsDown('right') || k.keyIsDown('left')) {
+      if (k.keyIsDown('left')) {
         player.play('run');
+        player.scale.x = 1;
+      } else if (k.keyIsDown('right')) {
+        player.play('run');
+        player.scale.x = -1;
       } else {
         player.play('idle');
       }
