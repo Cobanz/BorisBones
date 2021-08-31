@@ -238,12 +238,12 @@ const Game = () => {
         ];
       },
       a: [k.sprite('roof'), 'roof', { scale: 1 }, k.solid()],
-      q: [k.sprite('roof_l'), 'roof_l', { scale: 1 }, k.solid()],
-      w: [k.sprite('roof_r'), 'roof_r', { scale: 1 }, k.solid()],
-      l: [k.sprite('wall_l'), 'wall_r', { scale: 1 }, k.solid()],
-      r: [k.sprite('wall_r'), 'wall_r', { scale: 1 }, k.solid()],
-      g: [k.sprite('wall_cld'), 'wall_cld', { scale: 1 }, k.solid()],
-      f: [k.sprite('wall_crd'), 'wall_crd', { scale: 1 }, k.solid()],
+      q: [k.sprite('roof_l'), 'roof', { scale: 1 }, k.solid()],
+      w: [k.sprite('roof_r'), 'roof', { scale: 1 }, k.solid()],
+      l: [k.sprite('wall_l'), 'wall', { scale: 1 }, k.solid()],
+      r: [k.sprite('wall_r'), 'wall', { scale: 1 }, k.solid()],
+      g: [k.sprite('wall_cld'), 'wall', { scale: 1 }, k.solid()],
+      f: [k.sprite('wall_crd'), 'wall', { scale: 1 }, k.solid()],
       b: [
         k.sprite('floor'),
         'floor',
@@ -253,28 +253,28 @@ const Game = () => {
       ],
       v: [
         k.sprite('floor_l'),
-        'floor_l',
+        'floor',
         { scale: 1 },
         k.solid(),
         k.area(k.vec2(0, 5), k.vec2(64, 64)),
       ],
       t: [
         k.sprite('floor_r'),
-        'floor_r',
+        'floor',
         { scale: 1 },
         k.solid(),
         k.area(k.vec2(0, 5), k.vec2(64, 64)),
       ],
       c: [
         k.sprite('floor_cl'),
-        'floor_cl',
+        'floor',
         { scale: 1 },
         k.solid(),
         k.area(k.vec2(5, 5), k.vec2(64, 64)),
       ],
       u: [
         k.sprite('floor_cr'),
-        'floor_cr',
+        'wall',
         { scale: 1 },
         k.solid(),
         k.area(k.vec2(5, 5), k.vec2(64, 64)),
@@ -300,14 +300,14 @@ const Game = () => {
       ],
       o: [
         k.sprite('rock_1'),
-        'wall_r',
+        'wall',
         { scale: 1 },
         k.solid(),
         k.area(k.vec2(0, 10), k.vec2(64, 64)),
       ],
       p: [
         k.sprite('rock_2'),
-        'wall_r',
+        'wall',
         { scale: 1 },
         k.solid(),
         k.area(k.vec2(0, 25), k.vec2(64, 64)),
@@ -421,14 +421,11 @@ const Game = () => {
           ]);
 
           bolt.play('fire');
-          // k.action('bolt', (b) => {
-          //   b.move(100, 0);
 
-          //   // removes the bolt when its out of the scene
-          //   if (b.pos.y < 0) {
-          //     k.destroy(b);
-          //   }
-          // });
+          bolt.collides('wall', () => {
+            // remove both the bullet and the thing bullet hit with tag "killable" from scene
+            k.destroy(bolt);
+          });
         },
       };
     }
