@@ -74,6 +74,18 @@ const Game = () => {
     },
   });
 
+  k.loadSprite('bolt', bolt, {
+    sliceX: 4,
+    sliceY: 5,
+    anims: {
+      summon: {
+        from: 0,
+        to: 5,
+      },
+      fire: { from: 6, to: 17 },
+    },
+  });
+
   k.loadSprite('background', background);
   k.loadSprite('roof', roof);
   k.loadSprite('roof_l', roof_l);
@@ -96,7 +108,6 @@ const Game = () => {
   k.loadSprite('rock_2', rock_2);
   k.loadSprite('platform', platform);
   k.loadSprite('spike', spike);
-  k.loadSprite('bolt', bolt);
   k.loadSprite('death', death);
   k.loadSprite('crab', crab);
   k.loadSprite('sign_d', sign_d);
@@ -119,6 +130,12 @@ const Game = () => {
   const MOVE_SPEED = 200;
   const JUMP_FORCE = 500;
   const SLICER_SPEED = 100;
+  const BOLT_SPEED = 300;
+  const directions = {
+    LEFT: 'left',
+    RIGHT: 'right',
+  };
+  let current_direction = directions.RIGHT;
 
   // Triggers game restart
   function restart() {
@@ -130,7 +147,7 @@ const Game = () => {
   } // end restart
 
   k.scene('main', ({ level, score }) => {
-    music.play();
+    // music.play();
     restart();
 
     k.layers(['bg', 'obj', 'ui'], 'obj');
@@ -148,7 +165,7 @@ const Game = () => {
         'l            s r',
         'l           s  r',
         'l          s   r',
-        'l         s    r',
+        'l      e  s    r',
         'lo   pcbui     r',
         'vbbbbbxxxbbbbbbt',
       ],
@@ -214,14 +231,16 @@ const Game = () => {
     const levelCfg = {
       width: 64,
       height: 64,
-      e: [
-        k.sprite('wiz'),
-        'wiz',
-        k.body(),
-        { scale: 1 },
-        k.origin('center'),
-        k.area(k.vec2(25, 65), k.vec2(25, 50)),
-      ],
+      e: () => {
+        return [
+          k.sprite('wiz'),
+          'wiz',
+          k.body(),
+          { scale: 1 },
+          k.origin('center'),
+          k.area(k.vec2(25, 65), k.vec2(25, 50)),
+        ];
+      },
       a: [k.sprite('roof'), 'roof', { scale: 1 }, k.solid()],
       q: [k.sprite('roof_l'), 'roof_l', { scale: 1 }, k.solid()],
       w: [k.sprite('roof_r'), 'roof_r', { scale: 1 }, k.solid()],
@@ -398,13 +417,56 @@ const Game = () => {
     //     animSpeed: 0.2,
     //     frame: 0,
     //   }),
+    //   k.pos(50, 50),
     //   'wizard',
     // ]);
-    // k.destroy(wizard);
+
+    function spawnBolt(boltpos) {
+      k.add([k.sprite('bolt'), k.pos(boltpos), k.area(), 'bolt']);
+
+      // k.wait(2, () => {
+      //   if (k.exists('wiz')) {
+      //     spawnBolt(k.pos('wiz'));
+      //   }
+      // });
+      // if (current_direction == directions.LEFT) {
+      //   boltpos = boltpos.sub(10, 0);
+      // } else if (current_direction == directions.RIGHT) {
+      //   boltpos = boltpos.add(10, 0);
+      // }
+    }
+
+    // this will target the wizard in map not spawned one
+    k.action('wiz', (wizard) => {
+      wizard.play('idle');
+      // spawnBolt(wizard.pos);
+
+      k.loop(20, () => {
+        spawnBolt(wizard.pos);
+      });
+    });
+
+    // wizard.action(() => {
+    //   k.wait(2, spawnBolt(wizard.pos));
+    // });
 
     // if (wizard.exists()) {
     //   wizard.play('idle');
+    //   spawnBolt(wizard.pos);
     // }
+
+    // if (wizbolt.exists()) {
+    //   k.wait(2, spawnBolt(wizard.pos));
+    // }
+
+    k.action('bolt', (b) => {
+      b.move(BOLT_SPEED, 0);
+
+      // removes the bolt when its out of the scene
+      if (b.pos.y < 0) {
+        k.destroy(b);
+      }
+    });
 
     /* Scene Changes */
     player.overlaps('next-level', () => {
