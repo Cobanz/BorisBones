@@ -411,25 +411,24 @@ const Game = () => {
     function wizAttack() {
       return {
         require: [],
-        spawnBolt(boltpos) {
+        spawnBolt(wizpos) {
           const bolt = k.add([
             k.sprite('bolt'),
-            k.pos(boltpos),
+            k.pos(wizpos),
             k.origin('center'),
             k.area(k.vec2(35, 23), k.vec2(60, 40)),
             'bolt',
           ]);
 
           bolt.play('fire');
+          // k.action('bolt', (b) => {
+          //   b.move(100, 0);
 
-          k.action('bolt', (b) => {
-            b.move(BOLT_SPEED, 0);
-
-            // removes the bolt when its out of the scene
-            if (b.pos.y < 0) {
-              k.destroy(b);
-            }
-          });
+          //   // removes the bolt when its out of the scene
+          //   if (b.pos.y < 0) {
+          //     k.destroy(b);
+          //   }
+          // });
         },
       };
     }
@@ -447,14 +446,22 @@ const Game = () => {
         k.body(),
         { scale: 1 },
         k.area(k.vec2(25, 65), k.vec2(25, 50)),
-        // spawnBolt(spr.pos),
         wizAttack(),
       ]);
 
       wizard.play('idle');
 
-      k.loop(3, () => {
+      k.loop(5, () => {
         wizard.spawnBolt(wizard.pos);
+      });
+
+      k.action('bolt', (b) => {
+        b.move(100, 0);
+
+        // removes the bolt when its out of the scene
+        if (b.pos.y < 0) {
+          k.destroy(b);
+        }
       });
     });
 
