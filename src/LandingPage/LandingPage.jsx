@@ -6,12 +6,11 @@ import bem from './images/bem.jpeg';
 import borisPic from './images/BorisPic.png';
 import bp from './images/bootstrap.png';
 import jt from './images/js1.png';
-import km from './images/km1.jpg'
-import rt from './images/react.png'
+import km from './images/km1.jpg';
+import rt from './images/react.png';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Card, Container, Row, Col, Image } from 'react-bootstrap';
-
 
 const LandingPage = () => {
   const history = useHistory();
@@ -67,32 +66,32 @@ const LandingPage = () => {
       <Row className="justify-content-around m-3">
         <h2>Technologies Used</h2>
         <Col xs={8}>
-          <Card  className="p-2">
+          <Card className="p-2">
             {/* Add icons */}
             <Container className="text-center">
-                <Row>
-                  <Col xs={1} md={3}>
+              <Row>
+                <Col xs={1} md={3}>
                   <Card.Link href="https://reactjs.org/">
-                    <Image  src={rt} style={{width: '40px'}} rounded />
-                    </Card.Link>
-                  </Col>
-                  <Col xs={1} md={3}>
-                    <Card.Link href="https://www.javascript.com/">
-                    <Image  src={jt} style={{width: '40px'}} rounded />
-                    </Card.Link>
-                  </Col>
-                  <Col xs={1} md={3}>
+                    <Image src={rt} style={{ width: '40px' }} rounded />
+                  </Card.Link>
+                </Col>
+                <Col xs={1} md={3}>
+                  <Card.Link href="https://www.javascript.com/">
+                    <Image src={jt} style={{ width: '40px' }} rounded />
+                  </Card.Link>
+                </Col>
+                <Col xs={1} md={3}>
                   <Card.Link href="https://getbootstrap.com/">
-                    <Image  src={bp} style={{width: '40px'}} rounded />
-                    </Card.Link>
-                  </Col>
-                  <Col xs={1} md={3}>
+                    <Image src={bp} style={{ width: '40px' }} rounded />
+                  </Card.Link>
+                </Col>
+                <Col xs={1} md={3}>
                   <Card.Link href="https://kaboom.org/">
-                    <Image  src={km} style={{width: '40px'}} rounded />
-                    </Card.Link>
-                  </Col>
-                </Row>
-              </Container>
+                    <Image src={km} style={{ width: '40px' }} rounded />
+                  </Card.Link>
+                </Col>
+              </Row>
+            </Container>
           </Card>
         </Col>
       </Row>

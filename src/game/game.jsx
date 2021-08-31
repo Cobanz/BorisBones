@@ -109,12 +109,12 @@ const Game = () => {
   const SLICER_SPEED = 100;
 
   function restart() {
-    k.keyPress(["r"], () => {
+    k.keyPress(['r'], () => {
       k.go('main', {
-        level: (0),
+        level: 0,
       });
     });
-  } 
+  }
 
   k.scene('main', ({ level, score }) => {
     music.play();
@@ -182,15 +182,15 @@ const Game = () => {
       ],
 
       [
-        'qaaaaaaaaaaaaaaw',
+        'xqaaaaaaaaaaawxx',
+        'xg           rxx',
+        'l            rxx',
+        'xvbg         fxx',
+        'xxg           fx',
+        'xg             r',
+        'l   sss        r',
         'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'n    !    ?    m',
+        'n     !  ?     m',
         '                ',
         'vbbbbbbbbbbbbbbt',
       ],
@@ -318,7 +318,6 @@ const Game = () => {
       //   dir: k.vec2(1, 0),
       // },
     ]);
-    player.play('idle');
 
     k.action('crab', (s) => {
       s.move(s.dir * SLICER_SPEED, 0);
@@ -337,7 +336,22 @@ const Game = () => {
     // ])
     // wizard.play('idle');
 
-    // Movement Controls
+    // Sets up player animation defaults
+    player.play('idle');
+
+    player.on('grounded', () => {
+      if (k.keyIsDown('left')) {
+        player.play('run');
+        player.scale.x = 1;
+      } else if (k.keyIsDown('right')) {
+        player.play('run');
+        player.scale.x = -1;
+      } else {
+        player.play('idle');
+      }
+    });
+
+    // Controls
     k.keyDown('left', () => {
       player.move(-MOVE_SPEED, 0);
     });
@@ -360,6 +374,12 @@ const Game = () => {
       player.scale.x = -1;
     });
 
+    k.keyRelease(['left', 'right'], () => {
+      if (player.grounded()) {
+        player.play('idle');
+      }
+    });
+
     k.keyDown('up', () => {
       if (player.grounded()) {
         player.jump(JUMP_FORCE);
@@ -367,20 +387,7 @@ const Game = () => {
       }
     });
 
-    k.keyRelease(['left', 'right'], () => {
-      if (player.grounded()) {
-        player.play('idle');
-      }
-    });
-
-    k.keyRelease(['up'], () => {
-      player.play('stand');
-    });
-
-
-
-
-    restart()
+    restart();
 
     // player.collides("enemy", (e) => {
     //   destroy(e);
@@ -394,7 +401,6 @@ const Game = () => {
     //     go("main");
     //   });
     // });
-
 
     player.overlaps('next-level', () => {
       k.go('main', {
@@ -419,12 +425,6 @@ const Game = () => {
     });
   });
 
-    
-
-
-
-
-
   // player.overlaps('victory', () => {
   //   k.go('win', { score: scoreLabel.value})
   //     window.value= scoreLabel.value
@@ -448,50 +448,54 @@ const Game = () => {
     // { score }
     {
       k.add([
-        k.text('YOU DIED!', 32),
+        k.text('YOU DIED!', 40),
         origin('center'),
         k.pos(k.width() / 2, k.height() / 3),
         k.color(1, 0, 0),
       ]);
+
+      k.add([
+        k.text('Press R to restart', 20),
+        origin('center'),
+        k.pos(k.width() / 2, k.height() / 1.3),
+        k.color(1, 1, 1),
+      ]);
+
       k.add([
         k.sprite('death'),
         'death',
         origin('center'),
         k.pos(k.width() / 2, k.height() / 1.75),
       ]);
-      // k.add([
-      //   k.text(score, 32),
-      //   origin('center'),
-      //   k.pos(k.width() / 2, k.height() / 2),
-      // ]);
-      restart()
-    }
-    );
 
-
-  k.scene('win', () =>
-    // { score }
-    {
-      k.add([
-        k.text('YOU ESCAPED!', 32),
-        origin('center'),
-        k.pos(k.width() / 2, k.height() / 3),
-        k.color(1, 0, 0),
-      ]);
-      k.add([
-        k.sprite('death'),
-        'death',
-        origin('center'),
-        k.pos(k.width() / 2, k.height() / 1.75),
-      ]);
-      // k.add([
-      //   k.text(score, 32),
-      //   origin('center'),
-      //   k.pos(k.width() / 2, k.height() / 2),
-      // ]);
-      restart()
+      restart();
     }
-    );
+  );
+
+  k.scene('win', () => {
+    k.add([
+      k.text('YOU ESCAPED!', 40),
+      origin('center'),
+      k.pos(k.width() / 2, k.height() / 3),
+      k.color(1, 0, 0),
+    ]);
+
+    k.add([
+      k.text('Press R to restart', 20),
+      origin('center'),
+      k.pos(k.width() / 2, k.height() / 1.3),
+      k.color(1, 1, 1),
+    ]);
+
+    k.add([
+      k.sprite('death'),
+      'death',
+      origin('center'),
+      k.pos(k.width() / 2, k.height() / 1.75),
+    ]);
+
+    restart();
+  });
 
   // Triggers start of game process
   k.start('main', { level: 0, score: 0 });
