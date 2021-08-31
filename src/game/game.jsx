@@ -182,15 +182,15 @@ const Game = () => {
       ],
 
       [
-        'qaaaaaaaaaaaaaaw',
+        'xqaaaaaaaaaaawxx',
+        'xg           rxx',
+        'l            rxx',
+        'xbbg         fxx',
+        'xxg           fx',
+        'xg             r',
+        'l   sss        r',
         'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'n    !    ?    m',
+        'n     !  ?     m',
         '                ',
         'vbbbbbbbbbbbbbbt',
       ],
@@ -443,49 +443,54 @@ const Game = () => {
     // { score }
     {
       k.add([
-        k.text('YOU DIED!', 32),
+        k.text('YOU DIED!', 40),
         origin('center'),
         k.pos(k.width() / 2, k.height() / 3),
         k.color(1, 0, 0),
       ]);
+
+      k.add([
+        k.text('Press R to restart', 20),
+        origin('center'),
+        k.pos(k.width() / 2, k.height() / 1.3),
+        k.color(1, 1, 1),
+      ]);
+
       k.add([
         k.sprite('death'),
         'death',
         origin('center'),
         k.pos(k.width() / 2, k.height() / 1.75),
       ]);
-      // k.add([
-      //   k.text(score, 32),
-      //   origin('center'),
-      //   k.pos(k.width() / 2, k.height() / 2),
-      // ]);
+
       restart();
     }
   );
 
-  k.scene('win', () =>
-    // { score }
-    {
-      k.add([
-        k.text('YOU ESCAPED!', 32),
-        origin('center'),
-        k.pos(k.width() / 2, k.height() / 3),
-        k.color(1, 0, 0),
-      ]);
-      k.add([
-        k.sprite('death'),
-        'death',
-        origin('center'),
-        k.pos(k.width() / 2, k.height() / 1.75),
-      ]);
-      // k.add([
-      //   k.text(score, 32),
-      //   origin('center'),
-      //   k.pos(k.width() / 2, k.height() / 2),
-      // ]);
-      restart();
-    }
-  );
+  k.scene('win', () => {
+    k.add([
+      k.text('YOU ESCAPED!', 40),
+      origin('center'),
+      k.pos(k.width() / 2, k.height() / 3),
+      k.color(1, 0, 0),
+    ]);
+
+    k.add([
+      k.text('Press R to restart', 20),
+      origin('center'),
+      k.pos(k.width() / 2, k.height() / 1.3),
+      k.color(1, 1, 1),
+    ]);
+
+    k.add([
+      k.sprite('death'),
+      'death',
+      origin('center'),
+      k.pos(k.width() / 2, k.height() / 1.75),
+    ]);
+
+    restart();
+  });
 
   // Triggers start of game process
   k.start('main', { level: 0, score: 0 });
