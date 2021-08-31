@@ -15,7 +15,7 @@ const ArcadePage = () => {
   }, []);
 
   return (
-    <Container fluid>
+    <Container className="arcade-page" fluid>
       <Button
         variant="danger"
         size="md"
