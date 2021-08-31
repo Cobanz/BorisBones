@@ -142,7 +142,7 @@ const Game = () => {
   } // end restart
 
   k.scene('main', ({ level, score }) => {
-    // music.play();
+    music.play();
     restart();
 
     k.layers(['bg', 'obj', 'ui'], 'obj');
@@ -160,7 +160,7 @@ const Game = () => {
         'l            s r',
         'l           s  r',
         'l          s   r',
-        'l      e  s    r',
+        'l         s    r',
         'lo   pcbui     r',
         'vbbbbbxxxbbbbbbt',
       ],
@@ -226,17 +226,7 @@ const Game = () => {
     const levelCfg = {
       width: 64,
       height: 64,
-      e: () => {
-        return [
-          // k.sprite('wiz'),
-          'wizspot',
-          // k.body(),
-          // { scale: 1 },
-          // k.origin('center'),
-          // k.area(k.vec2(25, 65), k.vec2(25, 50)),
-          // spawnBolt(),
-        ];
-      },
+      e: ['wizspot'],
       a: [k.sprite('roof'), 'roof', { scale: 1 }, k.solid()],
       q: [k.sprite('roof_l'), 'roof', { scale: 1 }, k.solid()],
       w: [k.sprite('roof_r'), 'roof', { scale: 1 }, k.solid()],
@@ -404,10 +394,11 @@ const Game = () => {
       s.move(s.dir * SLICER_SPEED, 0);
     });
 
-    k.collides('crab', 'wall_r', (s) => {
+    k.collides('crab', 'wall', (s) => {
       s.dir = -s.dir;
     });
 
+    // Custom behaviors for the wizard
     function wizAttack() {
       return {
         require: [],
@@ -417,7 +408,9 @@ const Game = () => {
             k.pos(wiz.pos),
             k.origin('center'),
             k.area(k.vec2(35, 23), k.vec2(60, 40)),
+            k.scale(wiz.scale),
             'bolt',
+            'dangerous',
           ]);
 
           // Plays summon animation then changes to fire
@@ -447,25 +440,37 @@ const Game = () => {
         k.origin('center'),
         'wizard',
         k.body(),
-        { scale: 1 },
+        k.scale(1),
         k.area(k.vec2(25, 65), k.vec2(25, 50)),
         wizAttack(),
       ]);
 
       wizard.play('idle');
 
-      k.loop(5, () => {
-        wizard.spawnBolt(wizard);
+      // Make wizard follow the players movement
+      wizard.action(() => {
+        if (player.pos.x < wizard.pos.x) {
+          wizard.scale.x = -1;
+        } else if (player.pos.x > wizard.pos.x) {
+          wizard.scale.x = 1;
+        }
+      });
+
+      // Timing for firing bolts
+      k.wait(1, () => {
+        k.loop(3.5, () => {
+          wizard.spawnBolt(wizard);
+        });
       });
 
       // Makes bolt move across scene. Cannot be in bolt function
       k.action('bolt', (b) => {
         if (b.curAnim() === 'fire') {
-          b.move(100, 0);
+          b.move(BOLT_SPEED * b.scale.x, 0);
         }
 
         // Saftety check to destroy bolt if its outside of the scene
-        if (b.pos.y < 0) {
+        if (900 < b.pos.y < 0) {
           k.destroy(b);
         }
       });
