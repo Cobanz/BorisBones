@@ -411,19 +411,25 @@ const Game = () => {
     function wizAttack() {
       return {
         require: [],
-        spawnBolt(wizpos) {
+        spawnBolt(wiz) {
           const bolt = k.add([
             k.sprite('bolt'),
-            k.pos(wizpos),
+            k.pos(wiz.pos),
             k.origin('center'),
             k.area(k.vec2(35, 23), k.vec2(60, 40)),
             'bolt',
           ]);
 
-          bolt.play('fire');
+          // Plays summon animation then changes to fire
+          wiz.play('attack');
+          bolt.play('summon');
+          k.wait(bolt.animSpeed * 6, () => {
+            bolt.play('fire');
+            wiz.play('idle');
+          });
 
+          // When the bolt hits a wall, destroy it
           bolt.collides('wall', () => {
-            // remove both the bullet and the thing bullet hit with tag "killable" from scene
             k.destroy(bolt);
           });
         },
@@ -449,13 +455,16 @@ const Game = () => {
       wizard.play('idle');
 
       k.loop(5, () => {
-        wizard.spawnBolt(wizard.pos);
+        wizard.spawnBolt(wizard);
       });
 
+      // Makes bolt move across scene. Cannot be in bolt function
       k.action('bolt', (b) => {
-        b.move(100, 0);
+        if (b.curAnim() === 'fire') {
+          b.move(100, 0);
+        }
 
-        // removes the bolt when its out of the scene
+        // Saftety check to destroy bolt if its outside of the scene
         if (b.pos.y < 0) {
           k.destroy(b);
         }
