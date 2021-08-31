@@ -5,8 +5,8 @@ import vada from './images/vada.jpeg';
 import bem from './images/bem.jpeg';
 import borisPic from './images/BorisPic.png';
 import bp from './images/bootstrap.png';
-import jt from './images/js.png';
-import km from './images/kaboomjs.jpg';
+import jt from './images/js1.png';
+import km from './images/km1.jpg';
 import rt from './images/react.png';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -68,19 +68,27 @@ const LandingPage = () => {
         <Col xs={8}>
           <Card className="p-2">
             {/* Add icons */}
-            <Container>
+            <Container className="text-center">
               <Row>
                 <Col xs={1} md={3}>
-                  <Image src={rt} style={{ height: '30px' }} roundedCircle />
+                  <Card.Link href="https://reactjs.org/">
+                    <Image src={rt} style={{ width: '40px' }} rounded />
+                  </Card.Link>
                 </Col>
                 <Col xs={1} md={3}>
-                  <Image src={jt} style={{ height: '30px' }} roundedCircle />
+                  <Card.Link href="https://www.javascript.com/">
+                    <Image src={jt} style={{ width: '40px' }} rounded />
+                  </Card.Link>
                 </Col>
                 <Col xs={1} md={3}>
-                  <Image src={bp} style={{ height: '30px' }} roundedCircle />
+                  <Card.Link href="https://getbootstrap.com/">
+                    <Image src={bp} style={{ width: '40px' }} rounded />
+                  </Card.Link>
                 </Col>
                 <Col xs={1} md={3}>
-                  <Image src={km} style={{ height: '40px' }} roundedCircle />
+                  <Card.Link href="https://kaboom.org/">
+                    <Image src={km} style={{ width: '40px' }} rounded />
+                  </Card.Link>
                 </Col>
               </Row>
             </Container>
