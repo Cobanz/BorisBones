@@ -233,12 +233,13 @@ const Game = () => {
       height: 64,
       e: () => {
         return [
-          k.sprite('wiz'),
-          'wiz',
-          k.body(),
-          { scale: 1 },
-          k.origin('center'),
-          k.area(k.vec2(25, 65), k.vec2(25, 50)),
+          // k.sprite('wiz'),
+          'wizspot',
+          // k.body(),
+          // { scale: 1 },
+          // k.origin('center'),
+          // k.area(k.vec2(25, 65), k.vec2(25, 50)),
+          // spawnBolt(),
         ];
       },
       a: [k.sprite('roof'), 'roof', { scale: 1 }, k.solid()],
@@ -412,39 +413,63 @@ const Game = () => {
       s.dir = -s.dir;
     });
 
-    // const wizard = k.add([
-    //   k.sprite('wiz', {
-    //     animSpeed: 0.2,
-    //     frame: 0,
-    //   }),
-    //   k.pos(50, 50),
-    //   'wizard',
-    // ]);
-
-    function spawnBolt(boltpos) {
-      k.add([k.sprite('bolt'), k.pos(boltpos), k.area(), 'bolt']);
-
-      // k.wait(2, () => {
-      //   if (k.exists('wiz')) {
-      //     spawnBolt(k.pos('wiz'));
-      //   }
-      // });
-      // if (current_direction == directions.LEFT) {
-      //   boltpos = boltpos.sub(10, 0);
-      // } else if (current_direction == directions.RIGHT) {
-      //   boltpos = boltpos.add(10, 0);
-      // }
+    function wizAttack() {
+      return {
+        require: [],
+        spawnBolt(boltpos) {
+          k.add([
+            k.sprite('bolt'),
+            k.pos(boltpos),
+            k.origin('center'),
+            k.area(),
+            'bolt',
+          ]);
+        },
+      };
     }
+    // Sets up wizard enemy
+    k.every('wizspot', (spr) => {
+      const wizard = k.add([
+        k.sprite('wiz', {
+          animSpeed: 0.2,
+          frame: 0,
+        }),
+        k.pos(spr.pos),
+        k.origin('center'),
+        'wizard',
+        k.body(),
+        { scale: 1 },
+        k.area(k.vec2(25, 65), k.vec2(25, 50)),
+        // spawnBolt(spr.pos),
+        wizAttack(),
+      ]);
 
-    // this will target the wizard in map not spawned one
-    k.action('wiz', (wizard) => {
       wizard.play('idle');
-      // spawnBolt(wizard.pos);
 
-      k.loop(20, () => {
-        spawnBolt(wizard.pos);
+      k.loop(3, () => {
+        wizard.spawnBolt(wizard.pos);
       });
     });
+
+    // function spawnBolt(boltpos) {
+    //   k.add([
+    //     k.sprite('bolt'),
+    //     k.pos(boltpos),
+    //     k.origin('center'),
+    //     k.area(),
+    //     'bolt',
+    //   ]);
+    // }
+
+    // this will target the wizard in map not spawned one
+    // k.action('wiz', (wizard) => {
+    //   // k.loop(0.5, () => {
+    //   //   spawnBolt(wizard.pos);
+    //   // });
+    //   k.wait(3, () => {
+    //     spawnBolt(wizard.pos);
+    //   });
+    // });
 
     // wizard.action(() => {
     //   k.wait(2, spawnBolt(wizard.pos));
@@ -465,6 +490,7 @@ const Game = () => {
       // removes the bolt when its out of the scene
       if (b.pos.y < 0) {
         k.destroy(b);
+        // k.trigger(spawnBolt());
       }
     });
 
