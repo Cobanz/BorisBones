@@ -74,6 +74,18 @@ const Game = () => {
     },
   });
 
+  k.loadSprite('bolt', bolt, {
+    sliceX: 4,
+    sliceY: 5,
+    anims: {
+      summon: {
+        from: 0,
+        to: 5,
+      },
+      fire: { from: 6, to: 17 },
+    },
+  });
+
   k.loadSprite('background', background);
   k.loadSprite('roof', roof);
   k.loadSprite('roof_l', roof_l);
@@ -96,7 +108,6 @@ const Game = () => {
   k.loadSprite('rock_2', rock_2);
   k.loadSprite('platform', platform);
   k.loadSprite('spike', spike);
-  k.loadSprite('bolt', bolt);
   k.loadSprite('death', death);
   k.loadSprite('crab', crab);
   k.loadSprite('sign_d', sign_d);
@@ -119,6 +130,7 @@ const Game = () => {
   const MOVE_SPEED = 200;
   const JUMP_FORCE = 500;
   const SLICER_SPEED = 100;
+  const BOLT_SPEED = 100;
 
   // Triggers game restart
   function restart() {
@@ -214,21 +226,14 @@ const Game = () => {
     const levelCfg = {
       width: 64,
       height: 64,
-      e: [
-        k.sprite('wiz'),
-        'wiz',
-        k.body(),
-        { scale: 1 },
-        k.origin('center'),
-        k.area(k.vec2(25, 65), k.vec2(25, 50)),
-      ],
+      e: ['wizspot'],
       a: [k.sprite('roof'), 'roof', { scale: 1 }, k.solid()],
-      q: [k.sprite('roof_l'), 'roof_l', { scale: 1 }, k.solid()],
-      w: [k.sprite('roof_r'), 'roof_r', { scale: 1 }, k.solid()],
-      l: [k.sprite('wall_l'), 'wall_r', { scale: 1 }, k.solid()],
-      r: [k.sprite('wall_r'), 'wall_r', { scale: 1 }, k.solid()],
-      g: [k.sprite('wall_cld'), 'wall_cld', { scale: 1 }, k.solid()],
-      f: [k.sprite('wall_crd'), 'wall_crd', { scale: 1 }, k.solid()],
+      q: [k.sprite('roof_l'), 'roof', { scale: 1 }, k.solid()],
+      w: [k.sprite('roof_r'), 'roof', { scale: 1 }, k.solid()],
+      l: [k.sprite('wall_l'), 'wall', { scale: 1 }, k.solid()],
+      r: [k.sprite('wall_r'), 'wall', { scale: 1 }, k.solid()],
+      g: [k.sprite('wall_cld'), 'wall', { scale: 1 }, k.solid()],
+      f: [k.sprite('wall_crd'), 'wall', { scale: 1 }, k.solid()],
       b: [
         k.sprite('floor'),
         'floor',
@@ -238,28 +243,28 @@ const Game = () => {
       ],
       v: [
         k.sprite('floor_l'),
-        'floor_l',
+        'floor',
         { scale: 1 },
         k.solid(),
         k.area(k.vec2(0, 5), k.vec2(64, 64)),
       ],
       t: [
         k.sprite('floor_r'),
-        'floor_r',
+        'floor',
         { scale: 1 },
         k.solid(),
         k.area(k.vec2(0, 5), k.vec2(64, 64)),
       ],
       c: [
         k.sprite('floor_cl'),
-        'floor_cl',
+        'floor',
         { scale: 1 },
         k.solid(),
         k.area(k.vec2(5, 5), k.vec2(64, 64)),
       ],
       u: [
         k.sprite('floor_cr'),
-        'floor_cr',
+        'wall',
         { scale: 1 },
         k.solid(),
         k.area(k.vec2(5, 5), k.vec2(64, 64)),
@@ -281,18 +286,18 @@ const Game = () => {
         'spike',
         'dangerous',
         { scale: 1 },
-        k.area(k.vec2(20, 60), k.vec2(45, 5)),
+        k.area(k.vec2(23, 10), k.vec2(43, 65)),
       ],
       o: [
         k.sprite('rock_1'),
-        'wall_r',
+        'wall',
         { scale: 1 },
         k.solid(),
         k.area(k.vec2(0, 10), k.vec2(64, 64)),
       ],
       p: [
         k.sprite('rock_2'),
-        'wall_r',
+        'wall',
         { scale: 1 },
         k.solid(),
         k.area(k.vec2(0, 25), k.vec2(64, 64)),
@@ -389,22 +394,87 @@ const Game = () => {
       s.move(s.dir * SLICER_SPEED, 0);
     });
 
-    k.collides('crab', 'wall_r', (s) => {
+    k.collides('crab', 'wall', (s) => {
       s.dir = -s.dir;
     });
 
-    // const wizard = k.add([
-    //   k.sprite('wiz', {
-    //     animSpeed: 0.2,
-    //     frame: 0,
-    //   }),
-    //   'wizard',
-    // ]);
-    // k.destroy(wizard);
+    // Custom behaviors for the wizard
+    function wizAttack() {
+      return {
+        require: [],
+        spawnBolt(wiz) {
+          const bolt = k.add([
+            k.sprite('bolt'),
+            k.pos(wiz.pos),
+            k.origin('center'),
+            k.area(k.vec2(35, 23), k.vec2(60, 40)),
+            k.scale(wiz.scale),
+            'bolt',
+            'dangerous',
+          ]);
 
-    // if (wizard.exists()) {
-    //   wizard.play('idle');
-    // }
+          // Plays summon animation then changes to fire
+          wiz.play('attack');
+          bolt.play('summon');
+          k.wait(bolt.animSpeed * 6, () => {
+            bolt.play('fire');
+            wiz.play('idle');
+          });
+
+          // When the bolt hits a wall, destroy it
+          bolt.collides('wall', () => {
+            k.destroy(bolt);
+          });
+        },
+      };
+    }
+
+    // Sets up wizard enemy
+    k.every('wizspot', (spr) => {
+      const wizard = k.add([
+        k.sprite('wiz', {
+          animSpeed: 0.2,
+          frame: 0,
+        }),
+        k.pos(spr.pos),
+        k.origin('center'),
+        'wizard',
+        k.body(),
+        k.scale(1),
+        k.area(k.vec2(25, 65), k.vec2(25, 50)),
+        wizAttack(),
+      ]);
+
+      wizard.play('idle');
+
+      // Make wizard follow the players movement
+      wizard.action(() => {
+        if (player.pos.x < wizard.pos.x) {
+          wizard.scale.x = -1;
+        } else if (player.pos.x > wizard.pos.x) {
+          wizard.scale.x = 1;
+        }
+      });
+
+      // Timing for firing bolts
+      k.wait(1, () => {
+        k.loop(3.5, () => {
+          wizard.spawnBolt(wizard);
+        });
+      });
+
+      // Makes bolt move across scene. Cannot be in bolt function
+      k.action('bolt', (b) => {
+        if (b.curAnim() === 'fire') {
+          b.move(BOLT_SPEED * b.scale.x, 0);
+        }
+
+        // Saftety check to destroy bolt if its outside of the scene
+        if (900 < b.pos.y < 0) {
+          k.destroy(b);
+        }
+      });
+    });
 
     /* Scene Changes */
     player.overlaps('next-level', () => {
