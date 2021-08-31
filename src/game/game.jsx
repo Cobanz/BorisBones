@@ -131,11 +131,6 @@ const Game = () => {
   const JUMP_FORCE = 500;
   const SLICER_SPEED = 100;
   const BOLT_SPEED = 100;
-  const directions = {
-    LEFT: 'left',
-    RIGHT: 'right',
-  };
-  let current_direction = directions.RIGHT;
 
   // Triggers game restart
   function restart() {
@@ -301,7 +296,7 @@ const Game = () => {
         'spike',
         'dangerous',
         { scale: 1 },
-        k.area(k.vec2(20, 60), k.vec2(45, 5)),
+        k.area(k.vec2(23, 10), k.vec2(43, 65)),
       ],
       o: [
         k.sprite('rock_1'),
@@ -421,7 +416,7 @@ const Game = () => {
             k.sprite('bolt'),
             k.pos(boltpos),
             k.origin('center'),
-            k.area(),
+            k.area(k.vec2(35, 23), k.vec2(60, 40)),
             'bolt',
           ]);
 
@@ -438,6 +433,7 @@ const Game = () => {
         },
       };
     }
+
     // Sets up wizard enemy
     k.every('wizspot', (spr) => {
       const wizard = k.add([
