@@ -6,12 +6,11 @@ import bem from './images/bem.jpeg';
 import borisPic from './images/BorisPic.png';
 import bp from './images/bootstrap.png';
 import jt from './images/js.png';
-import km from './images/kaboomjs.jpg'
-import rt from './images/react.png'
+import km from './images/kaboomjs.jpg';
+import rt from './images/react.png';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Card, Container, Row, Col, Image } from 'react-bootstrap';
-
 
 const LandingPage = () => {
   const history = useHistory();
@@ -70,21 +69,21 @@ const LandingPage = () => {
           <Card className="p-2">
             {/* Add icons */}
             <Container>
-                <Row>
-                  <Col xs={1} md={3}>
-                    <Image src={rt} style={{height: '30px'}} roundedCircle />
-                  </Col>
-                  <Col xs={1} md={3}>
-                    <Image src={jt} style={{height: '30px'}} roundedCircle />
-                  </Col>
-                  <Col xs={1} md={3}>
-                    <Image src={bp} style={{height: '30px'}} roundedCircle />
-                  </Col>
-                  <Col xs={1} md={3}>
-                    <Image src={km} style={{height: '40px'}} roundedCircle />
-                  </Col>
-                </Row>
-              </Container>
+              <Row>
+                <Col xs={1} md={3}>
+                  <Image src={rt} style={{ height: '30px' }} roundedCircle />
+                </Col>
+                <Col xs={1} md={3}>
+                  <Image src={jt} style={{ height: '30px' }} roundedCircle />
+                </Col>
+                <Col xs={1} md={3}>
+                  <Image src={bp} style={{ height: '30px' }} roundedCircle />
+                </Col>
+                <Col xs={1} md={3}>
+                  <Image src={km} style={{ height: '40px' }} roundedCircle />
+                </Col>
+              </Row>
+            </Container>
           </Card>
         </Col>
       </Row>

@@ -336,6 +336,7 @@ const Game = () => {
     // ])
     // wizard.play('idle');
 
+    // Sets up player animation defaults
     player.play('idle');
 
     player.on('grounded', () => {
@@ -350,7 +351,7 @@ const Game = () => {
       }
     });
 
-    // Movement Controls
+    // Controls
     k.keyDown('left', () => {
       player.move(-MOVE_SPEED, 0);
     });

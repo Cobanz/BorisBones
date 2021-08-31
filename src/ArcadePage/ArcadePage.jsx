@@ -41,7 +41,7 @@ const ArcadePage = () => {
                 <li>&#8592; - Move left</li>
                 <li>&#8594; - Move right</li>
                 <li>&#8593; - Jump</li>
-                <li>R - Reset</li>
+                <li>R - Restart</li>
               </ul>
             </Card.Body>
           </Card>
