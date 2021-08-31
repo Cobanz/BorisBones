@@ -21,6 +21,8 @@ However, our hero Boris Bones is tired of the dampness of this cave. Tired by th
 
 The Peaceful Pursuit of Boris Bones was created for a Mintbean [Hiring Hackathon](https://mintbean.io/meets/d51762d5-b874-4cc1-a420-ff316600192f), running from August 24th - August 30th, that challenged us to create a 2D game utilizing JavaScript. [Mintbean](https://www.linkedin.com/company/mintbean/) is a developers' collective that provides support and mentorship for professional software develops within the industry. They've hosted 150+ Hackathons that helps new developers show off their skills and get connected with companies looking for new talent.
 
+See a deployed version of the game [here!](https://borisbones.netlify.app/#/)
+
 All sprites were created for this project by Vada Karlen.
 
 ## Screenshots
