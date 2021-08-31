@@ -109,12 +109,12 @@ const Game = () => {
   const SLICER_SPEED = 100;
 
   function restart() {
-    k.keyPress(["r"], () => {
+    k.keyPress(['r'], () => {
       k.go('main', {
-        level: (0),
+        level: 0,
       });
     });
-  } 
+  }
 
   k.scene('main', ({ level, score }) => {
     music.play();
@@ -318,7 +318,6 @@ const Game = () => {
       //   dir: k.vec2(1, 0),
       // },
     ]);
-    player.play('idle');
 
     k.action('crab', (s) => {
       s.move(s.dir * SLICER_SPEED, 0);
@@ -336,6 +335,16 @@ const Game = () => {
     //   })
     // ])
     // wizard.play('idle');
+
+    player.play('idle');
+
+    player.on('grounded', () => {
+      if (k.keyIsDown('right') || k.keyIsDown('left')) {
+        player.play('run');
+      } else {
+        player.play('idle');
+      }
+    });
 
     // Movement Controls
     k.keyDown('left', () => {
@@ -360,6 +369,12 @@ const Game = () => {
       player.scale.x = -1;
     });
 
+    k.keyRelease(['left', 'right'], () => {
+      if (player.grounded()) {
+        player.play('idle');
+      }
+    });
+
     k.keyDown('up', () => {
       if (player.grounded()) {
         player.jump(JUMP_FORCE);
@@ -367,20 +382,7 @@ const Game = () => {
       }
     });
 
-    k.keyRelease(['left', 'right'], () => {
-      if (player.grounded()) {
-        player.play('idle');
-      }
-    });
-
-    k.keyRelease(['up'], () => {
-      player.play('stand');
-    });
-
-
-
-
-    restart()
+    restart();
 
     // player.collides("enemy", (e) => {
     //   destroy(e);
@@ -394,7 +396,6 @@ const Game = () => {
     //     go("main");
     //   });
     // });
-
 
     player.overlaps('next-level', () => {
       k.go('main', {
@@ -418,12 +419,6 @@ const Game = () => {
       music.pause();
     });
   });
-
-    
-
-
-
-
 
   // player.overlaps('victory', () => {
   //   k.go('win', { score: scoreLabel.value})
@@ -464,10 +459,9 @@ const Game = () => {
       //   origin('center'),
       //   k.pos(k.width() / 2, k.height() / 2),
       // ]);
-      restart()
+      restart();
     }
-    );
-
+  );
 
   k.scene('win', () =>
     // { score }
@@ -489,9 +483,9 @@ const Game = () => {
       //   origin('center'),
       //   k.pos(k.width() / 2, k.height() / 2),
       // ]);
-      restart()
+      restart();
     }
-    );
+  );
 
   // Triggers start of game process
   k.start('main', { level: 0, score: 0 });
