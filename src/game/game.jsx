@@ -130,7 +130,7 @@ const Game = () => {
   const MOVE_SPEED = 200;
   const JUMP_FORCE = 500;
   const SLICER_SPEED = 100;
-  const BOLT_SPEED = 300;
+  const BOLT_SPEED = 100;
   const directions = {
     LEFT: 'left',
     RIGHT: 'right',
@@ -417,13 +417,24 @@ const Game = () => {
       return {
         require: [],
         spawnBolt(boltpos) {
-          k.add([
+          const bolt = k.add([
             k.sprite('bolt'),
             k.pos(boltpos),
             k.origin('center'),
             k.area(),
             'bolt',
           ]);
+
+          bolt.play('fire');
+
+          k.action('bolt', (b) => {
+            b.move(BOLT_SPEED, 0);
+
+            // removes the bolt when its out of the scene
+            if (b.pos.y < 0) {
+              k.destroy(b);
+            }
+          });
         },
       };
     }
@@ -449,49 +460,6 @@ const Game = () => {
       k.loop(3, () => {
         wizard.spawnBolt(wizard.pos);
       });
-    });
-
-    // function spawnBolt(boltpos) {
-    //   k.add([
-    //     k.sprite('bolt'),
-    //     k.pos(boltpos),
-    //     k.origin('center'),
-    //     k.area(),
-    //     'bolt',
-    //   ]);
-    // }
-
-    // this will target the wizard in map not spawned one
-    // k.action('wiz', (wizard) => {
-    //   // k.loop(0.5, () => {
-    //   //   spawnBolt(wizard.pos);
-    //   // });
-    //   k.wait(3, () => {
-    //     spawnBolt(wizard.pos);
-    //   });
-    // });
-
-    // wizard.action(() => {
-    //   k.wait(2, spawnBolt(wizard.pos));
-    // });
-
-    // if (wizard.exists()) {
-    //   wizard.play('idle');
-    //   spawnBolt(wizard.pos);
-    // }
-
-    // if (wizbolt.exists()) {
-    //   k.wait(2, spawnBolt(wizard.pos));
-    // }
-
-    k.action('bolt', (b) => {
-      b.move(BOLT_SPEED, 0);
-
-      // removes the bolt when its out of the scene
-      if (b.pos.y < 0) {
-        k.destroy(b);
-        // k.trigger(spawnBolt());
-      }
     });
 
     /* Scene Changes */
