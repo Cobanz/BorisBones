@@ -33,7 +33,7 @@ import sign_w from './assets/sprites/Sign-2.png';
 import song from './assets/sounds/8bitsong.mp3';
 
 const Game = () => {
-  // Creates Kaboom frame
+  /* Creates Kaboom frame */
   const k = kaboom({
     global: true,
     scale: 1,
@@ -108,16 +108,18 @@ const Game = () => {
   const JUMP_FORCE = 500;
   const SLICER_SPEED = 100;
 
+  // Triggers game restart
   function restart() {
     k.keyPress(['r'], () => {
       k.go('main', {
         level: 0,
       });
     });
-  }
+  } // end restart
 
   k.scene('main', ({ level, score }) => {
     music.play();
+    restart();
 
     k.layers(['bg', 'obj', 'ui'], 'obj');
     k.camIgnore(['ui']);
@@ -299,9 +301,14 @@ const Game = () => {
     k.addLevel(maps[level], levelCfg);
 
     // adding level text and count
-    k.add([k.text('Room ' + parseInt(level + 1)), k.pos(50, 50), k.scale(2)]);
+    k.add([
+      k.text('Room ' + parseInt(level + 1)),
+      k.layer('ui'),
+      k.pos(50, 50),
+      k.scale(2),
+    ]);
 
-    /* Player Setup */
+    /* Player Config */
     const player = k.add([
       k.sprite('boris', {
         animSpeed: 0.2,
@@ -312,29 +319,7 @@ const Game = () => {
       k.body(),
       k.area(k.vec2(-20, 65), k.vec2(20, -50)),
       k.scale(1),
-
-      // {
-      //   // right by default
-      //   dir: k.vec2(1, 0),
-      // },
     ]);
-
-    k.action('crab', (s) => {
-      s.move(s.dir * SLICER_SPEED, 0);
-      // s.resolve()
-    });
-
-    k.collides('crab', 'wall_r', (s) => {
-      s.dir = -s.dir;
-    });
-
-    // const wizard = k.add([
-    //   k.sprite('wiz', {
-    //     animSpeed:0.2,
-    //     frame: 0,
-    //   })
-    // ])
-    // wizard.play('idle');
 
     // Sets up player animation defaults
     player.play('idle');
@@ -351,13 +336,9 @@ const Game = () => {
       }
     });
 
-    // Controls
+    // Player Controls
     k.keyDown('left', () => {
       player.move(-MOVE_SPEED, 0);
-    });
-
-    k.keyDown('right', () => {
-      player.move(MOVE_SPEED, 0);
     });
 
     k.keyPress('left', () => {
@@ -365,6 +346,10 @@ const Game = () => {
         player.play('run');
       }
       player.scale.x = 1;
+    });
+
+    k.keyDown('right', () => {
+      player.move(MOVE_SPEED, 0);
     });
 
     k.keyPress('right', () => {
@@ -387,90 +372,70 @@ const Game = () => {
       }
     });
 
-    restart();
+    /* Enemy Configs */
+    k.action('crab', (s) => {
+      s.move(s.dir * SLICER_SPEED, 0);
+    });
 
-    // player.collides("enemy", (e) => {
-    //   destroy(e);
-    //   destroy(player);
-    //   shake(120);
-    //   play("explosion");
-    //   music.detune(-1200);
-    //   makeExplosion(vec2(width() / 2, height() / 2), 12, 120, 30);
-    //   wait(1, () => {
-    //     music.stop();
-    //     go("main");
-    //   });
-    // });
+    k.collides('crab', 'wall_r', (s) => {
+      s.dir = -s.dir;
+    });
 
+    // const wizard = k.add([
+    //   k.sprite('wiz', {
+    //     animSpeed: 0.2,
+    //     frame: 0,
+    //   }),
+    //   'wizard',
+    // ]);
+    // k.destroy(wizard);
+
+    // if (wizard.exists()) {
+    //   wizard.play('idle');
+    // }
+
+    /* Scene Changes */
     player.overlaps('next-level', () => {
       k.go('main', {
         level: (level + 1) % maps.length,
-        // score: scoreLabel.value
       });
     });
 
     player.overlaps('dangerous', () => {
-      k.go(
-        'lose'
-        // { score: scoreLabel.value}
-      );
+      k.go('lose');
       music.pause();
-      // window.value= scoreLabel.value
-      // test(window.value)
     });
 
     player.overlaps('win', () => {
       k.go('win');
       music.pause();
     });
-  });
+  }); // end scene main
 
-  // player.overlaps('victory', () => {
-  //   k.go('win', { score: scoreLabel.value})
-  //     window.value= scoreLabel.value
-  //     test(window.value)
-  // })
+  k.scene('lose', () => {
+    k.add([
+      k.text('YOU DIED!', 40),
+      origin('center'),
+      k.pos(k.width() / 2, k.height() / 3),
+      k.color(1, 0, 0),
+    ]);
 
-  // k.scene('win', ({ score }) => {
-  //   k.add([
-  //     k.text('YOU WIN!', 32),
-  //     origin('center'),
-  //     k.pos(k.width() / 2, k.height() / 3),
-  //   ]);
-  //   k.add([
-  //     k.text(score, 32),
-  //     origin('center'),
-  //     k.pos(k.width() / 2, k.height() / 2),
-  //   ]);
-  // });
+    k.add([
+      k.text('Press R to restart', 20),
+      origin('center'),
+      k.pos(k.width() / 2, k.height() / 1.3),
+      k.color(1, 1, 1),
+    ]);
 
-  k.scene('lose', () =>
-    // { score }
-    {
-      k.add([
-        k.text('YOU DIED!', 40),
-        origin('center'),
-        k.pos(k.width() / 2, k.height() / 3),
-        k.color(1, 0, 0),
-      ]);
+    k.add([
+      k.sprite('death'),
+      'death',
+      origin('center'),
+      k.pos(k.width() / 2, k.height() / 1.75),
+    ]);
 
-      k.add([
-        k.text('Press R to restart', 20),
-        origin('center'),
-        k.pos(k.width() / 2, k.height() / 1.3),
-        k.color(1, 1, 1),
-      ]);
-
-      k.add([
-        k.sprite('death'),
-        'death',
-        origin('center'),
-        k.pos(k.width() / 2, k.height() / 1.75),
-      ]);
-
-      restart();
-    }
-  );
+    restart();
+  }); // end scene lose
 
   k.scene('win', () => {
     k.add([
@@ -495,7 +460,7 @@ const Game = () => {
     ]);
 
     restart();
-  });
+  }); // end scene win
 
   // Triggers start of game process
   k.start('main', { level: 0, score: 0 });

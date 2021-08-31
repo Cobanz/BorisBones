@@ -15,7 +15,7 @@ const ArcadePage = () => {
   }, []);
 
   return (
-    <Container fluid>
+    <Container className="arcade-page" fluid>
       <Button
         variant="danger"
         size="md"
@@ -34,7 +34,7 @@ const ArcadePage = () => {
           <Card clasName="p-2">
             <Card.Body>
               <Card.Title>Directions</Card.Title>
-              <p>Its time to escape, Boris. You better get going!</p>
+              <p>Its time to escape. You better get going, Boris!</p>
 
               <ul>
                 {/* Add arrow icons */}
@@ -43,6 +43,11 @@ const ArcadePage = () => {
                 <li>&#8593; - Jump</li>
                 <li>R - Restart</li>
               </ul>
+
+              <p>
+                <strong>Beware of the dangers along the way!</strong> Don't fall
+                victim to the spikes or get caught by the fearsome cave crab.
+              </p>
             </Card.Body>
           </Card>
         </Col>

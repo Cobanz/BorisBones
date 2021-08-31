@@ -4,9 +4,9 @@ import grant from './images/grant.jpeg';
 import vada from './images/vada.jpeg';
 import bem from './images/bem.jpeg';
 import borisPic from './images/BorisPic.png';
-import bp from './images/bootstrap.png';
-import jt from './images/js1.png';
-import km from './images/km1.jpg';
+import bp from './images/bs.jpeg';
+import jt from './images/js.jpeg';
+import km from './images/kaboomjs.jpg';
 import rt from './images/react.png';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -24,12 +24,12 @@ const LandingPage = () => {
       </Row>
 
       <Row className="align-items-stretch">
-        <Col>
-          <Card className="mb-2" id="story-container" text="black">
+        <Col className="m-3">
+          <Card id="story-container" text="black">
             <Card.Title>Hail, Adventurer!</Card.Title>
             <Card.Text>
               <p>
-                Master Skeletor has ruled over this decrepit place for 1,000
+                Master Skeletor has ruled over this decrepit dungeon for 1,000
                 years and nary a prisoner has escaped. The evil mastermind has
                 ruled with a bony fist, supported by his skeletal minions.
                 Adventurers often arrive to seek fame in challenging the lord of
@@ -48,12 +48,12 @@ const LandingPage = () => {
           </Card>
         </Col>
 
-        <Col>
+        <Col className="m-2 mb-4">
           <img src={borisPic} className="landing-pic" alt="Our hero, Boris" />
         </Col>
       </Row>
 
-      <Row className="m-2">
+      <Row className="m-3">
         <Button
           variant="danger"
           size="lg"
@@ -63,7 +63,7 @@ const LandingPage = () => {
         </Button>
       </Row>
 
-      <Row className="justify-content-around m-3">
+      <Row className="justify-content-around m-3 mt-4">
         <h2>Technologies Used</h2>
         <Col xs={8}>
           <Card className="p-2">
@@ -72,22 +72,22 @@ const LandingPage = () => {
               <Row>
                 <Col xs={1} md={3}>
                   <Card.Link href="https://reactjs.org/">
-                    <Image src={rt} style={{ width: '40px' }} rounded />
+                    <Image src={rt} className="tech-icon" rounded />
                   </Card.Link>
                 </Col>
                 <Col xs={1} md={3}>
                   <Card.Link href="https://www.javascript.com/">
-                    <Image src={jt} style={{ width: '40px' }} rounded />
+                    <Image src={jt} className="tech-icon" rounded />
                   </Card.Link>
                 </Col>
                 <Col xs={1} md={3}>
                   <Card.Link href="https://getbootstrap.com/">
-                    <Image src={bp} style={{ width: '40px' }} rounded />
+                    <Image src={bp} className="tech-icon" rounded />
                   </Card.Link>
                 </Col>
                 <Col xs={1} md={3}>
                   <Card.Link href="https://kaboom.org/">
-                    <Image src={km} style={{ width: '40px' }} rounded />
+                    <Image src={km} className="tech-icon" rounded />
                   </Card.Link>
                 </Col>
               </Row>
