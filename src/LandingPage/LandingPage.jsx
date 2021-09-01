@@ -18,13 +18,13 @@ const LandingPage = () => {
   return (
     <Container>
       <Row>
-        <header className="site-head text-center pt-4 mt-2 pb-4">
+        <header className="site-head text-center pt-2 mt-2 pb-2">
           <h1>The Peaceful Pursuit of Boris Bones</h1>
         </header>
       </Row>
 
       <Row className="align-items-stretch">
-        <Col className="m-3">
+        <Col className="m-3" xs={7}>
           <Card id="story-container" text="black">
             <Card.Title>Hail, Adventurer!</Card.Title>
             <Card.Text>
@@ -48,8 +48,8 @@ const LandingPage = () => {
           </Card>
         </Col>
 
-        <Col className="m-2 mb-4">
-          <img src={borisPic} className="landing-pic" alt="Our hero, Boris" />
+        <Col className="m-3 landing-pic" xs={4}>
+          <img src={borisPic} alt="Our hero, Boris" />
         </Col>
       </Row>
 
