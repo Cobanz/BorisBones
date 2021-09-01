@@ -22,15 +22,19 @@ import door_l from './assets/sprites/Door-L.png';
 import door_e from './assets/sprites/Door-Exit.png';
 import rock_1 from './assets/sprites/Rock1.png';
 import rock_2 from './assets/sprites/Rock2.png';
-import shelf from './assets/sprites/Shelf.png';
-import spike from './assets/sprites/Spike-b.png';
+import platform from './assets/sprites/Platform.png';
+import spike from './assets/sprites/Spike.png';
 import bolt from './assets/sprites/Bolt.png';
 import death from './assets/sprites/Skele-1.png';
+import crab from './assets/sprites/Crab.png';
+import sign_d from './assets/sprites/Sign-1.png';
+import sign_w from './assets/sprites/Sign-2.png';
+import end from './assets/sprites/End.png';
 
 import song from './assets/sounds/8bitsong.mp3';
 
 const Game = () => {
-  // Creates Kaboom frame
+  /* Creates Kaboom frame */
   const k = kaboom({
     global: true,
     scale: 1,
@@ -45,16 +49,19 @@ const Game = () => {
 
   /* Load Assets */
   k.loadSprite('boris', boris, {
-    sliceX: 2,
+    sliceX: 3,
     sliceY: 3,
     anims: {
       idle: {
         from: 0,
         to: 4,
       },
-      run: { from: 1, to: 3 },
+      run: { from: 5, to: 7 },
+      jump: { from: 8, to: 8 },
+      stand: { from: 0, to: 0 },
     },
   });
+
   k.loadSprite('wiz', wiz, {
     sliceX: 3,
     sliceY: 4,
@@ -66,6 +73,19 @@ const Game = () => {
       attack: { from: 6, to: 11 },
     },
   });
+
+  k.loadSprite('bolt', bolt, {
+    sliceX: 4,
+    sliceY: 5,
+    anims: {
+      summon: {
+        from: 0,
+        to: 5,
+      },
+      fire: { from: 6, to: 17 },
+    },
+  });
+
   k.loadSprite('background', background);
   k.loadSprite('roof', roof);
   k.loadSprite('roof_l', roof_l);
@@ -86,19 +106,44 @@ const Game = () => {
   k.loadSprite('door_e', door_e);
   k.loadSprite('rock_1', rock_1);
   k.loadSprite('rock_2', rock_2);
-  k.loadSprite('shelf', shelf);
+  k.loadSprite('platform', platform);
   k.loadSprite('spike', spike);
-  k.loadSprite('bolt', bolt);
   k.loadSprite('death', death);
+  k.loadSprite('crab', crab);
+  k.loadSprite('sign_d', sign_d);
+  k.loadSprite('sign_w', sign_w);
+  k.loadSprite('end', end, {
+    sliceX: 2,
+    sliceY: 2,
+    anims: {
+      win: {
+        from: 0,
+        to: 2,
+      },
+      lose: { from: 3, to: 3 },
+    },
+  });
 
   const music = new Audio(song);
 
   /* Define Constants */
   const MOVE_SPEED = 200;
   const JUMP_FORCE = 500;
+  const SLICER_SPEED = 100;
+  const BOLT_SPEED = 100;
+
+  // Triggers game restart
+  function restart() {
+    k.keyPress(['r'], () => {
+      k.go('main', {
+        level: 0,
+      });
+    });
+  } // end restart
 
   k.scene('main', ({ level, score }) => {
     music.play();
+    restart();
 
     k.layers(['bg', 'obj', 'ui'], 'obj');
     k.camIgnore(['ui']);
@@ -124,26 +169,26 @@ const Game = () => {
         'xxqaaaaaaaaaaaaw',
         'xxg            r',
         'xlo            r',
-        'lssssssssss    r',
+        'xgsssssssss    r',
         'l              r',
         'l           piir',
         'l    ssssssssssr',
         'l              r',
         'l        o     d',
-        'l oii   cbu     ',
+        'l^oii   cbu     ',
         'vbbbbbbbxxxbbbbt',
       ],
 
       [
         'zzzzqwqaaaaaawxx',
         'zxxxgrl      fxx',
-        'zxxx rl       fx',
-        'zxxx rl        r',
-        'xzgs rls   rl  r',
+        'zxxx rl e     fx',
+        'zxxx rlss      r',
+        'xzgs rl    rl  r',
         'xg   rl    rl  r',
         'l    rl   srl  r',
-        'l    fg    rl  r',
-        'l      s   rl  d',
+        'l    fgs   rl  r',
+        'l          rl  d',
         'vbu       srl   ',
         'xxxbbbbbbbbbbbbt',
       ],
@@ -154,53 +199,41 @@ const Game = () => {
         'l        rqag  r',
         'lssssss  rl    d',
         'l        rl     ',
-        'l        rl   sr',
-        'l        rl    r',
-        'l   ssssssss   r',
+        'l    e   rl   sr',
+        'l   sssssrl    r',
+        'l        sss   r',
         'l             sr',
-        'l              r',
+        'l ^      ^     r',
         'vbbbbbbbbbbbbbbt',
       ],
 
       [
-        'qaaaaaaaaaaaaaaw',
+        'xqaaaaaaaaaaawxx',
+        'xg           rxx',
+        'l            rxx',
+        'xvbg         fxx',
+        'xxg           fx',
+        'xg             r',
+        'l   sss        r',
         'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'n              m',
+        'n     !  ?     m',
         '                ',
         'vbbbbbbbbbbbbbbt',
       ],
-
-      [
-        'qaaaaaaaaaaaaaaw',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'l              r',
-        'vbbbbbbbbbbbbbbt',
-      ],
     ];
+
     // k.origin('center')
     const levelCfg = {
       width: 64,
       height: 64,
+      e: ['wizspot'],
       a: [k.sprite('roof'), 'roof', { scale: 1 }, k.solid()],
-      q: [k.sprite('roof_l'), 'roof_l', { scale: 1 }, k.solid()],
-      w: [k.sprite('roof_r'), 'roof_r', { scale: 1 }, k.solid()],
-      l: [k.sprite('wall_l'), 'wall_l', { scale: 1 }, k.solid()],
-      r: [k.sprite('wall_r'), 'wall_r', { scale: 1 }, k.solid()],
-      g: [k.sprite('wall_cld'), 'wall_cld', { scale: 1 }, k.solid()],
-      f: [k.sprite('wall_crd'), 'wall_crd', { scale: 1 }, k.solid()],
+      q: [k.sprite('roof_l'), 'roof', { scale: 1 }, k.solid()],
+      w: [k.sprite('roof_r'), 'roof', { scale: 1 }, k.solid()],
+      l: [k.sprite('wall_l'), 'wall', { scale: 1 }, k.solid()],
+      r: [k.sprite('wall_r'), 'wall', { scale: 1 }, k.solid()],
+      g: [k.sprite('wall_cld'), 'wall', { scale: 1 }, k.solid()],
+      f: [k.sprite('wall_crd'), 'wall', { scale: 1 }, k.solid()],
       b: [
         k.sprite('floor'),
         'floor',
@@ -210,28 +243,28 @@ const Game = () => {
       ],
       v: [
         k.sprite('floor_l'),
-        'floor_l',
+        'floor',
         { scale: 1 },
         k.solid(),
         k.area(k.vec2(0, 5), k.vec2(64, 64)),
       ],
       t: [
         k.sprite('floor_r'),
-        'floor_r',
+        'floor',
         { scale: 1 },
         k.solid(),
         k.area(k.vec2(0, 5), k.vec2(64, 64)),
       ],
       c: [
         k.sprite('floor_cl'),
-        'floor_cl',
+        'wall',
         { scale: 1 },
         k.solid(),
         k.area(k.vec2(5, 5), k.vec2(64, 64)),
       ],
       u: [
         k.sprite('floor_cr'),
-        'floor_cr',
+        'wall',
         { scale: 1 },
         k.solid(),
         k.area(k.vec2(5, 5), k.vec2(64, 64)),
@@ -242,41 +275,57 @@ const Game = () => {
       n: [k.sprite('door_l'), 'door_l', 'win', { scale: 1 }],
       m: [k.sprite('door_e'), 'door_e', 'dangerous', { scale: 1 }],
       s: [
-        k.sprite('shelf'),
-        'shelf',
-        { scale: 0.5 },
+        k.sprite('platform'),
+        'platform',
+        { scale: 1 },
         k.solid(),
-        k.area(k.vec2(0, 0), k.vec2(124, 30)),
+        k.area(k.vec2(0, 0), k.vec2(62, 25)),
       ],
       i: [
         k.sprite('spike'),
         'spike',
         'dangerous',
         { scale: 1 },
-        k.area(k.vec2(20, 60), k.vec2(45, 0)),
+        k.area(k.vec2(23, 10), k.vec2(43, 65)),
       ],
       o: [
         k.sprite('rock_1'),
-        'rock_1',
+        'wall',
         { scale: 1 },
         k.solid(),
         k.area(k.vec2(0, 10), k.vec2(64, 64)),
       ],
       p: [
         k.sprite('rock_2'),
-        'rock_2',
+        'wall',
         { scale: 1 },
         k.solid(),
         k.area(k.vec2(0, 25), k.vec2(64, 64)),
+      ],
+      '!': [k.sprite('sign_d'), 'sign_d', { scale: 1 }],
+      '?': [k.sprite('sign_w'), 'sign_w', { scale: 1 }],
+
+      '^': [
+        k.sprite('crab'),
+        'crab',
+        'dangerous',
+        { dir: 1, timer: 0, scale: 0.75 },
+        k.body(),
+        k.area(k.vec2(0, 40), k.vec2(64, 64)),
       ],
     };
 
     k.addLevel(maps[level], levelCfg);
 
     // adding level text and count
-    k.add([k.text('Room ' + parseInt(level + 1)), k.pos(50, 50), k.scale(2)]);
+    k.add([
+      k.text('Room ' + parseInt(level + 1)),
+      k.layer('ui'),
+      k.pos(50, 50),
+      k.scale(2),
+    ]);
 
-    /* Player Setup */
+    /* Player Config */
     const player = k.add([
       k.sprite('boris', {
         animSpeed: 0.2,
@@ -285,157 +334,219 @@ const Game = () => {
       k.pos(200, 100),
       k.origin('center'),
       k.body(),
-      k.area(k.vec2(-25, 65), k.vec2(25, -50)),
+      k.area(k.vec2(-20, 65), k.vec2(20, -50)),
       k.scale(1),
-      // {
-      //   // right by default
-      //   dir: k.vec2(1, 0),
-      // },
     ]);
 
-    // Movement Controls
+    // Sets up player animation defaults
+    player.play('idle');
+
+    player.on('grounded', () => {
+      if (k.keyIsDown('left')) {
+        player.play('run');
+        player.scale.x = 1;
+      } else if (k.keyIsDown('right')) {
+        player.play('run');
+        player.scale.x = -1;
+      } else {
+        player.play('idle');
+      }
+    });
+
+    // Player Controls
     k.keyDown('left', () => {
       player.move(-MOVE_SPEED, 0);
+    });
+
+    k.keyPress('left', () => {
+      if (player.grounded()) {
+        player.play('run');
+      }
       player.scale.x = 1;
-      player.play('run');
     });
 
     k.keyDown('right', () => {
       player.move(MOVE_SPEED, 0);
-      player.scale.x = -1;
-      player.play('run');
     });
 
-    k.keyPress('up', () => {
+    k.keyPress('right', () => {
       if (player.grounded()) {
-        player.jump(JUMP_FORCE);
+        player.play('run');
+      }
+      player.scale.x = -1;
+    });
+
+    k.keyRelease(['left', 'right'], () => {
+      if (player.grounded()) {
+        player.play('idle');
       }
     });
 
-    k.keyRelease('left', () => {
-      player.play('idle');
+    k.keyDown('up', () => {
+      if (player.grounded()) {
+        player.jump(JUMP_FORCE);
+        player.play('jump');
+      }
     });
 
-    k.keyRelease('right', () => {
-      player.play('idle');
+    /* Enemy Configs */
+    k.action('crab', (s) => {
+      s.move(s.dir * SLICER_SPEED, 0);
     });
 
-    // const scoreLabel = k.add([
-    //   k.text(score),
-    //   k.pos(10, 10),
-    //   k.layer('ui'),
-    //   {
-    //     value: score,
-    //   },
-    //   k.scale(2),
-    // ]);
+    k.collides('crab', 'wall', (s) => {
+      s.dir = -s.dir;
+    });
 
-    // k.add([
-    //   k.text('level ' + parseInt(level + 1)),
-    //   k.pos(400, 485),
-    //   k.scale(2),
-    // ]);
+    // Custom behaviors for the wizard
+    function wizAttack() {
+      return {
+        require: [],
+        spawnBolt(wiz) {
+          const bolt = k.add([
+            k.sprite('bolt'),
+            k.pos(wiz.pos),
+            k.origin('center'),
+            k.area(k.vec2(35, 23), k.vec2(60, 40)),
+            k.scale(wiz.scale),
+            'bolt',
+            'dangerous',
+          ]);
 
-    // // jump with space
-    // k.keyPress("space", () => {
-    // 	// these 2 functions are provided by body() component
-    // 	if (player.grounded()) {
-    // 		player.jump(JUMP_FORCE);
-    // 	}
-    // });
+          // Plays summon animation then changes to fire
+          wiz.play('attack');
+          bolt.play('summon');
+          k.wait(bolt.animSpeed * 6, () => {
+            bolt.play('fire');
+            wiz.play('idle');
+          });
 
-    // k.keyDown("left", () => {
-    // 	player.move(-MOVE_SPEED, 0);
-    // });
+          // When the bolt hits a wall, destroy it
+          bolt.collides('wall', () => {
+            k.destroy(bolt);
+          });
+        },
+      };
+    }
 
-    // k.keyDown("right", () => {
-    // 	player.move(MOVE_SPEED, 0);
-    // });
+    // Sets up wizard enemy
+    k.every('wizspot', (spr) => {
+      const wizard = k.add([
+        k.sprite('wiz', {
+          animSpeed: 0.2,
+          frame: 0,
+        }),
+        k.pos(spr.pos),
+        k.origin('center'),
+        'wizard',
+        k.body(),
+        k.scale(1),
+        k.area(k.vec2(25, 65), k.vec2(25, 50)),
+        wizAttack(),
+      ]);
 
+      wizard.play('idle');
+
+      // Make wizard follow the players movement
+      wizard.action(() => {
+        if (player.pos.x < wizard.pos.x) {
+          wizard.scale.x = -1;
+        } else if (player.pos.x > wizard.pos.x) {
+          wizard.scale.x = 1;
+        }
+      });
+
+      // Timing for firing bolts
+      k.wait(1, () => {
+        k.loop(3.5, () => {
+          wizard.spawnBolt(wizard);
+        });
+      });
+
+      // Makes bolt move across scene. Cannot be in bolt function
+      k.action('bolt', (b) => {
+        if (b.curAnim() === 'fire') {
+          b.move(BOLT_SPEED * b.scale.x, 0);
+        }
+
+        // Saftety check to destroy bolt if its outside of the scene
+        if (900 < b.pos.y < 0) {
+          k.destroy(b);
+        }
+      });
+    });
+
+    /* Scene Changes */
     player.overlaps('next-level', () => {
       k.go('main', {
         level: (level + 1) % maps.length,
-        // score: scoreLabel.value
       });
     });
 
     player.overlaps('dangerous', () => {
-      k.go(
-        'lose'
-        // { score: scoreLabel.value}
-      );
-      // window.value= scoreLabel.value
-      // test(window.value)
-      // audio.pause()
+      k.go('lose');
+      music.pause();
     });
+
     player.overlaps('win', () => {
       k.go('win');
+      music.pause();
     });
-  });
-  // player.overlaps('victory', () => {
-  //   k.go('win', { score: scoreLabel.value})
-  //     window.value= scoreLabel.value
-  //     test(window.value)
-  //     audio.pause()
-  // })
+  }); // end scene main
 
-  // k.scene('win', ({ score }) => {
-  //   k.add([
-  //     k.text('YOU WIN!', 32),
-  //     origin('center'),
-  //     k.pos(k.width() / 2, k.height() / 3),
-  //   ]);
-  //   k.add([
-  //     k.text(score, 32),
-  //     origin('center'),
-  //     k.pos(k.width() / 2, k.height() / 2),
-  //   ]);
-  // });
+  k.scene('lose', () => {
+    k.add([
+      k.text('YOU DIED!', 40),
+      origin('center'),
+      k.pos(k.width() / 2, k.height() / 4.2),
+      k.color(1, 0, 0),
+    ]);
 
-  k.scene('lose', () =>
-    // { score }
-    {
-      k.add([
-        k.text('YOU DIED!', 32),
-        origin('center'),
-        k.pos(k.width() / 2, k.height() / 3),
-        k.color(1, 0, 0),
-      ]);
-      k.add([
-        k.sprite('death'),
-        'death',
-        origin('center'),
-        k.pos(k.width() / 2, k.height() / 1.75),
-      ]);
-      // k.add([
-      //   k.text(score, 32),
-      //   origin('center'),
-      //   k.pos(k.width() / 2, k.height() / 2),
-      // ]);
-    }
-  );
-  k.scene('win', () =>
-    // { score }
-    {
-      k.add([
-        k.text('YOU ESCAPED!', 32),
-        origin('center'),
-        k.pos(k.width() / 2, k.height() / 3),
-        k.color(1, 0, 0),
-      ]);
-      k.add([
-        k.sprite('death'),
-        'death',
-        origin('center'),
-        k.pos(k.width() / 2, k.height() / 1.75),
-      ]);
-      // k.add([
-      //   k.text(score, 32),
-      //   origin('center'),
-      //   k.pos(k.width() / 2, k.height() / 2),
-      // ]);
-    }
-  );
+    k.add([
+      k.text('Press R to restart', 20),
+      origin('center'),
+      k.pos(k.width() / 2, k.height() / 1.3),
+      k.color(1, 1, 1),
+    ]);
+
+    const end = k.add([
+      k.sprite('end'),
+      'death',
+      origin('center'),
+      k.pos(k.width() / 2, k.height() / 2),
+    ]);
+
+    end.play('lose');
+
+    restart();
+  }); // end scene lose
+
+  k.scene('win', () => {
+    k.add([
+      k.text('YOU ESCAPED!', 40),
+      origin('center'),
+      k.pos(k.width() / 2, k.height() / 4.2),
+      k.color(1, 0, 0),
+    ]);
+
+    k.add([
+      k.text('Press R to restart', 20),
+      origin('center'),
+      k.pos(k.width() / 2, k.height() / 1.3),
+      k.color(1, 1, 1),
+    ]);
+
+    const end = k.add([
+      k.sprite('end', { animSpeed: 0.2 }),
+      'death',
+      origin('center'),
+      k.pos(k.width() / 2, k.height() / 2),
+    ]);
+
+    end.play('win');
+
+    restart();
+  }); // end scene win
 
   // Triggers start of game process
   k.start('main', { level: 0, score: 0 });

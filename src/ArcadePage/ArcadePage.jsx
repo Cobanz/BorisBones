@@ -3,6 +3,9 @@ import React, { useEffect } from 'react';
 
 import Game from '../game/game';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Card, Container, Row, Col, Button } from 'react-bootstrap';
+
 const ArcadePage = () => {
   const history = useHistory();
 
@@ -12,26 +15,44 @@ const ArcadePage = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Arcade</h1>
+    <Container className="arcade-page" fluid>
+      <Button
+        variant="danger"
+        size="md"
+        className="m-2"
+        onClick={() => history.push('/')}
+      >
+        &#8592; Back
+      </Button>
 
-      <button onClick={() => history.push('/')}>Back</button>
+      <Row className="justify-content-center">
+        <Col>
+          <canvas id="gamecontainer" />
+        </Col>
 
-      <div className="gamecontainerdiv">
-        <canvas id="gamecontainer" />
-      </div>
+        <Col xs={2}>
+          <Card clasName="p-2">
+            <Card.Body>
+              <Card.Title>Directions</Card.Title>
+              <p>Its time to escape. You better get going, Boris!</p>
 
-      <div>
-        <h2>Directions</h2>
+              <ul>
+                {/* Add arrow icons */}
+                <li>&#8592; - Move left</li>
+                <li>&#8594; - Move right</li>
+                <li>&#8593; - Jump</li>
+                <li>R - Restart</li>
+              </ul>
 
-        <p>Its time to escape, Boris! You better get going!</p>
-
-        <ul>
-          <li>L/R - Move left and right</li>
-          <li>Space - Jump</li>
-        </ul>
-      </div>
-    </div>
+              <p>
+                <strong>Beware of the dangers along the way!</strong> Don't fall
+                victim to the spikes or get caught by the fearsome cave crab.
+              </p>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
