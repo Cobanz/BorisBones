@@ -23,7 +23,7 @@ import door_e from './assets/sprites/Door-Exit.png';
 import rock_1 from './assets/sprites/Rock1.png';
 import rock_2 from './assets/sprites/Rock2.png';
 import platform from './assets/sprites/Platform.png';
-import spike from './assets/sprites/Spike-b.png';
+import spike from './assets/sprites/Spike.png';
 import bolt from './assets/sprites/Bolt.png';
 import death from './assets/sprites/Skele-1.png';
 import crab from './assets/sprites/Crab.png';
@@ -257,7 +257,7 @@ const Game = () => {
       ],
       c: [
         k.sprite('floor_cl'),
-        'floor',
+        'wall',
         { scale: 1 },
         k.solid(),
         k.area(k.vec2(5, 5), k.vec2(64, 64)),
