@@ -18,13 +18,13 @@ const LandingPage = () => {
   return (
     <Container>
       <Row>
-        <header className="site-head text-center pt-4 mt-2 pb-4">
+        <header className="site-head text-center pt-2 mt-2 pb-2">
           <h1>The Peaceful Pursuit of Boris Bones</h1>
         </header>
       </Row>
 
       <Row className="align-items-stretch">
-        <Col className="m-3">
+        <Col className="m-3" xs={7}>
           <Card id="story-container" text="black">
             <Card.Title>Hail, Adventurer!</Card.Title>
             <Card.Text>
@@ -46,10 +46,42 @@ const LandingPage = () => {
               </p>
             </Card.Text>
           </Card>
+
+          <h2 id="tech-header">Technologies Used</h2>
+
+          <Col xs={12} className="mt-2">
+            <Card className="p-2">
+              {/* Add icons */}
+              <Container className="text-center">
+                <Row>
+                  <Col xs={1} md={3}>
+                    <Card.Link href="https://reactjs.org/">
+                      <Image src={rt} className="tech-icon" rounded />
+                    </Card.Link>
+                  </Col>
+                  <Col xs={1} md={3}>
+                    <Card.Link href="https://www.javascript.com/">
+                      <Image src={jt} className="tech-icon" rounded />
+                    </Card.Link>
+                  </Col>
+                  <Col xs={1} md={3}>
+                    <Card.Link href="https://getbootstrap.com/">
+                      <Image src={bp} className="tech-icon" rounded />
+                    </Card.Link>
+                  </Col>
+                  <Col xs={1} md={3}>
+                    <Card.Link href="https://kaboom.org/">
+                      <Image src={km} className="tech-icon" rounded />
+                    </Card.Link>
+                  </Col>
+                </Row>
+              </Container>
+            </Card>
+          </Col>
         </Col>
 
-        <Col className="m-2 mb-4">
-          <img src={borisPic} className="landing-pic" alt="Our hero, Boris" />
+        <Col className="m-3 landing-pic" xs={4}>
+          <img src={borisPic} alt="Our hero, Boris" />
         </Col>
       </Row>
 
