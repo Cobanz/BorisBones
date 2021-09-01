@@ -46,38 +46,6 @@ const LandingPage = () => {
               </p>
             </Card.Text>
           </Card>
-
-          <h2 id="tech-header">Technologies Used</h2>
-
-          <Col xs={12} className="mt-2">
-            <Card className="p-2">
-              {/* Add icons */}
-              <Container className="text-center">
-                <Row>
-                  <Col xs={1} md={3}>
-                    <Card.Link href="https://reactjs.org/">
-                      <Image src={rt} className="tech-icon" rounded />
-                    </Card.Link>
-                  </Col>
-                  <Col xs={1} md={3}>
-                    <Card.Link href="https://www.javascript.com/">
-                      <Image src={jt} className="tech-icon" rounded />
-                    </Card.Link>
-                  </Col>
-                  <Col xs={1} md={3}>
-                    <Card.Link href="https://getbootstrap.com/">
-                      <Image src={bp} className="tech-icon" rounded />
-                    </Card.Link>
-                  </Col>
-                  <Col xs={1} md={3}>
-                    <Card.Link href="https://kaboom.org/">
-                      <Image src={km} className="tech-icon" rounded />
-                    </Card.Link>
-                  </Col>
-                </Row>
-              </Container>
-            </Card>
-          </Col>
         </Col>
 
         <Col className="m-3 landing-pic" xs={4}>
