@@ -174,7 +174,7 @@ const Game = () => {
         'l           piir',
         'l    ssssssssssr',
         'l              r',
-        'l        o     d',
+        'l              d',
         'l^oii   cbu     ',
         'vbbbbbbbxxxbbbbt',
       ],
