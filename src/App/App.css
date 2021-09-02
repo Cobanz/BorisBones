@@ -52,10 +52,13 @@ li {
 }
 
 .dev-pic {
-  /* margin: 20px;
-  margin-bottom: 0px; */
   max-height: 150px;
   border: 2px solid #7db1b3;
+}
+
+.dev-name {
+  background-color: #7db1b3;
+  font-size: 1.2em;
 }
 
 .arcade-page {
@@ -74,9 +77,25 @@ li {
   letter-spacing: 0.05em;
 }
 
-#footer {
+#git-btn {
+  position: fixed;
+  bottom: 65px;
+  right: 5px;
+  padding: 3px;
+}
+
+#open-btn {
   position: fixed;
   bottom: 5px;
   right: 5px;
   padding: 3px;
+}
+
+#off-head {
+  font-family: 'Martel Sans', sans-serif;
+  color: #506868;
+  font-size: 2em;
+  font-weight: bold;
+  text-shadow: none;
+  margin: 0px;
 }
