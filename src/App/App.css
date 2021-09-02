@@ -33,22 +33,33 @@ li {
 }
 
 .landing-pic {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: cover;
   border: 2px solid #7db1b3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: fit-content;
+}
+
+.landing-pic video {
+  flex-shrink: 0;
+  height: 475px;
 }
 
 .tech-icon {
-  width: 80px;
+  width: 60px;
   height: 50px;
   object-fit: cover;
 }
 
 .dev-pic {
-  margin: 20px;
-  margin-bottom: 0px;
+  max-height: 150px;
   border: 2px solid #7db1b3;
+}
+
+.dev-name {
+  background-color: #7db1b3;
+  font-size: 1.2em;
 }
 
 .arcade-page {
@@ -59,12 +70,36 @@ li {
 
 #story-container {
   padding: 30px;
-  max-height: 100%;
 }
 
-#footer {
+#git-btn {
   position: fixed;
-  bottom: 5px;
+  bottom: 65px;
   right: 5px;
   padding: 3px;
+}
+
+#open-btn {
+  position: fixed;
+  bottom: 5px;
+  right: 10px;
+  padding: 3px;
+}
+
+#off-head {
+  font-family: 'Martel Sans', sans-serif;
+  color: #506868;
+  font-size: 2em;
+  font-weight: bold;
+  text-shadow: none;
+  margin: 0px;
+}
+
+#tech-head {
+  font-family: 'Martel Sans', sans-serif;
+  color: #506868;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-shadow: none;
+  margin-top: 15px;
 }
