@@ -38,15 +38,16 @@ li {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  height: fit-content;
 }
-.landing-pic img {
+
+.landing-pic video {
   flex-shrink: 0;
-  min-width: 100%;
-  min-height: 100%;
+  height: 475px;
 }
 
 .tech-icon {
-  width: 80px;
+  width: 60px;
   height: 50px;
   object-fit: cover;
 }
@@ -71,12 +72,6 @@ li {
   padding: 30px;
 }
 
-#tech-header {
-  font-size: 3.5em;
-  margin-top: 5px;
-  letter-spacing: 0.05em;
-}
-
 #git-btn {
   position: fixed;
   bottom: 65px;
@@ -87,7 +82,7 @@ li {
 #open-btn {
   position: fixed;
   bottom: 5px;
-  right: 5px;
+  right: 10px;
   padding: 3px;
 }
 
@@ -98,4 +93,13 @@ li {
   font-weight: bold;
   text-shadow: none;
   margin: 0px;
+}
+
+#tech-head {
+  font-family: 'Martel Sans', sans-serif;
+  color: #506868;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-shadow: none;
+  margin-top: 15px;
 }
