@@ -143,6 +143,7 @@ const Game = () => {
 
   k.scene('main', ({ level, score }) => {
     music.play();
+    music.volume = 0.5;
     restart();
 
     k.layers(['bg', 'obj', 'ui'], 'obj');

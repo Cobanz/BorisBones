@@ -40,7 +40,6 @@ li {
   overflow: hidden;
 }
 .landing-pic img {
-  max-height: 50vh;
   flex-shrink: 0;
   min-width: 100%;
   min-height: 100%;
@@ -53,8 +52,9 @@ li {
 }
 
 .dev-pic {
-  margin: 20px;
-  margin-bottom: 0px;
+  /* margin: 20px;
+  margin-bottom: 0px; */
+  max-height: 150px;
   border: 2px solid #7db1b3;
 }
 
@@ -66,7 +66,6 @@ li {
 
 #story-container {
   padding: 30px;
-  height: 50vh;
 }
 
 #tech-header {
