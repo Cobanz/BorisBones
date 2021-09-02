@@ -4,7 +4,7 @@ import React from 'react';
 import vid from './images/Boris.mov';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Card, Container, Row, Col, Image } from 'react-bootstrap';
+import { Button, Card, Container, Row, Col } from 'react-bootstrap';
 
 const LandingPage = () => {
   const history = useHistory();
