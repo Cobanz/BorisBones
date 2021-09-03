@@ -27,6 +27,7 @@ const ArcadePage = () => {
 
       <Row className="justify-content-center">
         <Col>
+          {/* Actual spot the game will be mounted once its triggered by Game() */}
           <canvas id="gamecontainer" />
         </Col>
 
@@ -37,7 +38,6 @@ const ArcadePage = () => {
               <p>Its time to escape. You better get going, Boris!</p>
 
               <ul>
-                {/* Add arrow icons */}
                 <li>&#8592; - Move left</li>
                 <li>&#8594; - Move right</li>
                 <li>&#8593; - Jump</li>

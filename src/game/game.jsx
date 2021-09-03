@@ -86,6 +86,18 @@ const Game = () => {
     },
   });
 
+  k.loadSprite('end', end, {
+    sliceX: 2,
+    sliceY: 2,
+    anims: {
+      win: {
+        from: 0,
+        to: 2,
+      },
+      lose: { from: 3, to: 3 },
+    },
+  });
+
   k.loadSprite('background', background);
   k.loadSprite('roof', roof);
   k.loadSprite('roof_l', roof_l);
@@ -112,17 +124,6 @@ const Game = () => {
   k.loadSprite('crab', crab);
   k.loadSprite('sign_d', sign_d);
   k.loadSprite('sign_w', sign_w);
-  k.loadSprite('end', end, {
-    sliceX: 2,
-    sliceY: 2,
-    anims: {
-      win: {
-        from: 0,
-        to: 2,
-      },
-      lose: { from: 3, to: 3 },
-    },
-  });
 
   const music = new Audio(song);
 
@@ -141,7 +142,7 @@ const Game = () => {
     });
   } // end restart
 
-  k.scene('main', ({ level, score }) => {
+  k.scene('main', ({ level }) => {
     music.play();
     music.volume = 0.5;
     restart();
@@ -175,7 +176,7 @@ const Game = () => {
         'l           piir',
         'l    ssssssssssr',
         'l              r',
-        'l        o     d',
+        'l              d',
         'l^oii   cbu     ',
         'vbbbbbbbxxxbbbbt',
       ],
@@ -223,7 +224,6 @@ const Game = () => {
       ],
     ];
 
-    // k.origin('center')
     const levelCfg = {
       width: 64,
       height: 64,
@@ -404,20 +404,20 @@ const Game = () => {
       return {
         require: [],
         spawnBolt(wiz) {
-          const bolt = k.add([
+          let bolt = k.add([
             k.sprite('bolt'),
             k.pos(wiz.pos),
             k.origin('center'),
             k.area(k.vec2(35, 23), k.vec2(60, 40)),
             k.scale(wiz.scale),
             'bolt',
-            'dangerous',
           ]);
 
           // Plays summon animation then changes to fire
           wiz.play('attack');
           bolt.play('summon');
           k.wait(bolt.animSpeed * 6, () => {
+            bolt.use('dangerous');
             bolt.play('fire');
             wiz.play('idle');
           });
