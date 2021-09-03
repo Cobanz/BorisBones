@@ -74,15 +74,15 @@ li {
 
 #git-btn {
   position: fixed;
-  bottom: 65px;
+  bottom: 5px;
   right: 5px;
   padding: 3px;
 }
 
 #open-btn {
   position: fixed;
-  bottom: 5px;
-  right: 10px;
+  bottom: 70px;
+  right: 5px;
   padding: 3px;
 }
 
