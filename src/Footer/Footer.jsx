@@ -32,8 +32,8 @@ function Footer() {
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="58"
-          height="58"
+          width="66"
+          height="66"
           fill="#fff"
           class="bi bi-person-lines-fill"
           viewBox="0 0 16 16"
@@ -56,8 +56,8 @@ function Footer() {
           <a href="https://github.com/Cobanz/hackathongame">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="50"
-              height="50"
+              width="60"
+              height="60"
               fill="#fff"
               class="bi bi-github"
               viewBox="0 0 16 16"
