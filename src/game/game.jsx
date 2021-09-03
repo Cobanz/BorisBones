@@ -430,7 +430,7 @@ const Game = () => {
       };
     }
 
-    // Sets up wizard enemy
+    // Sets up wizard enemy with custom behavior
     k.every('wizspot', (spr) => {
       const wizard = k.add([
         k.sprite('wiz', {
@@ -459,7 +459,7 @@ const Game = () => {
 
       // Timing for firing bolts
       k.wait(1, () => {
-        k.loop(3.5, () => {
+        k.loop(3.3, () => {
           wizard.spawnBolt(wizard);
         });
       });
@@ -550,7 +550,7 @@ const Game = () => {
   }); // end scene win
 
   // Triggers start of game process
-  k.start('main', { level: 0, score: 0 });
+  k.start('main', { level: 0 });
 
   return null;
 };
